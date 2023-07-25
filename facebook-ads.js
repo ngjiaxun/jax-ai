@@ -81,7 +81,7 @@ function runVue(data) {
             refreshClicked(event) {
                 const max = MAX_SUGGESTIONS - 1;
                 const button = event.target;
-                const index = button.dataset.index;
+                let index = button.dataset.index;
                 
                 // Pains - 0, 1, 2
                 // Desires - 3, 4, 5
