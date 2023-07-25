@@ -4,10 +4,10 @@ const loginPage = '/sign-in';
 const welcomePage = '/avatars';
 const apiDomain = 'https://jaxai-prod-817de5757e84.herokuapp.com/';
 const apiEndpoints = {
-  users: 'auth/users/',
-  me: 'auth/users/me/',
-  jwtCreate: 'auth/jwt/create/',
-  avatars: 'scripts/avatars/'
+    users: 'auth/users/',
+    me: 'auth/users/me/',
+    jwtCreate: 'auth/jwt/create/',
+    avatars: 'scripts/avatars/'
 }
 
 // Prepend api domain to api endpoints
@@ -29,33 +29,33 @@ axios.defaults.headers.common['Content-Type'] = 'application/json';
 
 // Authenticate the user if it's a members-only page
 if (!isPublicPage) {
-  if (token) {
-    axios.defaults.headers.common['Authorization'] = `JWT ${token}`;
-    axios.get(apiEndpoints.me).then(doSuccess).catch(doFail);
-  } else {
-      redirectToLoginPage();
-  }
+    if (token) {
+        axios.defaults.headers.common['Authorization'] = `JWT ${token}`;
+        axios.get(apiEndpoints.me).then(doSuccess).catch(doFail);
+    } else {
+        redirectToLoginPage();
+    }
 }
 
 function redirectToLoginPage() {
-  if (currentPage != loginPage) {
-      window.location.href = loginPage;
-  }
+    if (currentPage != loginPage) {
+        window.location.href = loginPage;
+    }
 }
 
 function doSuccess(response) {
-  console.log('Authentication successful...');
-  if (currentPage === loginPage) {
-    window.location.href = welcomePage;
-  }
+    console.log('Authentication successful...');
+    if (currentPage === loginPage) {
+        window.location.href = welcomePage;
+    }
 }
 
 function doFail(error) {
-  console.log('Authentication failed...');
-  redirectToLoginPage();
+    console.log('Authentication failed...');
+    redirectToLoginPage();
 }
 
 // Format and print JSON to console for debugging purposes
 function logJSON(msg, json) {
-  console.log(msg + '\n' + JSON.stringify(json, null, 2));
+    console.log(msg + '\n' + JSON.stringify(json, null, 2));
 }
