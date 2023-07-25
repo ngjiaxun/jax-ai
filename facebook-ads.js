@@ -80,10 +80,11 @@ function runVue(data) {
             },
             refreshClicked(event) {
                 const max = MAX_SUGGESTIONS - 1;
-                const button = event.target;
+                const button = event.currentTarget;
                 let index = button.dataset.index;
 
                 console.log('Refresh clicked...');
+                console.log('Button:', button);
                 console.log('Index:', index);
                 
                 // Pains - 0, 1, 2
