@@ -7,7 +7,8 @@ const apiEndpoints = {
     users: 'auth/users/',
     me: 'auth/users/me/',
     jwtCreate: 'auth/jwt/create/',
-    avatars: 'scripts/avatars/'
+    avatars: 'scripts/avatars/',
+    solutions: 'scripts/solutions/'
 }
 
 // Prepend api domain to api endpoints

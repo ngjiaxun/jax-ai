@@ -4,10 +4,11 @@ const MAX_SUGGESTIONS = 20;
 
 modifyTags();
 modifyAttributes();
+loadData();
 
-axios.get(apiEndpoints.avatars)
-    .then(response => runVue(response.data))
-    .catch(error => console.error('Error fetching data:', error.message));
+// axios.get(apiEndpoints.avatars)
+//     .then(response => runVue(response.data))
+//     .catch(error => console.error('Error fetching data:', error.message));
 
 // Add or modify tags where Webflow doesn't allow direct
 function modifyTags() {
@@ -25,13 +26,24 @@ function modifyAttributes() {
     option.setAttribute(':value', 'avatar.id');
 }
 
-function runVue(data) {
+function loadData() {
+    const requests = [
+        axios.get(apiEndpoints.avatars),
+        axios.get(apiEndpoints.solutions)
+    ];
+    Promise.all(requests)
+        .then(responses => runVue(responses[0].data, responses[1].data))
+        .catch(error => console.error('Error fetching data:', error.message));
+}
+
+function runVue(avatars, solutions) {
     const { createApp } = Vue
     createApp({
         data() {
             return {
                 loading: true,
-                avatars: data,
+                avatars: avatars,
+                solution: solutions[0],
                 avatar: null,
                 avatarSelection: SELECT_ONE,
                 avatarName: '',
