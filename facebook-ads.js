@@ -6,10 +6,6 @@ modifyTags();
 modifyAttributes();
 loadData();
 
-// axios.get(apiEndpoints.avatars)
-//     .then(response => runVue(response.data))
-//     .catch(error => console.error('Error fetching data:', error.message));
-
 // Add or modify tags where Webflow doesn't allow direct
 function modifyTags() {
     const transition = document.querySelector('Transition');
@@ -85,11 +81,8 @@ function runVue(avatars, solutions) {
                     .catch(error => console.error('Error loading avatar:', error.message));
             },
             doLoadAvatarSuccess(response) {
-                logJSON('Avatar loaded...', response.data);
+                // logJSON('Avatar loaded...', response.data);
                 this.avatar = response.data;
-            },
-            createAvatar() {
-                console.log('Avatar created...');
             },
             refreshClicked(event) {
                 const max = MAX_SUGGESTIONS - 1;
@@ -114,11 +107,11 @@ function runVue(avatars, solutions) {
             createClicked() {
                 console.log('Create clicked...');
                 const data = {
-                    "industry": "Healthcare",
-                    "target_market": this.avatarName,
+                    "industry": this.solution.industry,
+                    "target_market": this.avatarName
                 }
-                axios.post(apiEndpoints.avatars, this.avatar)
-                    .then(this.doLoadAvatarSuccess)
+                axios.post(apiEndpoints.avatars, data)
+                    .then(response => window.location.reload())
                     .catch(error => console.error('Error creating avatar:', error.message));
             }
         },
