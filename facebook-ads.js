@@ -89,10 +89,10 @@ function runVue(avatars, solutions) {
                 $("#loading-animation2").css("display", "block");
                 
                 // Wait a few seconds for the avatar to be created
-                $("#loading-animation2").fadeOut(3000, function() {
-                    // The callback function will be executed after the fade-out animation is complete
-                    $(this).css("display", "none");
-                  });
+                // $("#loading-animation2").fadeOut(3000, function() {
+                //     // The callback function will be executed after the fade-out animation is complete
+                //     $(this).css("display", "none");
+                //   });
 
                 // Check whether the avatar was created by comparing the current avatar id with the new avatar id
                 
