@@ -111,7 +111,7 @@ function runVue(data) {
             }
         },
         mounted() {
-            setTimeout(() => this.loading = false, 1000);
+            this.loading = false;
         }
     }).mount('#app')
 }
