@@ -120,7 +120,7 @@ function runVue(avatars, solutions) {
                     "target_market": this.avatarName
                 }
                 axios.post(apiEndpoints.avatars, data)
-                    .then(doCreateAvatarSuccess)
+                    .then(this.doCreateAvatarSuccess)
                     .catch(error => console.error('Error creating avatar:', error.message));
             }
         },
