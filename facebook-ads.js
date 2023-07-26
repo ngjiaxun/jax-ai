@@ -85,7 +85,10 @@ function runVue(avatars, solutions) {
                 this.avatar = response.data;
             },
             doCreateAvatarSuccess(response) {
-                ;                
+                $('#ll').fadeOut(5000, function() {
+                      // The callback function will be executed after the fade-out animation is complete
+                      $(this).css("display", "none");
+                    });               
             },
             refreshClicked(event) {
                 const max = MAX_SUGGESTIONS - 1;
