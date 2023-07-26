@@ -86,7 +86,7 @@ function runVue(data) {
                 console.log('Refresh clicked...');
                 console.log('Button:', button);
                 console.log('Index:', index);
-                
+
                 // Pains - 0, 1, 2
                 // Desires - 3, 4, 5
                 if (index < 3) {
@@ -97,6 +97,16 @@ function runVue(data) {
                     this.avatar.desires[index] = this.avatar.desire_suggestions[this.desireSuggestionIndex];
                     this.desireSuggestionIndex = this.desireSuggestionIndex < max ? this.desireSuggestionIndex + 1 : 0;
                 }
+            },
+            createClicked() {
+                console.log('Create clicked....');
+                // const data = {
+                //     "industry": "Healthcare",
+                //     "target_market": "Healthcare Professionals",
+                // }
+                // axios.post(apiEndpoints.avatars, this.avatar)
+                //     .then(this.doLoadAvatarSuccess)
+                //     .catch(error => console.error('Error creating avatar:', error.message));
             }
         },
         mounted() {
