@@ -85,10 +85,12 @@ function runVue(avatars, solutions) {
                 this.avatar = response.data;
             },
             doCreateAvatarSuccess(response) {
-                this.loading = true;
 
                 // Wait a few seconds for the avatar to be created
-                setTimeout(() => this.loading = false, 3000);
+                $("#loading-animation").fadeOut(3000, function() {
+                    // The callback function will be executed after the fade-out animation is complete
+                    $(this).css("display", "none");
+                  });
 
                 // Check whether the avatar was created by comparing the current avatar id with the new avatar id
                 
