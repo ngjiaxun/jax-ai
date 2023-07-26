@@ -84,6 +84,15 @@ function runVue(avatars, solutions) {
                 // logJSON('Avatar loaded...', response.data);
                 this.avatar = response.data;
             },
+            doCreateAvatarSuccess(response) {
+                this.loading = true;
+
+                // Wait a few seconds for the avatar to be created
+                setTimeout(() => this.loading = false, 3000);
+
+                // Check whether the avatar was created by comparing the current avatar id with the new avatar id
+                
+            },
             refreshClicked(event) {
                 const max = MAX_SUGGESTIONS - 1;
                 const button = event.currentTarget;
@@ -111,7 +120,7 @@ function runVue(avatars, solutions) {
                     "target_market": this.avatarName
                 }
                 axios.post(apiEndpoints.avatars, data)
-                    .then(response => window.location.reload())
+                    .then(doCreateAvatarSuccess)
                     .catch(error => console.error('Error creating avatar:', error.message));
             }
         },
