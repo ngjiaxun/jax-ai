@@ -34,6 +34,7 @@ function runVue(data) {
                 avatars: data,
                 avatar: null,
                 avatarSelection: SELECT_ONE,
+                avatarName: '',
                 painSuggestionIndex: 3,
                 desireSuggestionIndex: 3
             }
@@ -67,6 +68,7 @@ function runVue(data) {
             },
             loadAvatar(avatarId) {
                 console.log(`Loading avatar ${avatarId}...`);
+                this.loading = true;
                 axios.get(apiEndpoints.avatars + avatarId)
                     .then(this.doLoadAvatarSuccess)
                     .catch(error => console.error('Error loading avatar:', error.message));
@@ -74,6 +76,7 @@ function runVue(data) {
             doLoadAvatarSuccess(response) {
                 logJSON('Avatar loaded...', response.data);
                 this.avatar = response.data;
+                this.loading = false;
             },
             createAvatar() {
                 console.log('Avatar created...');
@@ -99,14 +102,14 @@ function runVue(data) {
                 }
             },
             createClicked() {
-                console.log('Create clicked....');
-                // const data = {
-                //     "industry": "Healthcare",
-                //     "target_market": "Healthcare Professionals",
-                // }
-                // axios.post(apiEndpoints.avatars, this.avatar)
-                //     .then(this.doLoadAvatarSuccess)
-                //     .catch(error => console.error('Error creating avatar:', error.message));
+                console.log('Create clicked...');
+                const data = {
+                    "industry": "Healthcare",
+                    "target_market": this.avatarName,
+                }
+                axios.post(apiEndpoints.avatars, this.avatar)
+                    .then(this.doLoadAvatarSuccess)
+                    .catch(error => console.error('Error creating avatar:', error.message));
             }
         },
         mounted() {
