@@ -86,6 +86,8 @@ function runVue(avatars, solutions) {
             },
             doCreateAvatarSuccess(response) {
 
+                $("#loading-animation").css("display", "block");
+                
                 // Wait a few seconds for the avatar to be created
                 $("#loading-animation").fadeOut(3000, function() {
                     // The callback function will be executed after the fade-out animation is complete
