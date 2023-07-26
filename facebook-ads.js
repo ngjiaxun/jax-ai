@@ -67,7 +67,7 @@ function runVue(data) {
                 console.log('Preparing to create avatar...');
             },
             loadAvatar(avatarId) {
-                console.log(`Loading avatar ${avatarId}...`);
+                console.log(`Loading avatar ${avatarId}....`);
                 this.loading = true;
                 axios.get(apiEndpoints.avatars + avatarId)
                     .then(this.doLoadAvatarSuccess)
