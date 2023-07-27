@@ -26,7 +26,7 @@ function loadData() {
     const requests = [
         axios.get(apiEndpoints.avatars),
         axios.get(apiEndpoints.solutions),
-        new Promise(resolve => setTimeout(resolve, 10000))
+        new Promise(resolve => setTimeout(resolve, 1000)) // Let the loading animation play for at least 1 second
     ];
     Promise.all(requests)
         .then(responses => runVue(responses[0].data, responses[1].data))
