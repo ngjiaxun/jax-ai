@@ -86,7 +86,9 @@ function runVue(avatars, solutions) {
                 this.avatar = response.data;
             },
             doCreateAvatarSuccess(response) {
-                $('#ll').fadeOut(1000, function() {
+                const animation = $('#processing-animation')
+                animation.css("display", "block");
+                animation.fadeOut(10000, function() {
                       // The callback function will be executed after the fade-out animation is complete
                       $(this).css("display", "none");
                     });               
