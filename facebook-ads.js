@@ -25,7 +25,8 @@ function modifyAttributes() {
 function loadData() {
     const requests = [
         axios.get(apiEndpoints.avatars),
-        axios.get(apiEndpoints.solutions)
+        axios.get(apiEndpoints.solutions),
+        new Promise(resolve => setTimeout(resolve, 10000)
     ];
     Promise.all(requests)
         .then(responses => runVue(responses[0].data, responses[1].data))
@@ -85,7 +86,7 @@ function runVue(avatars, solutions) {
                 this.avatar = response.data;
             },
             doCreateAvatarSuccess(response) {
-                $('#ll').fadeOut(5000, function() {
+                $('#ll').fadeOut(1000, function() {
                       // The callback function will be executed after the fade-out animation is complete
                       $(this).css("display", "none");
                     });               
