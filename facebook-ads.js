@@ -123,7 +123,7 @@ function runVue(avatars, solutions) {
             },
             checkAvatarCreated(response) {
                 const maxTries = 3; // Number of times to try to load the avatar
-                const timeout = 5000; // How long to wait before checking again
+                const timeout = 4000; // How long to wait before checking again
                 const numAvatars = response ? response.data.length : 0;
                 console.log('Number of avatars:', numAvatars);
                 if (numAvatars > this.avatars.length) {
