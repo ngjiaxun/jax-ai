@@ -38,14 +38,15 @@ function runVue(avatars, solutions) {
     createApp({
         data() {
             return {
-                loading: true,
+                loading: true, // Whether the page is loading
                 avatars: avatars,
                 solution: solutions[0],
                 avatar: null,
-                avatarSelection: SELECT_ONE,
+                avatarSelection: SELECT_ONE, 
                 avatarName: '',
                 painSuggestionIndex: 3,
-                desireSuggestionIndex: 3
+                desireSuggestionIndex: 3,
+                tries: 0 // Number of times we've tried to load the avatar
             }
         },
         computed: {
@@ -117,20 +118,26 @@ function runVue(avatars, solutions) {
             },
             createAvatar(response) {
                 console.log('Please wait while we create your avatar... ');
-                $('#processing-animation').css("display", "block");
+                $('#processing-animation').fadeIn(500);
                 this.checkAvatarCreated(null);
             },
             checkAvatarCreated(response) {
+                const maxTries = 3; // Number of times to try to load the avatar
+                const timeout = 3000; // How long to wait before checking again
                 const numAvatars = response ? response.data.length : 0;
                 console.log('Number of avatars:', numAvatars);
                 if (numAvatars > this.avatars.length) {
                     window.location.reload();
-                } else {
+                } else if (this.tries < maxTries) {
+                    this.tries++;
                     setTimeout(() => {
                         axios.get(apiEndpoints.avatars)
                             .then(this.checkAvatarCreated)
                             .catch(error => console.error('Error listing avatars:', error.message));
-                    }, 5000);
+                    }, timeout);
+                } else {
+                    console.error('Looks like this is gonna take a while... Please check back again in a few minutes. Thanks!');
+                    setTimeout(() => window.location.reload(), timeout);
                 }
             }
         },
