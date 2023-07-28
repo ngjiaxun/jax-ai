@@ -117,7 +117,7 @@ function runVue(avatars, solutions) {
                     .catch(error => console.error('Error creating avatar:', error.message));
             },
             createAvatar(response) {
-                console.log('Please wait while we create your avatar... ');
+                $('#processing-message').text('Jax AI is creating your avatar... Please wait');
                 $('#processing-animation').fadeIn(500);
                 this.checkAvatarCreated(null);
             },
@@ -136,7 +136,7 @@ function runVue(avatars, solutions) {
                             .catch(error => console.error('Error listing avatars:', error.message));
                     }, timeout);
                 } else {
-                    console.error('Looks like this is gonna take a while... Please check back again in a few minutes. Thanks!');
+                    $('#processing-message').text('Looks like this is gonna take a while... Please check back again in a few minutes');
                     setTimeout(() => window.location.reload(), timeout);
                 }
             }
