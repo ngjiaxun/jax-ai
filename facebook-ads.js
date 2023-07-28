@@ -125,7 +125,7 @@ function runVue(avatars, solutions) {
                 }, 5000);
             },
             listAvatarsSuccess(response) {
-                numAvatars = response.data.length;
+                const numAvatars = response.data.length;
                 console.log('Number of avatars:', numAvatars);
                 if (numAvatars > this.avatars.length) {
                     window.location.reload();
