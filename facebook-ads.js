@@ -118,19 +118,19 @@ function runVue(avatars, solutions) {
             createAvatar(response) {
                 console.log('Please wait while we create your avatar... ');
                 $('#processing-animation').css("display", "block");
-                setTimeout(() => {
-                    axios.get(apiEndpoints.avatars)
-                        .then(this.listAvatarsSuccess)
-                        .catch(error => console.error('Error listing avatars:', error.message));
-                }, 5000);
+                this.checkAvatarCreated(null);
             },
-            listAvatarsSuccess(response) {
-                const numAvatars = response.data.length;
+            checkAvatarCreated(response) {
+                const numAvatars = response ? response.data.length : 0;
                 console.log('Number of avatars:', numAvatars);
                 if (numAvatars > this.avatars.length) {
                     window.location.reload();
                 } else {
-                    setTimeout(() => console.log('This is taking a little longer than we expected. Please check back after a few minutes... '), 5000);
+                    setTimeout(() => {
+                        axios.get(apiEndpoints.avatars)
+                            .then(this.checkAvatarCreated)
+                            .catch(error => console.error('Error listing avatars:', error.message));
+                    }, 5000);
                 }
             }
         },
