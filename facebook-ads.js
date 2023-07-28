@@ -1,8 +1,8 @@
+// Netlify
+
 const SELECT_ONE = 'select one';
 const ADD_NEW = 'add new';
 const MAX_SUGGESTIONS = 20;
-
-// Updated
 
 modifyTags();
 modifyAttributes();
