@@ -4,7 +4,7 @@ const MAX_SUGGESTIONS = 20;
 
 modifyTags();
 modifyAttributes();
-loadData();
+listAvatarsAndSolutions();
 
 // Add or modify tags where Webflow doesn't allow direct
 function modifyTags() {
@@ -22,7 +22,7 @@ function modifyAttributes() {
     option.setAttribute(':value', 'avatar.id');
 }
 
-function loadData() {
+function listAvatarsAndSolutions() {
     const requests = [
         axios.get(apiEndpoints.avatars),
         axios.get(apiEndpoints.solutions),
@@ -45,8 +45,7 @@ function runVue(avatars, solutions) {
                 avatarSelection: SELECT_ONE,
                 avatarName: '',
                 painSuggestionIndex: 3,
-                desireSuggestionIndex: 3,
-                avatarCreated: false
+                desireSuggestionIndex: 3
             }
         },
         computed: {
@@ -65,7 +64,7 @@ function runVue(avatars, solutions) {
                 } else if (this.isAddNew) {
                     this.addNewAvatar();
                 } else {
-                    this.loadAvatar(this.avatarSelection);
+                    this.retrieveAvatar(this.avatarSelection);
                 }
             },
             clearAvatar() {
@@ -76,13 +75,13 @@ function runVue(avatars, solutions) {
             addNewAvatar() {
                 console.log('Preparing to create avatar...');
             },
-            loadAvatar(avatarId) {
+            retrieveAvatar(avatarId) {
                 console.log(`Loading avatar ${avatarId}...`);
                 axios.get(apiEndpoints.avatars + avatarId)
-                    .then(this.loadAvatarSuccess)
+                    .then(this.retrieveAvatarSuccess)
                     .catch(error => console.error('Error loading avatar:', error.message));
             },
-            loadAvatarSuccess(response) {
+            retrieveAvatarSuccess(response) {
                 // logJSON('Avatar loaded...', response.data);
                 this.avatar = response.data;
             },
@@ -117,15 +116,20 @@ function runVue(avatars, solutions) {
                     .catch(error => console.error('Error creating avatar:', error.message));
             },
             createAvatar(response) {
+                console.log('Please wait while we create your avatar... ');
                 $('#processing-animation').css("display", "block");
-
-                
-
-                // Reload the page
-                window.location.reload();
+                setTimeout(() => {
+                    axios.get(apiEndpoints.avatars)
+                        .then(this.listAvatarsSuccess)
+                        .catch(error => console.error('Error listing avatars:', error.message));
+                }, 5000);
             },
-            createAvatarSuccess() {
-                this.avatarCreated = true;
+            listAvatarsSuccess(response) {
+                if (response.data.length > this.avatars.length) {
+                    window.location.reload();
+                } else {
+                    setTimeout(() => console.log('This is taking a little longer than we expected. Please check back after a few minutes... '), 5000);
+                }
             }
         },
         mounted() {
