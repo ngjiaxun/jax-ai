@@ -26,7 +26,7 @@ function loadData() {
     const requests = [
         axios.get(apiEndpoints.avatars),
         axios.get(apiEndpoints.solutions),
-        new Promise(resolve => setTimeout(resolve, 2500)) // Let the loading animation play for at least 2.5 seconds
+        new Promise(resolve => setTimeout(resolve, 2200)) // Let the loading animation play at least once
     ];
     Promise.all(requests)
         .then(responses => runVue(responses[0].data, responses[1].data))
@@ -45,7 +45,8 @@ function runVue(avatars, solutions) {
                 avatarSelection: SELECT_ONE,
                 avatarName: '',
                 painSuggestionIndex: 3,
-                desireSuggestionIndex: 3
+                desireSuggestionIndex: 3,
+                avatarCreated: false
             }
         },
         computed: {
@@ -62,7 +63,7 @@ function runVue(avatars, solutions) {
                 if (this.isSelectOne) {
                     this.clearAvatar();
                 } else if (this.isAddNew) {
-                    this.prepareCreateAvatar();
+                    this.addNewAvatar();
                 } else {
                     this.loadAvatar(this.avatarSelection);
                 }
@@ -72,26 +73,18 @@ function runVue(avatars, solutions) {
                 this.avatar = null;
                 console.log('Avatar cleared...');
             },
-            prepareCreateAvatar() {
+            addNewAvatar() {
                 console.log('Preparing to create avatar...');
             },
             loadAvatar(avatarId) {
                 console.log(`Loading avatar ${avatarId}...`);
                 axios.get(apiEndpoints.avatars + avatarId)
-                    .then(this.doLoadAvatarSuccess)
+                    .then(this.loadAvatarSuccess)
                     .catch(error => console.error('Error loading avatar:', error.message));
             },
-            doLoadAvatarSuccess(response) {
+            loadAvatarSuccess(response) {
                 // logJSON('Avatar loaded...', response.data);
                 this.avatar = response.data;
-            },
-            doCreateAvatarSuccess(response) {
-                const animation = $('#processing-animation')
-                animation.css("display", "block");
-                animation.fadeOut(10000, function() {
-                      // The callback function will be executed after the fade-out animation is complete
-                      $(this).css("display", "none");
-                    });               
             },
             refreshClicked(event) {
                 const max = MAX_SUGGESTIONS - 1;
@@ -120,8 +113,19 @@ function runVue(avatars, solutions) {
                     "target_market": this.avatarName
                 }
                 axios.post(apiEndpoints.avatars, data)
-                    .then(this.doCreateAvatarSuccess)
+                    .then(this.createAvatar)
                     .catch(error => console.error('Error creating avatar:', error.message));
+            },
+            createAvatar(response) {
+                $('#processing-animation').css("display", "block");
+
+                
+
+                // Reload the page
+                window.location.reload();
+            },
+            createAvatarSuccess() {
+                this.avatarCreated = true;
             }
         },
         mounted() {
