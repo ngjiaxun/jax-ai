@@ -125,7 +125,9 @@ function runVue(avatars, solutions) {
                 }, 5000);
             },
             listAvatarsSuccess(response) {
-                if (response.data.length > this.avatars.length) {
+                numAvatars = response.data.length;
+                console.log('Number of avatars:', numAvatars);
+                if (numAvatars > this.avatars.length) {
                     window.location.reload();
                 } else {
                     setTimeout(() => console.log('This is taking a little longer than we expected. Please check back after a few minutes... '), 5000);
