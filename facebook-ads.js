@@ -164,6 +164,8 @@ function runVue(avatars, solutions) {
         mounted() {
             // For some reason, if you don't select the first option, it will be blank
             $('#avatar-select-field').find('option').eq(0).prop('selected', true);
+            
+            this.retrieveAvatar(this.avatarSelection);
             this.loading = false;
         }
     }).mount('#app')
