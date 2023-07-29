@@ -39,7 +39,7 @@ function modifyTags() {
 
 // Add or modify attributes where Webflow doesn't allow directly
 function modifyAttributes() {
-    const option = document.querySelector('#avatar-select-field').options[0];
+    const option = document.querySelector('#avatar-select-field').options[0]; // The first option in the avatar select field
     option.setAttribute('v-for', 'avatar in avatars');
     option.setAttribute(':key', 'avatar.id');
     option.removeAttribute('value');
@@ -162,7 +162,7 @@ function runVue(avatars, solutions) {
             }
         },
         mounted() {
-            this.retrieveAvatar(this.avatarSelection);
+            $('#avatar-select-field').find('option').eq(1).prop('selected', true); // Select the first avatar because the first option is blank for some reason
             this.loading = false;
         }
     }).mount('#app')
