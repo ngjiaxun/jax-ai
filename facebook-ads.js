@@ -1,4 +1,3 @@
-const SELECT_ONE = 'select one';
 const ADD_NEW = 'add new';
 const MAX_SUGGESTIONS = 20;
 const LOADING_MESSAGES = [
@@ -40,7 +39,7 @@ function modifyTags() {
 
 // Add or modify attributes where Webflow doesn't allow directly
 function modifyAttributes() {
-    const option = document.querySelector('#avatar-select-field').options[1];
+    const option = document.querySelector('#avatar-select-field').options[0];
     option.setAttribute('v-for', 'avatar in avatars');
     option.setAttribute(':key', 'avatar.id');
     option.removeAttribute('value');
@@ -67,7 +66,6 @@ function runVue(avatars, solutions) {
                 avatars: avatars,
                 solution: solutions[0],
                 avatar: null,
-                avatarSelection: SELECT_ONE, 
                 avatarName: '',
                 painSuggestionIndex: 3,
                 desireSuggestionIndex: 3,
@@ -79,17 +77,12 @@ function runVue(avatars, solutions) {
         computed: {
             isAddNew() {
                 return this.avatarSelection === ADD_NEW;
-            },
-            isSelectOne() {
-                return this.avatarSelection === SELECT_ONE;
             }
         },
         methods: {
             avatarSelectionChanged() {
                 console.log(`Avatar ${this.avatarSelection} selected...`);
-                if (this.isSelectOne) {
-                    this.clearAvatar();
-                } else if (this.isAddNew) {
+                if (this.isAddNew) {
                     this.addNewAvatar();
                 } else {
                     this.retrieveAvatar(this.avatarSelection);
