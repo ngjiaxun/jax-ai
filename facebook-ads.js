@@ -162,7 +162,7 @@ function runVue(avatars, solutions) {
             }
         },
         mounted() {
-            $('#avatar-select-field').find('option').eq(1).prop('selected', true); // Select the first avatar because the first option is blank for some reason
+            // $('#avatar-select-field').find('option').eq(1).prop('selected', true); // Select the first avatar because the first option is blank for some reason
             this.loading = false;
         }
     }).mount('#app')
