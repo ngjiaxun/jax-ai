@@ -2,11 +2,11 @@ const SELECT_ONE = 'select one';
 const ADD_NEW = 'add new';
 const MAX_SUGGESTIONS = 20;
 const LOADING_MESSAGES = [
-    'Sit back and relax, it\'s Jax AI\'s turn to do the writing. All it needs is 10-15 seconds of focus!',
+    'Sit back and relax, it\'s Jax AI\'s turn to do the writing. All it needs is 10-20 seconds of focus!',
+    'Charging the creativity batteries... Your copy will be electrifying!',
     'In a parallel universe, your copy is already finished. We\'re just waiting for the teleporter to catch up.',
     'Just a few more seconds, and your copy will emerge like a phoenix from the digital ashes. It\'s going to be legendary!',
     'Don\'t be alarmed if your screen gets a little brighter - it\'s just the AI\'s creative lightbulb turning on!',
-    'Charging the creativity batteries... Your copy will be electrifying!',
     'Keep calm and let the AI do its copy magic. No wands required.',
     'Currently, our AI is taking a yoga class to find its inner copywriting zen.',
     'Please wait while we train our AI in the ancient art of persuasive word-jitsu.',
@@ -148,7 +148,7 @@ function runVue(avatars, solutions) {
                 this.checkAvatarCreated(null);
             },
             checkAvatarCreated(response) {
-                const maxTries = 3; // Number of times to try to load the avatar
+                const maxTries = 5; // Number of times to try to load the avatar
                 const timeout = 5000; // How long to wait before checking again
                 const numAvatars = response ? response.data.length : 0;
                 console.log('Number of avatars:', numAvatars);
