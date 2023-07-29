@@ -162,7 +162,8 @@ function runVue(avatars, solutions) {
             }
         },
         mounted() {
-            // $('#avatar-select-field').find('option').eq(1).prop('selected', true); // Select the first avatar because the first option is blank for some reason
+            // For some reason, if you don't select the first option, it will be blank
+            $('#avatar-select-field').find('option').eq(0).prop('selected', true);
             this.loading = false;
         }
     }).mount('#app')
