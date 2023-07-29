@@ -2,11 +2,30 @@ const SELECT_ONE = 'select one';
 const ADD_NEW = 'add new';
 const MAX_SUGGESTIONS = 20;
 const LOADING_MESSAGES = [
-    'The countdown begins! In 10-15 seconds, your avatar will shine like a beacon in the virtual universe!',
-    'Jax AI is channeling its inner Picasso to paint your one-of-a-kind avatar. Grab some virtual popcorn while we complete our masterpiece!',
-    'Just a few more seconds, and your avatar will emerge like a phoenix from the digital ashes. It\'s going to be legendary!',
-    'Yikes! Our digital hamsters are in a virtual traffic jam. We\'re rerouting them, and you can expect their return in just a minute or two. Check back shortly!',
+    'Sit back and relax, it\'s Jax AI\'s turn to do the writing. All it needs is 10-15 seconds of focus!',
+    'In a parallel universe, your copy is already finished. We\'re just waiting for the teleporter to catch up.',
+    'Just a few more seconds, and your copy will emerge like a phoenix from the digital ashes. It\'s going to be legendary!',
+    'Don\'t be alarmed if your screen gets a little brighter - it\'s just the AI\'s creative lightbulb turning on!',
+    'Charging the creativity batteries... Your copy will be electrifying!',
+    'Keep calm and let the AI do its copy magic. No wands required.',
+    'Currently, our AI is taking a yoga class to find its inner copywriting zen.',
+    'Please wait while we train our AI in the ancient art of persuasive word-jitsu.',
+    'Be patient! Our AI is seeking writing inspiration from a talking parrot. Results may vary.',
+    'Your copy is being expertly crafted by a team of word-wrangling llamas. Seriously!',
+    'Cooking up copy goodness... Don\'t worry, it\'s gluten-free and grammar-full!',
+    'Please wait while we tickle the keyboard\'s fancy to produce your magical copy.',
+    'Hold on tight! Our AI copywriter is doing mental gymnastics for your masterpiece.',
+    'Waiting for the copy fairy to sprinkle words of wisdom all over your screen...',
+    'Don\'t panic! Our AI is just busy bribing the pun gods for some epic wordplay.',
+    'Did you hear the one about the AI and the copy? Your punchy lines are almost ready!',
+    'Loading... because copywriting by carrier pigeon just didn\'t work out.',
+    'Apologies for the delay. The AI copywriter got distracted by a funny cat video.',
+    'It\'s not you, it\'s the AI. It\'s trying to decide which adjective goes best with your copy.',
+    'Hang in there! Our AI is attending a spelling bee to avoid any "typos of doom."',
+    'The AI copywriter\'s horoscope says it\'s a lucky day for wordsmithing!',
+    'Tick-tock! Our AI is dancing the cha-cha with the thesaurus for some fancy synonyms.'
 ];
+const TAKING_TOO_LONG_MESSAGE = 'Yikes! Our digital hamsters are in a virtual traffic jam. We\'re rerouting them, and you can expect their return in just a minute or two. Check back shortly!';
 
 modifyTags();
 modifyAttributes();
@@ -53,7 +72,8 @@ function runVue(avatars, solutions) {
                 painSuggestionIndex: 3,
                 desireSuggestionIndex: 3,
                 tries: 0, // Number of times we've tried to load the avatar
-                loadingMessages: LOADING_MESSAGES
+                loadingMessages: LOADING_MESSAGES,
+                takingTooLongMessage: TAKING_TOO_LONG_MESSAGE
             }
         },
         computed: {
@@ -143,7 +163,7 @@ function runVue(avatars, solutions) {
                             .catch(error => console.error('Error listing avatars:', error.message));
                     }, timeout);
                 } else {
-                    $('#processing-message').text(this.loadingMessages[3]);
+                    $('#processing-message').text(this.takingTooLongMessage);
                     setTimeout(() => window.location.reload(), timeout);
                 }
             }
