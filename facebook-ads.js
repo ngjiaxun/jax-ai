@@ -1,6 +1,12 @@
 const SELECT_ONE = 'select one';
 const ADD_NEW = 'add new';
 const MAX_SUGGESTIONS = 20;
+const LOADING_MESSAGES = [
+    'The countdown begins! In 10-15 seconds, your avatar will shine like a beacon in the virtual universe!',
+    'Jax AI is channeling its inner Picasso to paint your one-of-a-kind avatar. Grab some virtual popcorn while we complete our masterpiece!',
+    'Just a few more seconds, and your avatar will emerge like a phoenix from the digital ashes. It\'s going to be legendary!',
+    'Yikes! Our digital hamsters are in a virtual traffic jam. We\'re rerouting them, and you can expect their return in just a minute or two. Check back shortly!',
+];
 
 modifyTags();
 modifyAttributes();
@@ -46,7 +52,8 @@ function runVue(avatars, solutions) {
                 avatarName: '',
                 painSuggestionIndex: 3,
                 desireSuggestionIndex: 3,
-                tries: 0 // Number of times we've tried to load the avatar
+                tries: 0, // Number of times we've tried to load the avatar
+                loadingMessages: LOADING_MESSAGES
             }
         },
         computed: {
@@ -117,7 +124,6 @@ function runVue(avatars, solutions) {
                     .catch(error => console.error('Error creating avatar:', error.message));
             },
             createAvatar(response) {
-                $('#processing-message').text('Jax AI is creating your avatar... This usually takes around 10-15 seconds');
                 $('#processing-animation').fadeIn(500);
                 this.checkAvatarCreated(null);
             },
@@ -126,6 +132,7 @@ function runVue(avatars, solutions) {
                 const timeout = 5000; // How long to wait before checking again
                 const numAvatars = response ? response.data.length : 0;
                 console.log('Number of avatars:', numAvatars);
+                $('#processing-message').text(this.loadingMessages[this.tries]);
                 if (numAvatars > this.avatars.length) {
                     window.location.reload();
                 } else if (this.tries < maxTries) {
@@ -136,7 +143,7 @@ function runVue(avatars, solutions) {
                             .catch(error => console.error('Error listing avatars:', error.message));
                     }, timeout);
                 } else {
-                    $('#processing-message').text('Looks like it is taking longer this time... Please check back again in a minute or two');
+                    $('#processing-message').text(this.loadingMessages[3]);
                     setTimeout(() => window.location.reload(), timeout);
                 }
             }
