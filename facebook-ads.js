@@ -40,8 +40,8 @@ function modifyTags() {
 // Add or modify attributes where Webflow doesn't allow directly
 function modifyAttributes() {
     const option = document.querySelector('#avatar-select-field').options[0]; // The first option in the avatar select field
-    console.log(this.avatars);
-    option.setAttribute('v-if', 'avatars');
+    console.log(this.avatars.length);
+    option.setAttribute('v-if', 'avatars.length > 0');
     option.setAttribute('v-for', 'avatar in avatars');
     option.setAttribute(':key', 'avatar.id');
     option.removeAttribute('value');
