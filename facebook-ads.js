@@ -41,7 +41,7 @@ function modifyTags() {
 function modifyAttributes() {
     const option = document.querySelector('#avatar-select-field').options[0]; // The first option in the avatar select field
     console.log(this.avatars);
-    option.setAttribute('v-f', 'avatars');
+    option.setAttribute('v-if', 'avatars');
     option.setAttribute('v-for', 'avatar in avatars');
     option.setAttribute(':key', 'avatar.id');
     option.removeAttribute('value');
