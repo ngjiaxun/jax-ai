@@ -162,6 +162,7 @@ function runVue(avatars, solutions) {
             }
         },
         mounted() {
+            this.retrieveAvatar(this.avatarSelection);
             this.loading = false;
         }
     }).mount('#app')
