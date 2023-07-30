@@ -40,11 +40,7 @@ function modifyTags() {
 
 // Add or modify attributes where Webflow doesn't allow directly
 function modifyAttributes() {
-<<<<<<< HEAD
-    const option = document.querySelector('#avatar-select-field').options[0]; // The first option in the avatar select field
-=======
-    const option = document.querySelector('#avatar-select-field').options[1];
->>>>>>> parent of e14e599 (Load latest avatar by default)
+    const option = document.querySelector('#avatar-select-field').options[1]; // The first option in the avatar select field
     option.setAttribute('v-for', 'avatar in avatars');
     option.setAttribute(':key', 'avatar.id');
     option.removeAttribute('value');
