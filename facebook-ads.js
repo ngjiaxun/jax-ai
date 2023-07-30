@@ -171,6 +171,7 @@ function runVue(avatars, solutions) {
         mounted() {
             const option = document.querySelector('#avatar-select-field').options[1] // The option after 'Select one...' in the avatar select field
             this.avatarSelection = option.value;
+            this.avatarSelectionChanged(); // Manually call the avatar selection changed event
             this.loading = false;
         }
     }).mount('#app')
