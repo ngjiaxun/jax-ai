@@ -195,9 +195,8 @@ function runVue(avatars, solutions) {
             },
             updateAvatar() {
                 const endpoint = apiEndpoints.avatars + this.avatar.id;
-                console.log('Updating avatar:', endpoint);
-                console.log('Avatar:', this.avatar);
-                axios.patch(apiEndpoints.avatars + this.avatar.id, this.avatar)
+                // logJSON('Avatar:', this.avatar);
+                axios.patch(endpoint, this.avatar)
                     .then(this.updateAvatarSuccess)
                     .catch(error => console.error('Error updating avatar:', error.message));
             },
