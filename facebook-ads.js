@@ -194,13 +194,16 @@ function runVue(avatars, solutions) {
                 this.generateCopy();
             },
             updateAvatar() {
+                const endpoint = apiEndpoints.avatars + this.avatar.id;
+                console.log('Updating avatar:', endpoint);
+                console.log('Avatar:', this.avatar);
                 axios.patch(apiEndpoints.avatars + this.avatar.id, this.avatar)
                     .then(this.updateAvatarSuccess)
                     .catch(error => console.error('Error updating avatar:', error.message));
             },
             updateAvatarSuccess(response) {
                 // Reload the page
-                window.location.reload();
+                
             },
             updateSolution() {
                 // Update only the fields that have changed
