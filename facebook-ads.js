@@ -86,6 +86,18 @@ function runVue(avatars, solutions) {
             },
             isIndustryCheckboxDisabled() {
                 return this.solution.industry === this.originalSolution.industry;
+            },
+            isResultCheckboxDisabled() {
+                return this.solution.result === this.originalSolution.result;
+            },
+            isCtaCheckboxDisabled() {
+                return this.solution.lead_magnet === this.originalSolution.lead_magnet;
+            },
+            isObjectionsCheckboxDisabled() {
+                return this.solution.objections === this.originalSolution.objections;
+            },
+            isStyleCheckboxDisabled() {
+                return this.solution.style === this.originalSolution.style;
             }
         },
         methods: {
