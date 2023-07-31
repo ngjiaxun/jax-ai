@@ -66,7 +66,7 @@ function runVue(avatars, solutions) {
                 loading: true, // Whether the page is loading
                 avatars: avatars,
                 solution: solutions[0],
-                originalSolution: solutions[0],
+                originalSolution: { ...solutions[0] },
                 avatar: null,
                 avatarSelection: SELECT_ONE, 
                 avatarName: '',
