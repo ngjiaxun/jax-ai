@@ -2,7 +2,7 @@ const SELECT_ONE = 'select one';
 const ADD_NEW = 'add new';
 const MAX_SUGGESTIONS = 20;
 const LOADING_MESSAGES = [
-    'Sit back and relax, it\'s Jax AI\'s turn to do the writing. All it needs is 10-20 seconds of focus!',
+    'Sit back and relax, it\'s JaxAI\'s turn to do the writing. All it needs is 10-20 seconds of focus!',
     'Charging the creativity batteries... Your copy will be electrifying!',
     'In a parallel universe, your copy is already finished. We\'re just waiting for the teleporter to catch up.',
     'Just a few more seconds, and your copy will emerge like a phoenix from the digital ashes. It\'s going to be legendary!',
@@ -66,6 +66,7 @@ function runVue(avatars, solutions) {
                 loading: true, // Whether the page is loading
                 avatars: avatars,
                 solution: solutions[0],
+                originalSolution: solutions[0],
                 avatar: null,
                 avatarSelection: SELECT_ONE, 
                 avatarName: '',
@@ -82,6 +83,9 @@ function runVue(avatars, solutions) {
             },
             isSelectOne() {
                 return this.avatarSelection === SELECT_ONE;
+            },
+            isIndustryCheckboxDisabled() {
+                return this.solution.industry === this.originalSolution.industry;
             }
         },
         methods: {
