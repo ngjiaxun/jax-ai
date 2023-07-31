@@ -182,6 +182,31 @@ function runVue(avatars, solutions) {
                     $('#processing-message').text(this.takingTooLongMessage);
                     setTimeout(() => window.location.reload(), timeout);
                 }
+            },
+            generateClicked() {
+                // Update avatar
+                this.updateAvatar();
+
+                // Update solution
+                this.updateSolution();
+
+                // Generate copy
+                this.generateCopy();
+            },
+            updateAvatar() {
+                axios.patch(apiEndpoints.avatars + this.avatar.id, this.avatar)
+                    .then(this.updateAvatarSuccess)
+                    .catch(error => console.error('Error updating avatar:', error.message));
+            },
+            updateAvatarSuccess(response) {
+                // Reload the page
+                window.location.reload();
+            },
+            updateSolution() {
+                // Update only the fields that have changed
+            },
+            generateCopy() {
+                
             }
         },
         mounted() {
