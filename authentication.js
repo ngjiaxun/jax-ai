@@ -16,6 +16,8 @@ const apiEndpoints = {
         descriptions: 'scripts/facebookads/descriptions/',
     }
 }
+console.log(apiEndpoints.facebookAds);
+console.log(apiEndpoints.facebookAds.text);
 
 // Prepend api domain to api endpoints
 Object.keys(apiEndpoints).forEach(key => apiEndpoints[key] = apiDomain + apiEndpoints[key]);
