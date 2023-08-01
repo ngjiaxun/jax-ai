@@ -74,7 +74,12 @@ function runVue(avatars, solutions) {
                 desireSuggestionIndex: 3,
                 tries: 0, // Number of times we've tried to load the avatar
                 loadingMessages: LOADING_MESSAGES,
-                takingTooLongMessage: TAKING_TOO_LONG_MESSAGE
+                takingTooLongMessage: TAKING_TOO_LONG_MESSAGE,
+                isIndustryCheckboxChecked: true,
+                isResultCheckboxChecked: true,
+                isCtaCheckboxChecked: true,
+                isObjectionsCheckboxChecked: true,
+                isStyleCheckboxChecked: true
             }
         },
         computed: {
@@ -208,11 +213,11 @@ function runVue(avatars, solutions) {
                 const endpoint = apiEndpoints.solutions + this.solution.id;
                 // logJSON('Solution:', this.solution);
                 // Update only the fields with 'set default' checkbox checked
-                this.solution.industry = this.isIndustryCheckboxDisabled ? this.originalSolution.industry : this.solution.industry;
-                this.solution.result = this.isResultCheckboxDisabled ? this.originalSolution.result : this.solution.result;
-                this.solution.lead_magnet = this.isCtaCheckboxDisabled ? this.originalSolution.lead_magnet : this.solution.lead_magnet;
-                this.solution.objections = this.isObjectionsCheckboxDisabled ? this.originalSolution.objections : this.solution.objections;
-                this.solution.style = this.isStyleCheckboxDisabled ? this.originalSolution.style : this.solution.style;
+                this.solution.industry = this.isIndustryCheckboxChecked ? this.solution.industry : this.originalSolution.industry;
+                this.solution.result = this.isResultCheckboxChecked ? this.solution.result : this.originalSolution.result;
+                this.solution.lead_magnet = this.isCtaCheckboxChecked ? this.solution.lead_magnet : this.originalSolution.lead_magnet;
+                this.solution.objections = this.isObjectionsCheckboxChecked ? this.solution.objections : this.originalSolution.objections;
+                this.solution.style = this.isStyleCheckboxChecked ? this.solution.style : this.originalSolution.style;
 
                 axios.patch(endpoint, this.solution)
                     .then(this.updateSolutionSuccess)
@@ -220,7 +225,7 @@ function runVue(avatars, solutions) {
             },
             updateSolutionSuccess(response) {
                 // Reload the page
-                windowq.location.reload();
+                window.location.reload();
             },
             generateCopy() {
                 
