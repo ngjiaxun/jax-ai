@@ -8,7 +8,13 @@ const apiEndpoints = {
     me: 'auth/users/me/',
     jwtCreate: 'auth/jwt/create/',
     avatars: 'scripts/avatars/',
-    solutions: 'scripts/solutions/'
+    solutions: 'scripts/solutions/',
+    facebookAds: {
+        text: 'scripts/facebookads/text/',
+        templatedText: 'scripts/facebookads/templatedtext/',
+        headlines: 'scripts/facebookads/headlines/',
+        descriptions: 'scripts/facebookads/descriptions/',
+    }
 }
 
 // Prepend api domain to api endpoints

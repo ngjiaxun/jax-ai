@@ -189,14 +189,14 @@ function runVue(avatars, solutions) {
                 }
             },
             generateClicked() {
+                // Generate copy
+                this.generateCopy();
+
                 // Update avatar
                 this.updateAvatar();
 
                 // Update solution
                 this.updateSolution();
-
-                // Generate copy
-                this.generateCopy();
             },
             updateAvatar() {
                 const endpoint = apiEndpoints.avatars + this.avatar.id;
@@ -206,8 +206,7 @@ function runVue(avatars, solutions) {
                     .catch(error => console.error('Error updating avatar:', error.message));
             },
             updateAvatarSuccess(response) {
-                // Reload the page
-                
+                ;
             },
             updateSolution() {
                 const endpoint = apiEndpoints.solutions + this.solution.id;
@@ -224,11 +223,29 @@ function runVue(avatars, solutions) {
                     .catch(error => console.error('Error updating solution:', error.message));
             },
             updateSolutionSuccess(response) {
-                // Reload the page
-                window.location.reload();
+                ;
             },
             generateCopy() {
-                
+                const text = {
+                    avatar: this.avatar.id,
+                    industry: this.solution.industry,
+                    target_market: this.avatar.target_market,
+                    lead_magnet: this.solution.lead_magnet,
+                    result: this.solution.result,
+                    objections: this.solution.objections,
+                    pains: this.avatar.pains,
+                    desires: this.avatar.desires,
+                    prompt_id: 1,
+                    style: this.solution.style
+                }
+                const templatedText = {}
+                const headlines = {}
+                const descriptions = {}
+                axios.post(apiEndpoints.facebookAds.text, text)
+                    .then(this.generateCopySuccess)
+            },
+            generateCopySuccess(response) {
+                logJSON('Copy generated...', response.data);
             }
         },
         mounted() {
