@@ -66,7 +66,7 @@ function runVue(avatars, solutions) {
                 loading: true, // Whether the page is loading
                 avatars: avatars,
                 solution: solutions[0],
-                originalSolution: { ...solutions[0] },
+                originalSolution: { ...solutions[0] }, // Disable checkboxes if the value is the same as the original
                 avatar: null,
                 avatarSelection: SELECT_ONE, 
                 avatarName: '',
@@ -205,7 +205,22 @@ function runVue(avatars, solutions) {
                 
             },
             updateSolution() {
-                // Update only the fields that have changed
+                const endpoint = apiEndpoints.solutions + this.solution.id;
+                // logJSON('Solution:', this.solution);
+                // Update only the fields with 'set default' checkbox checked
+                this.solution.industry = this.isIndustryCheckboxDisabled ? this.originalSolution.industry : this.solution.industry;
+                this.solution.result = this.isResultCheckboxDisabled ? this.originalSolution.result : this.solution.result;
+                this.solution.lead_magnet = this.isCtaCheckboxDisabled ? this.originalSolution.lead_magnet : this.solution.lead_magnet;
+                this.solution.objections = this.isObjectionsCheckboxDisabled ? this.originalSolution.objections : this.solution.objections;
+                this.solution.style = this.isStyleCheckboxDisabled ? this.originalSolution.style : this.solution.style;
+
+                axios.patch(endpoint, this.solution)
+                    .then(this.updateSolutionSuccess)
+                    .catch(error => console.error('Error updating solution:', error.message));
+            },
+            updateSolutionSuccess(response) {
+                // Reload the page
+                windowq.location.reload();
             },
             generateCopy() {
                 
