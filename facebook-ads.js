@@ -226,7 +226,7 @@ function runVue(avatars, solutions) {
                 console.log('Solution updated...');
             },
             generateCopy() {
-                const text = {
+                const facebookAdsText = {
                     avatar: this.avatar.id,
                     industry: this.solution.industry,
                     target_market: this.avatar.target_market,
@@ -242,11 +242,12 @@ function runVue(avatars, solutions) {
                 const headlines = {}
                 const descriptions = {}
                 logJSON('Text:', text);
-                axios.post(apiEndpoints.facebookAds.text, text)
+                axios.post(apiEndpoints.facebookAds.text, facebookAdsText)
                     .then(this.generateCopySuccess)
                     .catch(error => console.error('Error generating copy:', error.message));
             },
             generateCopySuccess(response) {
+                console.log('Copy generated...');
                 logJSON('Copy generated...', response.data);
             }
         },
