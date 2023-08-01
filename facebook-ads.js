@@ -241,6 +241,7 @@ function runVue(avatars, solutions) {
                 const templatedText = {}
                 const headlines = {}
                 const descriptions = {}
+                logJSON('Text:', text);
                 axios.post(apiEndpoints.facebookAds.text, text)
                     .then(this.generateCopySuccess)
                     .catch(error => console.error('Error generating copy:', error.message));
