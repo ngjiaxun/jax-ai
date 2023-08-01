@@ -206,7 +206,7 @@ function runVue(avatars, solutions) {
                     .catch(error => console.error('Error updating avatar:', error.message));
             },
             updateAvatarSuccess(response) {
-                ;
+                console.log('Avatar updated...');
             },
             updateSolution() {
                 const endpoint = apiEndpoints.solutions + this.solution.id;
@@ -223,7 +223,7 @@ function runVue(avatars, solutions) {
                     .catch(error => console.error('Error updating solution:', error.message));
             },
             updateSolutionSuccess(response) {
-                ;
+                console.log('Solution updated...');
             },
             generateCopy() {
                 const text = {
@@ -243,6 +243,7 @@ function runVue(avatars, solutions) {
                 const descriptions = {}
                 axios.post(apiEndpoints.facebookAds.text, text)
                     .then(this.generateCopySuccess)
+                    .catch(error => console.error('Error generating copy:', error.message));
             },
             generateCopySuccess(response) {
                 logJSON('Copy generated...', response.data);
