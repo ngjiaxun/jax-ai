@@ -226,7 +226,7 @@ function runVue(avatars, solutions) {
                 console.log('Solution updated...');
             },
             generateCopy() {
-                const endpoint = apiEndpoints.facebookAds.text;
+                const endpoint = apiEndpoints.facebookAdsText;
                 const facebookAdsText = {
                     avatar: this.avatar.id,
                     industry: this.solution.industry,
@@ -242,9 +242,7 @@ function runVue(avatars, solutions) {
                 const templatedText = {}
                 const headlines = {}
                 const descriptions = {}
-                logJSON('Text:', facebookAdsText);
-                console.log(endpoint);
-                console.log(apiEndpoints.avatars);
+                // logJSON('Text:', facebookAdsText);
                 axios.post(endpoint, facebookAdsText)
                     .then(this.generateCopySuccess)
                     .catch(error => console.error('Error generating copy:', error.message));

@@ -9,19 +9,14 @@ const apiEndpoints = {
     jwtCreate: 'auth/jwt/create/',
     avatars: 'scripts/avatars/',
     solutions: 'scripts/solutions/',
-    facebookAds: {
-        text: 'scripts/facebookads/text/',
-        templatedText: 'scripts/facebookads/templatedtext/',
-        headlines: 'scripts/facebookads/headlines/',
-        descriptions: 'scripts/facebookads/descriptions/',
-    }
+    facebookAdsText: 'scripts/facebookads/text/',
+    facebookAdsTemplatedText: 'scripts/facebookads/templatedtext/',
+    facebookAdsHeadlines: 'scripts/facebookads/headlines/',
+    facebookAdsDescriptions: 'scripts/facebookads/descriptions/'
 }
 
 // Prepend api domain to api endpoints
 Object.keys(apiEndpoints).forEach(key => apiEndpoints[key] = apiDomain + apiEndpoints[key]);
-
-console.log(apiEndpoints.facebookAds);
-console.log(apiEndpoints.facebookAds.text);
 
 // Pages that won't be authenticated
 const publicPages = ['/register-now', '/forgot-password'];
