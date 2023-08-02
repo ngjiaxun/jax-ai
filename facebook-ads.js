@@ -269,10 +269,10 @@ function runVue(avatars, solutions) {
                     .catch(error => console.error('Error checking if copy is ready:', error.message));
             },
             copyText1() {
-                const text1 = document.getElementById('text1');
-                console.log(text1);
-                text1.select();
-                navigator.clipboard.writeText(text1.value);
+                const text1 = document.getElementById('text1').innerText;
+                navigator.clipboard.writeText(text1)
+                    .then(() => console.log('Text 1 copied to clipboard:', text1))
+                    .catch(error => console.error('Error copying text 1 to clipboard:', error.message));
             }
         },
         mounted() {
