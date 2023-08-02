@@ -262,8 +262,10 @@ function runVue(avatars, solutions) {
             },
             checkCopyReady() {
                 const endpoint = apiEndpoints.copies;
+                console.log(endpoint);
+
                 axios.get(endpoint)
-                    .then(response => this.text1 = response[0].copy)
+                    .then(response => this.text1 = response.data[0].copy)
                     .catch(error => console.error('Error checking if copy is ready:', error.message));
             }
         },
