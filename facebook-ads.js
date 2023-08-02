@@ -270,6 +270,7 @@ function runVue(avatars, solutions) {
             },
             copyText1() {
                 const text1 = document.getElementById('text1');
+                console.log(text1);
                 text1.select();
                 navigator.clipboard.writeText(text1.value);
             }
