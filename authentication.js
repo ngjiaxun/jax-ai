@@ -9,6 +9,7 @@ const apiEndpoints = {
     jwtCreate: 'auth/jwt/create/',
     avatars: 'scripts/avatars/',
     solutions: 'scripts/solutions/',
+    copies: 'scripts/copies/',
     facebookAdsText: 'scripts/facebookads/text/',
     facebookAdsTemplatedText: 'scripts/facebookads/templatedtext/',
     facebookAdsHeadlines: 'scripts/facebookads/headlines/',

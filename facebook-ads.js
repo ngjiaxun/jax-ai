@@ -70,16 +70,20 @@ function runVue(avatars, solutions) {
                 avatar: null,
                 avatarSelection: SELECT_ONE, 
                 avatarName: '',
-                painSuggestionIndex: 3,
-                desireSuggestionIndex: 3,
+                painSuggestionIndex: 3, // The starting index for the pain suggestions
+                desireSuggestionIndex: 3, // The starting index for the desire suggestions
+
                 tries: 0, // Number of times we've tried to load the avatar
                 loadingMessages: LOADING_MESSAGES,
                 takingTooLongMessage: TAKING_TOO_LONG_MESSAGE,
+
                 isIndustryCheckboxChecked: true,
                 isResultCheckboxChecked: true,
                 isCtaCheckboxChecked: true,
                 isObjectionsCheckboxChecked: true,
-                isStyleCheckboxChecked: true
+                isStyleCheckboxChecked: true,
+
+                text1: 'Facebook text #1'
             }
         },
         computed: {
@@ -143,12 +147,11 @@ function runVue(avatars, solutions) {
                 console.log('Button:', button);
                 console.log('Index:', index);
 
-                // Pains - 0, 1, 2
-                // Desires - 3, 4, 5
-                if (index < 3) {
+                // Go down the list of suggestions every time the refresh button is clicked, until we reach the end, then start over
+                if (index < 3) { // Pains (0, 1, 2)
                     this.avatar.pains[index] = this.avatar.pain_suggestions[this.painSuggestionIndex];
                     this.painSuggestionIndex = this.painSuggestionIndex < max ? this.painSuggestionIndex + 1 : 0;
-                } else {
+                } else { // Desires (3, 4, 5)
                     index = index - 3;
                     this.avatar.desires[index] = this.avatar.desire_suggestions[this.desireSuggestionIndex];
                     this.desireSuggestionIndex = this.desireSuggestionIndex < max ? this.desireSuggestionIndex + 1 : 0;
@@ -209,15 +212,17 @@ function runVue(avatars, solutions) {
                 console.log('Avatar updated...');
             },
             updateSolution() {
-                const endpoint = apiEndpoints.solutions + this.solution.id;
                 // logJSON('Solution:', this.solution);
+
+                const endpoint = apiEndpoints.solutions + this.solution.id;
+                // console.log(endpoint);
+
                 // Update only the fields with 'set default' checkbox checked
                 this.solution.industry = this.isIndustryCheckboxChecked ? this.solution.industry : this.originalSolution.industry;
                 this.solution.result = this.isResultCheckboxChecked ? this.solution.result : this.originalSolution.result;
                 this.solution.lead_magnet = this.isCtaCheckboxChecked ? this.solution.lead_magnet : this.originalSolution.lead_magnet;
                 this.solution.objections = this.isObjectionsCheckboxChecked ? this.solution.objections : this.originalSolution.objections;
                 this.solution.style = this.isStyleCheckboxChecked ? this.solution.style : this.originalSolution.style;
-
                 axios.patch(endpoint, this.solution)
                     .then(this.updateSolutionSuccess)
                     .catch(error => console.error('Error updating solution:', error.message));
@@ -227,7 +232,9 @@ function runVue(avatars, solutions) {
             },
             generateCopy() {
                 const endpoint = apiEndpoints.facebookAdsText;
-                const facebookAdsText = {
+                // console.log(endpoint);
+
+                const text = {
                     avatar: this.avatar.id,
                     industry: this.solution.industry,
                     target_market: this.avatar.target_market,
@@ -239,18 +246,25 @@ function runVue(avatars, solutions) {
                     prompt_id: 1,
                     style: this.solution.style
                 }
+                // logJSON('Text:', facebookAdsText);
+
                 const templatedText = {}
                 const headlines = {}
-                const descriptions = {}
-                // logJSON('Text:', facebookAdsText);
-                console.log(endpoint);
-                axios.post(endpoint, facebookAdsText)
+                const descriptions = {} 
+                axios.post(endpoint, text)
                     .then(this.generateCopySuccess)
                     .catch(error => console.error('Error generating copy:', error.message));
             },
             generateCopySuccess(response) {
-                console.log('Copy generated...');
-                logJSON('Copy generated...', response.data);
+                console.log('Generating copy...');
+                // Wait 5 seconds before checking if the copy is ready
+                setTimeout(this.checkCopyReady, 5000); 
+            },
+            checkCopyReady() {
+                const endpoint = apiEndpoints.copies;
+                axios.get(endpoint)
+                    .then(response => this.text1 = response[0].copy)
+                    .catch(error => console.error('Error checking if copy is ready:', error.message));
             }
         },
         mounted() {
