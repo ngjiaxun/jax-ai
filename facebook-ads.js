@@ -267,6 +267,11 @@ function runVue(avatars, solutions) {
                 axios.get(endpoint)
                     .then(response => this.text1 = response.data[0].copy)
                     .catch(error => console.error('Error checking if copy is ready:', error.message));
+            },
+            copyText1() {
+                const text1 = document.getElementById('text1');
+                text1.select();
+                navigator.clipboard.writeText(text1.value);
             }
         },
         mounted() {
