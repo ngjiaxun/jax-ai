@@ -83,7 +83,8 @@ function runVue(avatars, solutions) {
                 isObjectionsCheckboxChecked: true,
                 isStyleCheckboxChecked: true,
 
-                text1: 'Facebook text #1'
+                text1: 'Facebook text #1',
+                text2: 'Facebook text #2'
             }
         },
         computed: {
@@ -193,7 +194,7 @@ function runVue(avatars, solutions) {
             },
             generateClicked() {
                 // Generate copy
-                this.generateCopy();
+                this.generateCopies();
 
                 // Update avatar
                 this.updateAvatar();
@@ -230,37 +231,31 @@ function runVue(avatars, solutions) {
             updateSolutionSuccess(response) {
                 console.log('Solution updated...');
             },
-            generateCopy() {
+            generateFacebookAdsText(prompt_id) {
+                console.log('Generating text...');
+
                 const endpoint = apiEndpoints.facebookAdsText;
                 // console.log(endpoint);
 
                 const text = {
                     avatar: this.avatar.id,
-                    // industry: this.solution.industry,
-                    // target_market: this.avatar.target_market,
-                    // lead_magnet: this.solution.lead_magnet,
-                    // result: this.solution.result,
-                    // objections: this.solution.objections,
-                    // pains: this.avatar.pains,
-                    // desires: this.avatar.desires,
-                    // style: this.solution.style,
                     ...this.avatar,
                     ...this.solution,
-                    prompt_id: 1,
+                    prompt_id: prompt_id
                 }
-                logJSON('Text:', text);
+                // logJSON('Text:', text);
 
-                const templatedText = {}
-                const headlines = {}
-                const descriptions = {} 
-                axios.post(endpoint, text)
-                    .then(this.generateCopySuccess)
-                    .catch(error => console.error('Error generating copy:', error.message));
+                return axios.post(endpoint, text);
             },
-            generateCopySuccess(response) {
-                console.log('Generating copy...');
-                // Wait 5 seconds before checking if the copy is ready
-                setTimeout(this.checkCopyReady, 5000); 
+            generateCopies() {
+                this.generateFacebookAdsText(1)
+                    .then(() => this.generateFacebookAdsText(2))
+                    .then(() => this.delay(5000))
+                    .then(() => this.checkCopyReady())
+                    .catch(error => console.error('An error has occurred:', error.message));
+            },
+            delay(ms) {
+                return new Promise(resolve => setTimeout(resolve, ms)); 
             },
             checkCopyReady() {
                 const endpoint = apiEndpoints.copies;
@@ -268,7 +263,6 @@ function runVue(avatars, solutions) {
 
                 axios.get(endpoint)
                     .then(response => this.text1 = response.data[0].copy)
-                    .catch(error => console.error('Error checking if copy is ready:', error.message));
             },
             copyText1() {
                 const text1 = document.getElementById('text1').innerText;
