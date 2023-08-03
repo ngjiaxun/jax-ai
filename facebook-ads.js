@@ -235,7 +235,7 @@ function runVue(avatars, solutions) {
                 // console.log(endpoint);
 
                 const text = {
-                    // avatar: this.avatar.id,
+                    avatar: this.avatar.id,
                     // industry: this.solution.industry,
                     // target_market: this.avatar.target_market,
                     // lead_magnet: this.solution.lead_magnet,
