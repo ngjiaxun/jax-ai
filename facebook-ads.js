@@ -235,18 +235,20 @@ function runVue(avatars, solutions) {
                 // console.log(endpoint);
 
                 const text = {
-                    avatar: this.avatar.id,
-                    industry: this.solution.industry,
-                    target_market: this.avatar.target_market,
-                    lead_magnet: this.solution.lead_magnet,
-                    result: this.solution.result,
-                    objections: this.solution.objections,
-                    pains: this.avatar.pains,
-                    desires: this.avatar.desires,
+                    // avatar: this.avatar.id,
+                    // industry: this.solution.industry,
+                    // target_market: this.avatar.target_market,
+                    // lead_magnet: this.solution.lead_magnet,
+                    // result: this.solution.result,
+                    // objections: this.solution.objections,
+                    // pains: this.avatar.pains,
+                    // desires: this.avatar.desires,
+                    // style: this.solution.style,
+                    ...this.avatar,
+                    ...this.solution,
                     prompt_id: 1,
-                    style: this.solution.style
                 }
-                // logJSON('Text:', facebookAdsText);
+                logJSON('Text:', text);
 
                 const templatedText = {}
                 const headlines = {}
