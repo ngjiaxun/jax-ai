@@ -235,7 +235,7 @@ function runVue(avatars, solutions) {
             generateCopies() {
                 this.generateFacebookAdsText(1)
                     .then(response => console.log(this.copies.text1.requestedTime))
-                    .catch(error => console.error('An error has occurred:', error));
+                    .catch(error => console.error('An error has occurred:', error.response.data));
                     // .then(response => this.checkCopyReady(response.data[0].requested_time))
                     // .then(() => this.generateFacebookAdsText(2))
                     // .then(() => this.delay(5000))
