@@ -247,7 +247,7 @@ function runVue(avatars, solutions) {
                     ...this.avatar,
                     ...this.solution,
                     prompt_id: prompt_id,
-                    requestedTime: new Date().toISOString()
+                    requested_time: new Date().toISOString()
                 }
                 logJSON('Text:', text);
 
