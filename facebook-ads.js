@@ -260,7 +260,7 @@ function runVue(avatars, solutions) {
                     prompt_id: prompt_id,
                     requested_time: this.copies.text1.requestedTime
                 }
-                logJSON('Text:', text);
+                // logJSON('Text:', text);
 
                 return axios.post(endpoint, text)
                     .then(response => this.checkCopyReady(this.copies.text1));
@@ -277,12 +277,17 @@ function runVue(avatars, solutions) {
                     console.log('Response:', response.data);
                     let responseData = null;
 
+                    if (response.data.length > 0) {
+                        console.log('Response data requested time:', new Date(response.data.requested_time));
+                        console.log('Copy requested time:', new Date(copy.requestedTime));
+                    }
+
                     // Check if there's a copy with the matching requested_time
                     if (Array.isArray(response.data)) {
                         // Use Array.find to locate the object with the matching requested_time
                         // console.log('Array of copies:', response.data);
                         responseData = response.data.find(obj => new Date(obj.requested_time) == new Date(copy.requestedTime));
-                        console.log('Response data:', responseData);
+                        // console.log('Response data:', responseData);
                     } else if (response.data.requested_time === copy.requestedTime) {
                         // If response.data is a single object, check if its requested_time matches
                         // console.log('Single copy:', response.data);
