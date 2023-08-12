@@ -227,7 +227,7 @@ function runVue(avatars, solutions) {
             generateCopies() {
                 this.generateFacebookAdsText(1)
                     .then(response => console.log(response.data[0].requestTime))
-                    .catch(error => console.error('An error has occurred:', error.message));
+                    .catch(error => console.error('An error has occurred:', error.message + ' - ' + error.response.data.message));
                     // .then(response => this.checkCopyReady(response.data[0].requestTime))
                     // .then(() => this.generateFacebookAdsText(2))
                     // .then(() => this.delay(5000))
