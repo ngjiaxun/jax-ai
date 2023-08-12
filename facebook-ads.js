@@ -279,6 +279,7 @@ function runVue(avatars, solutions) {
                         // Use Array.find to locate the object with the matching requested_time
                         console.log('Array of copies:', response.data);
                         copy.copy = response.data.find(obj => obj.requested_time === copy.requestedTime).copy;
+                        console.log('Copy:', copy);
                     } else if (response.data.requested_time === copy.requestedTime) {
                         // If response.data is a single object, check if its requested_time matches
                         console.log('Single copy:', response.data);
