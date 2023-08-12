@@ -280,6 +280,7 @@ function runVue(avatars, solutions) {
                     if (response.data.length > 0) {
                         console.log('Response data requested time:', new Date(response.data[0].requested_time));
                         console.log('Copy requested time:', new Date(copy.requestedTime));
+                        console.log('Equal or not:', new Date(response.data[0].requested_time) == new Date(copy.requestedTime));
                     }
 
                     // Check if there's a copy with the matching requested_time
