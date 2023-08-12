@@ -257,7 +257,7 @@ function runVue(avatars, solutions) {
                     ...this.avatar,
                     ...this.solution,
                     prompt_id: prompt_id,
-                    requested_time: this.generateCopies.text1.requestedTime
+                    requested_time: this.generatedCopies.text1.requestedTime
                 }
                 // logJSON('Text:', text);
 
