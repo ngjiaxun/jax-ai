@@ -273,7 +273,7 @@ function runVue(avatars, solutions) {
                     const endpoint = apiEndpoints.copies + '?requestedTime=' + copy.requestedTime;
                     // console.log(endpoint);
                     const response = await axios.get(endpoint);
-                    const responseData = null;
+                    let responseData = null;
 
                     // Check if there's a copy with the matching requested_time
                     if (Array.isArray(response.data)) {
