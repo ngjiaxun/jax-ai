@@ -273,21 +273,22 @@ function runVue(avatars, solutions) {
                     const endpoint = apiEndpoints.copies + '?requestedTime=' + copy.requestedTime;
                     // console.log(endpoint);
                     const response = await axios.get(endpoint);
+                    const responseData = null;
 
                     // Check if there's a copy with the matching requested_time
                     if (Array.isArray(response.data)) {
                         // Use Array.find to locate the object with the matching requested_time
                         console.log('Array of copies:', response.data);
-                        copy.copy = response.data.find(obj => obj.requested_time === copy.requestedTime);
-                        console.log('Copy:', copy);
+                        responseData = response.data.find(obj => obj.requested_time === copy.requestedTime);
                     } else if (response.data.requested_time === copy.requestedTime) {
                         // If response.data is a single object, check if its requested_time matches
                         console.log('Single copy:', response.data);
-                        copy.copy = response.data.copy;
+                        responseData = response.data;
                     }
 
                     // If a copy with the matching requested_time is found, break out of the loop
-                    if (copy) {
+                    if (responseData) {
+                        copy.copy = responseData.copy;
                         break;
                     } else {
                         await this.delay(timeout);
