@@ -278,7 +278,7 @@ function runVue(avatars, solutions) {
                     let responseData = null;
 
                     if (response.data.length > 0) {
-                        console.log('Response data requested time:', new Date(response.data.requested_time));
+                        console.log('Response data requested time:', new Date(response.data[0].requested_time));
                         console.log('Copy requested time:', new Date(copy.requestedTime));
                     }
 
