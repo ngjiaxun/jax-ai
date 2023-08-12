@@ -277,8 +277,8 @@ function runVue(avatars, solutions) {
                     // Check if there's a copy with the matching requested_time
                     if (Array.isArray(response.data)) {
                         // Use Array.find to locate the object with the matching requested_time
-                        copy.copy = response.data.find(obj => obj.requested_time === requestedTime).copy;
-                    } else if (response.data.requested_time === requestedTime) {
+                        copy.copy = response.data.find(obj => obj.requested_time === copy.requestedTime).copy;
+                    } else if (response.data.requested_time === copy.requestedTime) {
                         // If response.data is a single object, check if its requested_time matches
                         copy.copy = response.data.copy;
                     }
