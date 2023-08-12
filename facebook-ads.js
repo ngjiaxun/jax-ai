@@ -1,3 +1,5 @@
+// Requires authentication.js
+
 const SELECT_ONE = 'select one';
 const ADD_NEW = 'add new';
 const MAX_SUGGESTIONS = 20;
@@ -43,7 +45,7 @@ function modifyAttributes() {
     const option = document.querySelector('#avatar-select-field').options[1]; // The option after 'Select one...' in the avatar select field
     option.setAttribute('v-for', 'avatar in avatars');
     option.setAttribute(':key', 'avatar.id');
-    option.removeAttribute('value');
+    option.removeAttribute('value'); // Webflow adds this attribute automatically, which prevents Vue from binding the value
     option.setAttribute(':value', 'avatar.id');
 }
 
@@ -73,7 +75,9 @@ function runVue(avatars, solutions) {
                 painSuggestionIndex: 3, // The starting index for the pain suggestions
                 desireSuggestionIndex: 3, // The starting index for the desire suggestions
 
-                tries: 0, // Number of times we've tried to load the avatar
+                tries: 0, // Current number of tries to load the avatar
+                defaultMaxTries: 5, // The default maximum number of times to try to load something
+                defaultTimeout: 5000, // The default amount of time to wait before trying to load something again
                 loadingMessages: LOADING_MESSAGES,
                 takingTooLongMessage: TAKING_TOO_LONG_MESSAGE,
 
@@ -206,11 +210,8 @@ function runVue(avatars, solutions) {
                 const endpoint = apiEndpoints.avatars + this.avatar.id;
                 // logJSON('Avatar:', this.avatar);
                 axios.patch(endpoint, this.avatar)
-                    .then(this.updateAvatarSuccess)
+                    .then(response => console.log('Avatar updated...'))
                     .catch(error => console.error('Error updating avatar:', error.message));
-            },
-            updateAvatarSuccess(response) {
-                console.log('Avatar updated...');
             },
             updateSolution() {
                 // logJSON('Solution:', this.solution);
@@ -225,11 +226,19 @@ function runVue(avatars, solutions) {
                 this.solution.objections = this.isObjectionsCheckboxChecked ? this.solution.objections : this.originalSolution.objections;
                 this.solution.style = this.isStyleCheckboxChecked ? this.solution.style : this.originalSolution.style;
                 axios.patch(endpoint, this.solution)
-                    .then(this.updateSolutionSuccess)
+                    .then(response => console.log('Solution updated...'))
                     .catch(error => console.error('Error updating solution:', error.message));
             },
-            updateSolutionSuccess(response) {
-                console.log('Solution updated...');
+            generateCopies() {
+                this.generateFacebookAdsText(1)
+                    .then(response => console.log(response.data[0].requestTime))
+                    // .then(response => this.checkCopyReady(response.data[0].requestTime))
+                    // .then(() => this.generateFacebookAdsText(2))
+                    // .then(() => this.delay(5000))
+                    // .catch(error => console.error('An error has occurred:', error.message));
+            },
+            delay(ms=this.defaultTimeout) {
+                return new Promise(resolve => setTimeout(resolve, ms)); 
             },
             generateFacebookAdsText(prompt_id) {
                 console.log('Generating text...');
@@ -247,22 +256,35 @@ function runVue(avatars, solutions) {
 
                 return axios.post(endpoint, text);
             },
-            generateCopies() {
-                this.generateFacebookAdsText(1)
-                    .then(() => this.generateFacebookAdsText(2))
-                    .then(() => this.delay(5000))
-                    .then(() => this.checkCopyReady())
-                    .catch(error => console.error('An error has occurred:', error.message));
-            },
-            delay(ms) {
-                return new Promise(resolve => setTimeout(resolve, ms)); 
-            },
-            checkCopyReady() {
-                const endpoint = apiEndpoints.copies;
-                console.log(endpoint);
+            async checkCopyReady(requestedTime, maxTries=this.defaultMaxTries, timeout=this.defaultTimeout) {
+                // Check whether the copy is ready (i.e. the copy with the given request time exists)
+                // If not, wait a while and check again
+                // Keep trying until either the copy is ready or max tries is reached
+                const copy = null;
+                let tries = 0;
+                while (tries < maxTries) {
+                    const endpoint = apiEndpoints.copies + '?requestedTime=' + requestedTime;
+                    // console.log(endpoint);
+                    const response = await axios.get(endpoint);
 
-                axios.get(endpoint)
-                    .then(response => this.text1 = response.data[0].copy)
+                    // Check if there's a copy with the matching requestTime
+                    if (Array.isArray(response.data)) {
+                        // Use Array.find to locate the object with the matching requestTime
+                        copy = response.data.find(copy => copy.requestTime === requestTime);
+                    } else if (response.data.requestTime === requestTime) {
+                        // If response.data is a single object, check if its requestTime matches
+                        copy = response.data;
+                    }
+
+                    // If a copy with the matching requestTime is found, break out of the loop
+                    if (copy) {
+                        break;
+                    } else {
+                        await this.delay(timeout);
+                        tries++;
+                    }
+                }
+                return copy;
             },
             copyText1() {
                 const text1 = document.getElementById('text1').innerText;
