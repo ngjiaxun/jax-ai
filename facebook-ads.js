@@ -76,7 +76,7 @@ function runVue(avatars, solutions) {
                 desireSuggestionIndex: 3, // The starting index for the desire suggestions
 
                 tries: 0, // Current number of tries to load the avatar
-                defaultMaxTries: 10, // The default maximum number of times to try to load something
+                defaultMaxTries: 5, // The default maximum number of times to try to load something
                 defaultTimeout: 5000, // The default amount of time to wait before trying to load something again
                 loadingMessages: LOADING_MESSAGES,
                 takingTooLongMessage: TAKING_TOO_LONG_MESSAGE,
@@ -251,6 +251,7 @@ function runVue(avatars, solutions) {
                 // console.log(endpoint);
 
                 this.copies.text1.requestedTime = new Date().toISOString();
+                console.log('Requested time:', this.copies.text1.requestedTime);
 
                 const text = {
                     avatar: this.avatar.id,
@@ -270,7 +271,7 @@ function runVue(avatars, solutions) {
                 // Keep trying until either the copy is ready or max tries is reached
                 let tries = 0;
                 while (tries < maxTries) {
-                    const endpoint = apiEndpoints.copies + '?requestedTime=' + copy.requestedTime;
+                    const endpoint = apiEndpoints.copies + '?requested_time=' + copy.requestedTime;
                     console.log(endpoint);
                     const response = await axios.get(endpoint);
                     console.log('Response:', response.data);
