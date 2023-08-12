@@ -87,8 +87,16 @@ function runVue(avatars, solutions) {
                 isObjectionsCheckboxChecked: true,
                 isStyleCheckboxChecked: true,
 
-                text1: 'Facebook text #1',
-                text2: 'Facebook text #2'
+                generatedCopies: {
+                    text1: {
+                        requestedTime: null,
+                        copy: 'Text #1'
+                    },
+                    text2: {
+                        requestedTime: null,
+                        copy: 'Text #2'
+                    }
+                }
             }
         },
         computed: {
@@ -226,7 +234,7 @@ function runVue(avatars, solutions) {
             },
             generateCopies() {
                 this.generateFacebookAdsText(1)
-                    .then(response => console.log(response.data[0].requestTime))
+                    .then(response => console.log(this.generateCopies.text1.requestedTime))
                     .catch(error => console.error(logJSON('Error:', error.response.data)));
                     // .then(response => this.checkCopyReady(response.data[0].requestTime))
                     // .then(() => this.generateFacebookAdsText(2))
@@ -241,15 +249,17 @@ function runVue(avatars, solutions) {
 
                 const endpoint = apiEndpoints.facebookAdsText;
                 // console.log(endpoint);
-;
+
+                this.generateCopies.text1.requestedTime = new Date().toISOString();
+
                 const text = {
                     avatar: this.avatar.id,
                     ...this.avatar,
                     ...this.solution,
                     prompt_id: prompt_id,
-                    requested_time: new Date().toISOString()
+                    requested_time: this.generateCopies.text1.requestedTime
                 }
-                logJSON('Text:', text);
+                // logJSON('Text:', text);
 
                 return axios.post(endpoint, text);
             },
