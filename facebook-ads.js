@@ -230,7 +230,7 @@ function runVue(avatars, solutions) {
                 this.solution.style = this.isStyleCheckboxChecked ? this.solution.style : this.originalSolution.style;
                 axios.patch(endpoint, this.solution)
                     .then(response => console.log('Solution updated...'))
-                    .catch(error => console.error('Error updating solution:', error.message));
+                    .catch(error => console.error('Error updating solution:', error));
             },
             generateCopies() {
                 this.generateFacebookAdsText(1)
