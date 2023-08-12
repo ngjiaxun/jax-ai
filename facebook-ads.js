@@ -260,7 +260,7 @@ function runVue(avatars, solutions) {
                     prompt_id: prompt_id,
                     requested_time: this.copies.text1.requestedTime
                 }
-                // logJSON('Text:', text);
+                logJSON('Text:', text);
 
                 return axios.post(endpoint, text)
                     .then(response => this.checkCopyReady(this.copies.text1));
