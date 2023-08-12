@@ -250,7 +250,7 @@ function runVue(avatars, solutions) {
                 const endpoint = apiEndpoints.facebookAdsText;
                 // console.log(endpoint);
 
-                this.generateCopies.text1.requestedTime = new Date().toISOString();
+                this.generatedCopies.text1.requestedTime = new Date().toISOString();
 
                 const text = {
                     avatar: this.avatar.id,
