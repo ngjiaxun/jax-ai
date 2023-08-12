@@ -248,7 +248,7 @@ function runVue(avatars, solutions) {
                     ...this.solution,
                     prompt_id: prompt_id
                 }
-                // logJSON('Text:', text);
+                logJSON('Text:', text);
 
                 return axios.post(endpoint, text);
             },
