@@ -241,12 +241,13 @@ function runVue(avatars, solutions) {
 
                 const endpoint = apiEndpoints.facebookAdsText;
                 // console.log(endpoint);
-
+;
                 const text = {
                     avatar: this.avatar.id,
                     ...this.avatar,
                     ...this.solution,
-                    prompt_id: prompt_id
+                    prompt_id: prompt_id,
+                    requestedTime: new Date().toISOString()
                 }
                 logJSON('Text:', text);
 
