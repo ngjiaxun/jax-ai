@@ -87,14 +87,14 @@ function runVue(avatars, solutions) {
                 isObjectionsCheckboxChecked: true,
                 isStyleCheckboxChecked: true,
 
-                generatedCopies: {
+                copies: {
                     text1: {
-                        requestedTime: null,
-                        copy: 'Text #1'
+                        requestedTime: undefined,
+                        copy: ''
                     },
                     text2: {
-                        requestedTime: null,
-                        copy: 'Text #2'
+                        requestedTime: undefined,
+                        copy: ''
                     }
                 }
             }
@@ -234,9 +234,9 @@ function runVue(avatars, solutions) {
             },
             generateCopies() {
                 this.generateFacebookAdsText(1)
-                    .then(response => console.log(this.generatedCopies.text1.requestedTime))
+                    .then(response => console.log(this.copies.text1.requestedTime))
                     .catch(error => console.error('An error has occurred:', error.message));
-                    // .then(response => this.checkCopyReady(response.data[0].requestTime))
+                    // .then(response => this.checkCopyReady(response.data[0].requested_time))
                     // .then(() => this.generateFacebookAdsText(2))
                     // .then(() => this.delay(5000))
                     // .catch(error => console.error('An error has occurred:', error.message));
@@ -250,40 +250,40 @@ function runVue(avatars, solutions) {
                 const endpoint = apiEndpoints.facebookAdsText;
                 // console.log(endpoint);
 
-                this.generatedCopies.text1.requestedTime = new Date().toISOString();
+                this.copies.text1.requestedTime = new Date().toISOString();
 
                 const text = {
                     avatar: this.avatar.id,
                     ...this.avatar,
                     ...this.solution,
                     prompt_id: prompt_id,
-                    requested_time: this.generatedCopies.text1.requestedTime
+                    requested_time: this.copies.text1.requestedTime
                 }
                 // logJSON('Text:', text);
 
-                return axios.post(endpoint, text);
+                return axios.post(endpoint, text)
+                    .then(response => this.checkCopyReady(this.copies.text1));
             },
-            async checkCopyReady(requestedTime, maxTries=this.defaultMaxTries, timeout=this.defaultTimeout) {
+            async checkCopyReady(copy, maxTries=this.defaultMaxTries, timeout=this.defaultTimeout) {
                 // Check whether the copy is ready (i.e. the copy with the given request time exists)
                 // If not, wait a while and check again
                 // Keep trying until either the copy is ready or max tries is reached
-                const copy = null;
                 let tries = 0;
                 while (tries < maxTries) {
-                    const endpoint = apiEndpoints.copies + '?requestedTime=' + requestedTime;
+                    const endpoint = apiEndpoints.copies + '?requestedTime=' + copy.requestedTime;
                     // console.log(endpoint);
                     const response = await axios.get(endpoint);
 
-                    // Check if there's a copy with the matching requestTime
+                    // Check if there's a copy with the matching requested_time
                     if (Array.isArray(response.data)) {
-                        // Use Array.find to locate the object with the matching requestTime
-                        copy = response.data.find(copy => copy.requestTime === requestTime);
-                    } else if (response.data.requestTime === requestTime) {
-                        // If response.data is a single object, check if its requestTime matches
-                        copy = response.data;
+                        // Use Array.find to locate the object with the matching requested_time
+                        copy.copy = response.data.find(obj => obj.requested_time === requestedTime).copy;
+                    } else if (response.data.requested_time === requestedTime) {
+                        // If response.data is a single object, check if its requested_time matches
+                        copy.copy = response.data.copy;
                     }
 
-                    // If a copy with the matching requestTime is found, break out of the loop
+                    // If a copy with the matching requested_time is found, break out of the loop
                     if (copy) {
                         break;
                     } else {
