@@ -90,11 +90,13 @@ function runVue(avatars, solutions) {
                 copies: {
                     text1: {
                         requestedTime: undefined,
-                        copy: ''
+                        copy: '',
+                        generating: false // Whether the copy is currently being generated (for the loading animation)
                     },
                     text2: {
                         requestedTime: undefined,
-                        copy: ''
+                        copy: '',
+                        generating: false
                     }
                 }
             }
@@ -288,9 +290,10 @@ function runVue(avatars, solutions) {
             async checkCopyReady(copy, maxTries=this.defaultMaxTries, timeout=this.defaultTimeout) {
                 // Check whether the copy is ready by querying its requested timestamp
                 // If not, wait a while and keep trying until either the copy is ready or max tries is reached
+                console.log('Checking copy ready...', copy.requestedTime)
+                copy.generating = true; // Show the 'generating' animation
                 let tries = 0;
                 while (tries < maxTries) {
-                    console.log('Tries:', tries+1, '/', maxTries);
                     const endpoint = apiEndpoints.copies + '?requested_time=' + copy.requestedTime;
                     const response = await axios.get(endpoint);
                     if (response.data.length > 0) {
@@ -299,8 +302,13 @@ function runVue(avatars, solutions) {
                     } else {
                         await this.delay(timeout);
                         tries++;
+                        console.log('Tries:', tries, '/', maxTries);
                     }
                 }
+                if (tries >= maxTries) {
+                    console.error('Max tries reached. Copy not ready.');
+                }
+                copy.generating = false; // Hide the 'generating' animation
             },
             copyText1() {
                 const text1 = document.getElementById('text1').innerText;
@@ -313,7 +321,7 @@ function runVue(avatars, solutions) {
             const option = document.querySelector('#avatar-select-field').options[1] // The option after 'Select one...' in the avatar select field
             this.avatarSelection = option.value;
             this.avatarSelectionChanged(); // Manually call the avatar selection changed event
-            this.loading = false;
+            this.loading = false; // Hide the page loading animation
         }
     }).mount('#app')
 }
