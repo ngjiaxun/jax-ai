@@ -275,7 +275,7 @@ function runVue(avatars, solutions) {
                     // console.log(endpoint);
                     const response = await axios.get(endpoint);
 
-                    if (response.data.length > 0 && response.data[0].requested_time === copy.requestedTime) {
+                    if (response.data.length > 0) {
                         console.log('Requested time on server:', response.data[0].requested_time);
                         console.log('Requested time on client:', copy.requestedTime);
                         console.log('Are they equal:', response.data[0].requested_time === copy.requestedTime);
