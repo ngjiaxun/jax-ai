@@ -248,6 +248,7 @@ function runVue(avatars, solutions) {
                 }
 
                 this.generateCopy(this.copies.text1, apiEndpoints.facebookAdsText, text1Payload)
+                    .then(() => this.generateCopy(this.copies.text2, apiEndpoints.facebookAdsText, text2Payload))
                     .catch(error => console.error('An error has occurred:', error.response.data));
                     // .then(response => this.checkCopyReady(response.data[0].requested_time))
                     // .then(() => this.generateFacebookAdsText(2))
@@ -289,6 +290,7 @@ function runVue(avatars, solutions) {
                 // If not, wait a while and keep trying until either the copy is ready or max tries is reached
                 let tries = 0;
                 while (tries < maxTries) {
+                    console.log('Tries:', tries+1, '/', maxTries);
                     const endpoint = apiEndpoints.copies + '?requested_time=' + copy.requestedTime;
                     const response = await axios.get(endpoint);
                     if (response.data.length > 0) {
