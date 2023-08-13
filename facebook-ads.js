@@ -233,8 +233,21 @@ function runVue(avatars, solutions) {
                     .catch(error => console.error('Error updating solution:', error));
             },
             generateCopies() {
-                this.generateFacebookAdsText(1)
-                    .then(response => console.log(this.copies.text1.requestedTime))
+                const commonPayload = {
+                    avatar: this.avatar.id,
+                    ...this.avatar,
+                    ...this.solution
+                }
+                const text1Payload = {
+                    ...commonPayload,
+                    prompt_id: 1
+                }
+                const text2Payload = {
+                    ...commonPayload,
+                    prompt_id: 2
+                }
+
+                this.generateCopy(this.copies.text1, apiEndpoints.facebookAdsText, text1Payload)
                     .catch(error => console.error('An error has occurred:', error.response.data));
                     // .then(response => this.checkCopyReady(response.data[0].requested_time))
                     // .then(() => this.generateFacebookAdsText(2))
@@ -244,41 +257,41 @@ function runVue(avatars, solutions) {
             delay(ms=this.defaultTimeout) {
                 return new Promise(resolve => setTimeout(resolve, ms)); 
             },
-            generateFacebookAdsText(prompt_id) {
-                console.log('Generating text...');
+            // generateFacebookAdsText(prompt_id) {
+            //     console.log('Generating text...');
 
-                const endpoint = apiEndpoints.facebookAdsText;
-                // console.log(endpoint);
+            //     const endpoint = apiEndpoints.facebookAdsText;
+            //     // console.log(endpoint);
 
-                this.copies.text1.requestedTime = new Date().toISOString();
-                console.log('Requested time:', this.copies.text1.requestedTime);
+            //     this.copies.text1.requestedTime = new Date().toISOString();
+            //     console.log('Requested time:', this.copies.text1.requestedTime);
 
-                const text = {
-                    avatar: this.avatar.id,
-                    ...this.avatar,
-                    ...this.solution,
-                    prompt_id: prompt_id,
-                    requested_time: this.copies.text1.requestedTime
-                }
-                // logJSON('Text:', text);
+            //     const text = {
+            //         avatar: this.avatar.id,
+            //         ...this.avatar,
+            //         ...this.solution,
+            //         prompt_id: prompt_id,
+            //         requested_time: this.copies.text1.requestedTime
+            //     }
+            //     // logJSON('Text:', text);
 
-                return axios.post(endpoint, text)
-                    .then(response => this.checkCopyReady(this.copies.text1));
+            //     return axios.post(endpoint, text)
+            //         .then(response => this.checkCopyReady(this.copies.text1));
+            // },
+            generateCopy(copy, endpoint, payload) {
+                copy.requestedTime = new Date().toISOString(); // Timestamp for identifying the copy after it's generated
+                payload.requested_time = copy.requestedTime;
+                return axios.post(endpoint, payload)
+                    .then(response => this.checkCopyReady(copy));
             },
             async checkCopyReady(copy, maxTries=this.defaultMaxTries, timeout=this.defaultTimeout) {
-                // Check whether the copy is ready (i.e. the copy with the given request time exists)
-                // If not, wait a while and check again
-                // Keep trying until either the copy is ready or max tries is reached
+                // Check whether the copy is ready by querying its requested timestamp
+                // If not, wait a while and keep trying until either the copy is ready or max tries is reached
                 let tries = 0;
                 while (tries < maxTries) {
                     const endpoint = apiEndpoints.copies + '?requested_time=' + copy.requestedTime;
-                    // console.log(endpoint);
                     const response = await axios.get(endpoint);
-
                     if (response.data.length > 0) {
-                        console.log('Requested time on server:', response.data[0].requested_time);
-                        console.log('Requested time on client:', copy.requestedTime);
-                        console.log('Are they equal:', response.data[0].requested_time === copy.requestedTime);
                         copy.copy = response.data[0].copy;
                         break;
                     } else {
