@@ -272,39 +272,17 @@ function runVue(avatars, solutions) {
                 let tries = 0;
                 while (tries < maxTries) {
                     const endpoint = apiEndpoints.copies + '?requested_time=' + copy.requestedTime;
-                    console.log(endpoint);
+                    // console.log(endpoint);
                     const response = await axios.get(endpoint);
-                    console.log('Response:', response.data);
-                    let responseData = null;
 
-                    if (response.data.length > 0) {
-                        console.log('Response data requested time:', new Date(response.data[0].requested_time));
-                        console.log('Copy requested time:', new Date(copy.requestedTime));
-                        console.log('Equal or not:', new Date(response.data[0].requested_time) == new Date(copy.requestedTime));
-                    }
-
-                    // Check if there's a copy with the matching requested_time
-                    if (Array.isArray(response.data)) {
-                        // Use Array.find to locate the object with the matching requested_time
-                        // console.log('Array of copies:', response.data);
-                        responseData = response.data.find(obj => new Date(obj.requested_time) == new Date(copy.requestedTime));
-                        // console.log('Response data:', responseData);
-                    } else if (response.data.requested_time === copy.requestedTime) {
-                        // If response.data is a single object, check if its requested_time matches
-                        // console.log('Single copy:', response.data);
-                        responseData = response.data;
-                    }
-
-                    // If a copy with the matching requested_time is found, break out of the loop
-                    if (responseData) {
-                        copy.copy = responseData.copy;
+                    if (response.data.length > 0 && response.data[0].requested_time === copy.requestedTime) {
+                        copy.copy = response.data[0].copy;
                         break;
                     } else {
                         await this.delay(timeout);
                         tries++;
                     }
                 }
-                return copy;
             },
             copyText1() {
                 const text1 = document.getElementById('text1').innerText;
