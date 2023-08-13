@@ -91,12 +91,12 @@ function runVue(avatars, solutions) {
                     text1: {
                         requestedTime: undefined,
                         copy: '',
-                        generating: false // Whether the copy is currently being generated (for the loading animation)
+                        loading: false // Whether the copy is currently being generated (for the loading animation)
                     },
                     text2: {
                         requestedTime: undefined,
                         copy: '',
-                        generating: false
+                        loading: false
                     }
                 }
             }
@@ -260,27 +260,6 @@ function runVue(avatars, solutions) {
             delay(ms=this.defaultTimeout) {
                 return new Promise(resolve => setTimeout(resolve, ms)); 
             },
-            // generateFacebookAdsText(prompt_id) {
-            //     console.log('Generating text...');
-
-            //     const endpoint = apiEndpoints.facebookAdsText;
-            //     // console.log(endpoint);
-
-            //     this.copies.text1.requestedTime = new Date().toISOString();
-            //     console.log('Requested time:', this.copies.text1.requestedTime);
-
-            //     const text = {
-            //         avatar: this.avatar.id,
-            //         ...this.avatar,
-            //         ...this.solution,
-            //         prompt_id: prompt_id,
-            //         requested_time: this.copies.text1.requestedTime
-            //     }
-            //     // logJSON('Text:', text);
-
-            //     return axios.post(endpoint, text)
-            //         .then(response => this.checkCopyReady(this.copies.text1));
-            // },
             generateCopy(copy, endpoint, payload) {
                 copy.requestedTime = new Date().toISOString(); // Timestamp for identifying the copy after it's generated
                 payload.requested_time = copy.requestedTime;
@@ -291,7 +270,7 @@ function runVue(avatars, solutions) {
                 // Check whether the copy is ready by querying its requested timestamp
                 // If not, wait a while and keep trying until either the copy is ready or max tries is reached
                 console.log('Checking copy ready...', copy.requestedTime)
-                copy.generating = true; // Show the 'generating' animation
+                copy.loading = true; // Show the 'generating' animation
                 let tries = 0;
                 while (tries < maxTries) {
                     const endpoint = apiEndpoints.copies + '?requested_time=' + copy.requestedTime;
@@ -308,7 +287,7 @@ function runVue(avatars, solutions) {
                 if (tries >= maxTries) {
                     console.error('Max tries reached. Copy not ready.');
                 }
-                copy.generating = false; // Hide the 'generating' animation
+                copy.loading = false; // Hide the 'generating' animation
             },
             copyText1() {
                 const text1 = document.getElementById('text1').innerText;
