@@ -212,6 +212,7 @@ function runVue(avatars, solutions) {
             },
             generateCopies() {
                 this.clearCopies();
+
                 const commonPayload = {
                     avatar: this.avatar.id,
                     ...this.avatar,
@@ -225,7 +226,6 @@ function runVue(avatars, solutions) {
                     ...commonPayload,
                     prompt_id: 2
                 }
-
                 this.generateCopy(this.copies.text1, apiEndpoints.facebookAdsText, text1Payload)
                     .then(() => this.generateCopy(this.copies.text2, apiEndpoints.facebookAdsText, text2Payload))
                     .catch(error => console.error('An error has occurred:', error.response.data));
@@ -246,6 +246,9 @@ function runVue(avatars, solutions) {
                 for (let i = 0; i < COPY_COUNTDOWN_MESSAGE.length; i++) {
                     this.copyCountdownMessage += COPY_COUNTDOWN_MESSAGE[i];
                     await this.delay(1000);
+                    if (!this.areCopiesLoading) {
+                        break;
+                    }
                 }
             },
             generateCopy(copy, endpoint, payload) {
