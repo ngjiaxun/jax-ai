@@ -52,7 +52,7 @@ function runVue(avatars, solutions) {
                 defaultTimeout: 5000, // The default amount of time to wait before trying to load something again
                 loadingMessages: LOADING_MESSAGES,
                 takingTooLongMessage: TAKING_TOO_LONG_MESSAGE,
-                copyCountdownMessage: COPY_COUNTDOWN_MESSAGE[0],
+                copyCountdownMessage: '', // The message to display while the copy is being generated
 
                 isIndustryCheckboxChecked: true,
                 isResultCheckboxChecked: true,
@@ -233,6 +233,13 @@ function runVue(avatars, solutions) {
             delay(ms=this.defaultTimeout) {
                 return new Promise(resolve => setTimeout(resolve, ms)); 
             },
+            async startCopyCountdownMessage() {
+                this.copyCountdownMessage = '';
+                for (let i = 0; i < COPY_COUNTDOWN_MESSAGE.length; i++) {
+                    this.copyCountdownMessage += COPY_COUNTDOWN_MESSAGE[i];
+                    await this.delay(1000);
+                }
+            },
             generateCopy(copy, endpoint, payload) {
                 copy.requestedTime = new Date().toISOString(); // Timestamp for identifying the copy after it's generated
                 payload.requested_time = copy.requestedTime;
@@ -244,6 +251,7 @@ function runVue(avatars, solutions) {
                 // If not, wait a while and keep trying until either the copy is ready or max tries is reached
                 console.log('Checking copy ready...', copy.requestedTime)
                 copy.loading = true; // Show the 'generating' animation
+                this.startCopyCountdownMessage();
                 let tries = 0;
                 while (tries < maxTries) {
                     const endpoint = apiEndpoints.copies + '?requested_time=' + copy.requestedTime;
