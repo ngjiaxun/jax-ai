@@ -11,7 +11,7 @@ const apiEndpoints = {
     solutions: 'scripts/solutions/',
     copies: 'scripts/copies/',
     facebookAdsText: 'scripts/facebookads/text/',
-    facebookAdsTemplatedText: 'scripts/facebookads/templatedtext/',
+    facebookAdsTemplatedText: 'scripts/facebookads/templatedtextv2/',
     facebookAdsHeadlines: 'scripts/facebookads/headlines/',
     facebookAdsDescriptions: 'scripts/facebookads/descriptions/'
 }
