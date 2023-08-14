@@ -71,17 +71,17 @@ function runVue(avatars, solutions) {
                         copy: '',
                         isLoading: false
                     },
-                    templatedText1: {
+                    text3: {
                         requestedTime: undefined,
                         copy: '',
                         isLoading: false
                     },
-                    templatedText2: {
+                    text4: {
                         requestedTime: undefined,
                         copy: '',
                         isLoading: false
                     },
-                    templatedText3: {
+                    text5: {
                         requestedTime: undefined,
                         copy: '',
                         isLoading: false
@@ -251,13 +251,13 @@ function runVue(avatars, solutions) {
                     ...commonPayload,
                     prompt_id: 2
                 }
-                const templatedText1Payload = {
+                const text3Payload = {
                     ...commonPayload,
                     template_id: 1
                 }
                 this.generateCopy(this.copies.text1, apiEndpoints.facebookAdsText, text1Payload)
                     .then(() => this.generateCopy(this.copies.text2, apiEndpoints.facebookAdsText, text2Payload))
-                    .then(() => this.generateCopy(this.copies.templatedText1, apiEndpoints.facebookAdsTemplatedText, templatedText1Payload))
+                    .then(() => this.generateCopy(this.copies.text3, apiEndpoints.facebookAdsTemplatedText, text3Payload))
                     .catch(error => console.error('An error has occurred:', error.response.data));
                     // .then(response => this.checkCopyReady(response.data[0].requested_time))
                     // .then(() => this.generateFacebookAdsText(2))
