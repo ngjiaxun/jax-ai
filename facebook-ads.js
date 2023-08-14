@@ -211,6 +211,7 @@ function runVue(avatars, solutions) {
                     .catch(error => console.error('Error updating solution:', error));
             },
             generateCopies() {
+                this.clearCopies();
                 const commonPayload = {
                     avatar: this.avatar.id,
                     ...this.avatar,
@@ -232,6 +233,10 @@ function runVue(avatars, solutions) {
                     // .then(() => this.generateFacebookAdsText(2))
                     // .then(() => this.delay(5000))
                     // .catch(error => console.error('An error has occurred:', error.message));
+            },
+            clearCopies() {
+                this.copies.text1.copy = '';
+                this.copies.text2.copy = '';
             },
             delay(ms=this.defaultTimeout) {
                 return new Promise(resolve => setTimeout(resolve, ms)); 
