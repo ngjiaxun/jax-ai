@@ -64,12 +64,37 @@ function runVue(avatars, solutions) {
                     text1: {
                         requestedTime: undefined,
                         copy: '',
-                        loading: false // Whether the copy is currently being generated (for the loading animation)
+                        isLoading: false // Whether the copy is currently being generated (for the loading animation)
                     },
                     text2: {
                         requestedTime: undefined,
                         copy: '',
-                        loading: false
+                        isLoading: false
+                    },
+                    templatedText1: {
+                        requestedTime: undefined,
+                        copy: '',
+                        isLoading: false
+                    },
+                    templatedText2: {
+                        requestedTime: undefined,
+                        copy: '',
+                        isLoading: false
+                    },
+                    templatedText3: {
+                        requestedTime: undefined,
+                        copy: '',
+                        isLoading: false
+                    },
+                    headlines: {
+                        requestedTime: undefined,
+                        copy: '',
+                        isLoading: false
+                    },
+                    descriptions: {
+                        requestedTime: undefined,
+                        copy: '',
+                        isLoading: false
                     }
                 }
             }
@@ -241,12 +266,12 @@ function runVue(avatars, solutions) {
             delay(ms=this.defaultTimeout) {
                 return new Promise(resolve => setTimeout(resolve, ms)); 
             },
-            async startCopyCountdownMessage() {
+            async startCopyCountdownMessage(copy) {
                 this.copyCountdownMessage = '';
                 for (let i = 0; i < COPY_COUNTDOWN_MESSAGE.length; i++) {
                     this.copyCountdownMessage += COPY_COUNTDOWN_MESSAGE[i];
                     await this.delay(1000);
-                    if (!this.areCopiesLoading) {
+                    if (!copy.isLoading) {
                         break;
                     }
                 }
@@ -261,8 +286,8 @@ function runVue(avatars, solutions) {
                 // Check whether the copy is ready by querying its requested timestamp
                 // If not, wait a while and keep trying until either the copy is ready or max tries is reached
                 console.log('Checking copy ready...', copy.requestedTime)
-                copy.loading = true; // Show the 'generating' animation
-                this.startCopyCountdownMessage();
+                copy.isLoading = true; // Show the 'generating' animation
+                this.startCopyCountdownMessage(copy);
                 let tries = 0;
                 while (tries < maxTries) {
                     const endpoint = apiEndpoints.copies + '?requested_time=' + copy.requestedTime;
@@ -279,7 +304,7 @@ function runVue(avatars, solutions) {
                 if (tries >= maxTries) {
                     console.error('Max tries reached. Copy not ready.');
                 }
-                copy.loading = false; // Hide the 'generating' animation
+                copy.isLoading = false; // Hide the 'generating' animation
             },
             copyText1() {
                 const text1 = document.getElementById('text1').innerText;
