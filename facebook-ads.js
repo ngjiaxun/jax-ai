@@ -255,9 +255,27 @@ function runVue(avatars, solutions) {
                     ...commonPayload,
                     template_id: 1
                 }
+                const text4Payload = {
+                    ...commonPayload,
+                    template_id: 2
+                }
+                const text5Payload = {
+                    ...commonPayload,
+                    template_id: 3
+                }
+                const headlinesPayload = {
+                    ...commonPayload,
+                }
+                const descriptionsPayload = {
+                    ...commonPayload,
+                }
                 this.generateCopy(this.copies.text1, apiEndpoints.facebookAdsText, text1Payload)
                     .then(() => this.generateCopy(this.copies.text2, apiEndpoints.facebookAdsText, text2Payload))
                     .then(() => this.generateCopy(this.copies.text3, apiEndpoints.facebookAdsTemplatedText, text3Payload))
+                    .then(() => this.generateCopy(this.copies.text4, apiEndpoints.facebookAdsTemplatedText, text4Payload))
+                    .then(() => this.generateCopy(this.copies.text5, apiEndpoints.facebookAdsTemplatedText, text5Payload))
+                    .then(() => this.generateCopy(this.copies.headlines, apiEndpoints.facebookAdsHeadlines, headlinesPayload))
+                    .then(() => this.generateCopy(this.copies.descriptions, apiEndpoints.facebookAdsDescriptions, descriptionsPayload))
                     .catch(error => console.error('An error has occurred:', error.response.data));
                     // .then(response => this.checkCopyReady(response.data[0].requested_time))
                     // .then(() => this.generateFacebookAdsText(2))
