@@ -121,7 +121,7 @@ function runVue(avatars, solutions) {
             isStyleCheckboxDisabled() {
                 return this.solution.style === this.originalSolution.style;
             },
-            areCopiesLoading() {
+            areCopiesLoading() { // The 'generate' button will be hidden while the copies are loading
                 return this.copies.text1.loading || this.copies.text2.loading;
             }
         },
@@ -251,8 +251,13 @@ function runVue(avatars, solutions) {
                     ...commonPayload,
                     prompt_id: 2
                 }
+                const templatedText1Payload = {
+                    ...commonPayload,
+                    template_id: 1
+                }
                 this.generateCopy(this.copies.text1, apiEndpoints.facebookAdsText, text1Payload)
                     .then(() => this.generateCopy(this.copies.text2, apiEndpoints.facebookAdsText, text2Payload))
+                    .then(() => this.generateCopy(this.copies.templatedText1, apiEndpoints.facebookAdsTemplatedText, templatedText1Payload))
                     .catch(error => console.error('An error has occurred:', error.response.data));
                     // .then(response => this.checkCopyReady(response.data[0].requested_time))
                     // .then(() => this.generateFacebookAdsText(2))
