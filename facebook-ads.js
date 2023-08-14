@@ -52,6 +52,7 @@ function runVue(avatars, solutions) {
                 defaultTimeout: 5000, // The default amount of time to wait before trying to load something again
                 loadingMessages: LOADING_MESSAGES,
                 takingTooLongMessage: TAKING_TOO_LONG_MESSAGE,
+                copyCountdownMessage: COPY_COUNTDOWN_MESSAGE[0],
 
                 isIndustryCheckboxChecked: true,
                 isResultCheckboxChecked: true,

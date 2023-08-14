@@ -26,7 +26,7 @@ const LOADING_MESSAGES = [
     'Tick-tock! Our AI is dancing the cha-cha with the thesaurus for some fancy synonyms.'
 ];
 const TAKING_TOO_LONG_MESSAGE = 'Oops, it looks like our servers are busy! Please try again in a few minutes...';
-const READY_COUNTDOWN_MESSAGE = [
+const COPY_COUNTDOWN_MESSAGE = [
     'Ready in ',
     '5',
     '.',
