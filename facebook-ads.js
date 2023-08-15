@@ -253,15 +253,15 @@ function runVue(avatars, solutions) {
                 }
                 const text3Payload = {
                     ...commonPayload,
-                    template_id: 1
+                    template_id: 0
                 }
                 const text4Payload = {
                     ...commonPayload,
-                    template_id: 2
+                    template_id: 1
                 }
                 const text5Payload = {
                     ...commonPayload,
-                    template_id: 3
+                    template_id: 2
                 }
                 const headlinesPayload = {
                     ...commonPayload,
