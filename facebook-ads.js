@@ -48,7 +48,7 @@ function runVue(avatars, solutions) {
                 desireSuggestionIndex: 3, // The starting index for the desire suggestions
 
                 tries: 0, // Current number of tries to load the avatar
-                defaultMaxTries: 5, // The default maximum number of times to try to load something
+                defaultMaxTries: 7, // The default maximum number of times to try to load something
                 defaultTimeout: 5000, // The default amount of time to wait before trying to load something again
                 loadingMessages: LOADING_MESSAGES,
                 takingTooLongMessage: TAKING_TOO_LONG_MESSAGE,
