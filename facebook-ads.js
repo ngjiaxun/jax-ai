@@ -54,11 +54,11 @@ function runVue(avatars, solutions) {
                 takingTooLongMessage: TAKING_TOO_LONG_MESSAGE,
                 copyCountdownMessage: '', // The message to display while the copy is being generated
 
-                isIndustryCheckboxChecked: true,
-                isResultCheckboxChecked: true,
-                isCtaCheckboxChecked: true,
-                isObjectionsCheckboxChecked: true,
-                isStyleCheckboxChecked: true,
+                // isIndustryCheckboxChecked: true,
+                // isResultCheckboxChecked: true,
+                // isCtaCheckboxChecked: true,
+                // isObjectionsCheckboxChecked: true,
+                // isStyleCheckboxChecked: true,
 
                 copies: {
                     text1: {
@@ -106,21 +106,21 @@ function runVue(avatars, solutions) {
             isSelectOne() {
                 return this.avatarSelection === SELECT_ONE;
             },
-            isIndustryCheckboxDisabled() {
-                return this.solution.industry === this.originalSolution.industry;
-            },
-            isResultCheckboxDisabled() {
-                return this.solution.result === this.originalSolution.result;
-            },
-            isCtaCheckboxDisabled() {
-                return this.solution.lead_magnet === this.originalSolution.lead_magnet;
-            },
-            isObjectionsCheckboxDisabled() {
-                return this.solution.objections === this.originalSolution.objections;
-            },
-            isStyleCheckboxDisabled() {
-                return this.solution.style === this.originalSolution.style;
-            },
+            // isIndustryCheckboxDisabled() {
+            //     return this.solution.industry === this.originalSolution.industry;
+            // },
+            // isResultCheckboxDisabled() {
+            //     return this.solution.result === this.originalSolution.result;
+            // },
+            // isCtaCheckboxDisabled() {
+            //     return this.solution.lead_magnet === this.originalSolution.lead_magnet;
+            // },
+            // isObjectionsCheckboxDisabled() {
+            //     return this.solution.objections === this.originalSolution.objections;
+            // },
+            // isStyleCheckboxDisabled() {
+            //     return this.solution.style === this.originalSolution.style;
+            // },
             areCopiesLoading() { // The 'generate' button will be hidden while the copies are loading
                 return this.copies.text1.loading || this.copies.text2.loading;
             }
@@ -226,11 +226,11 @@ function runVue(avatars, solutions) {
                 // console.log(endpoint);
 
                 // Update only the fields with 'set default' checkbox checked
-                this.solution.industry = this.isIndustryCheckboxChecked ? this.solution.industry : this.originalSolution.industry;
-                this.solution.result = this.isResultCheckboxChecked ? this.solution.result : this.originalSolution.result;
-                this.solution.lead_magnet = this.isCtaCheckboxChecked ? this.solution.lead_magnet : this.originalSolution.lead_magnet;
-                this.solution.objections = this.isObjectionsCheckboxChecked ? this.solution.objections : this.originalSolution.objections;
-                this.solution.style = this.isStyleCheckboxChecked ? this.solution.style : this.originalSolution.style;
+                // this.solution.industry = this.isIndustryCheckboxChecked ? this.solution.industry : this.originalSolution.industry;
+                // this.solution.result = this.isResultCheckboxChecked ? this.solution.result : this.originalSolution.result;
+                // this.solution.lead_magnet = this.isCtaCheckboxChecked ? this.solution.lead_magnet : this.originalSolution.lead_magnet;
+                // this.solution.objections = this.isObjectionsCheckboxChecked ? this.solution.objections : this.originalSolution.objections;
+                // this.solution.style = this.isStyleCheckboxChecked ? this.solution.style : this.originalSolution.style;
                 axios.patch(endpoint, this.solution)
                     .then(response => console.log('Solution updated...'))
                     .catch(error => console.error('Error updating solution:', error));
