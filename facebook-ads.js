@@ -125,7 +125,7 @@ function runVue(avatars, solutions) {
             //     return this.solution.style === this.originalSolution.style;
             // },
             areCopiesLoading() { // The 'generate' button will be hidden while the copies are loading
-                return this.copies.text1.loading || this.copies.text2.loading;
+                return Object.values(this.copies).some(copy => copy.isLoading);
             }
         },
         methods: {
