@@ -1,5 +1,6 @@
 // Requires authentication.js
 // Requires settings.js
+// Requires inspirational-quotes.js
 
 modifyTags();
 modifyAttributes();
@@ -37,6 +38,8 @@ function runVue(avatars, solutions) {
     createApp({
         data() {
             return {
+                quoteOfTheDay: getQuoteOfTheDay(),
+
                 loading: true, // Whether the page is loading
                 avatars: avatars,
                 solution: solutions[0],
