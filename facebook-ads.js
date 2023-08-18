@@ -113,6 +113,9 @@ function runVue(avatars, solutions) {
             isSelectOne() {
                 return this.avatarSelection === SELECT_ONE;
             },
+            areCopiesLoading() { // The 'generate' button will be hidden while the copies are loading
+                return Object.values(this.copies).some(copy => copy.isLoading);
+            } 
             // isIndustryCheckboxDisabled() {
             //     return this.solution.industry === this.originalSolution.industry;
             // },
@@ -127,10 +130,7 @@ function runVue(avatars, solutions) {
             // },
             // isStyleCheckboxDisabled() {
             //     return this.solution.style === this.originalSolution.style;
-            // },
-            areCopiesLoading() { // The 'generate' button will be hidden while the copies are loading
-                return Object.values(this.copies).some(copy => copy.isLoading);
-            } 
+            // }
         },
         methods: {
             avatarSelectionChanged() {
@@ -184,8 +184,6 @@ function runVue(avatars, solutions) {
                 this.createAvatar();
             },
             createAvatar() {
-                // $('#processing-animation').fadeIn(500);
-                // this.checkAvatarCreated(null);
                 const payload = {
                     "industry": this.solution.industry,
                     "target_market": this.avatarName
@@ -319,11 +317,19 @@ function runVue(avatars, solutions) {
                 }
                 copy.isLoading = false; // Hide the 'generating' animation
             },
-            copyText1() {
-                const text1 = document.getElementById('text1').innerText;
-                navigator.clipboard.writeText(text1)
-                    .then(() => console.log('Text 1 copied to clipboard:', text1))
-                    .catch(error => console.error('Error copying text 1 to clipboard:', error.message));
+            // copyText1() {
+            //     const text1 = document.getElementById('text1').innerText;
+            //     navigator.clipboard.writeText(text1)
+            //         .then(() => console.log('Text 1 copied to clipboard:', text1))
+            //         .catch(error => console.error('Error copying text 1 to clipboard:', error.message));
+            // },
+            copyClicked(event) {
+                const button = event.currentTarget;
+                const copyId = button.dataset.copyId;
+                const text = document.getElementById(copyId).innerText;
+                navigator.clipboard.writeText(text)
+                    .then(() => console.log('Text copied to clipboard:', text))
+                    .catch(error => console.error('Error copying text to clipboard:', error.message));
             }
         },
         mounted() {
