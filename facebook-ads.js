@@ -346,12 +346,11 @@ function runVue(avatars, solutions) {
                 // Check whether the copy is ready by querying its requested timestamp
                 // If not, wait a while and keep trying until either the copy is ready or max tries is reached
                 console.log('Checking copy ready...', copy.requestedTime)
+                endpoint += '?requested_time=' + copy.requestedTime;
                 copy.isLoading = true; // Show the 'generating' animation
                 this.startCopyCountdownMessage(copy);
                 let tries = 0;
                 while (tries < maxTries) {
-                    endpoint = endpoint + '?requested_time=' + copy.requestedTime;
-                    console.log('Endpoint:', endpoint);
                     const response = await axios.get(endpoint);
                     if (response.data.length > 0) {
                         copy.copy = response.data[0].copy;
