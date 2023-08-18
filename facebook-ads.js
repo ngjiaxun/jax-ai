@@ -317,19 +317,8 @@ function runVue(avatars, solutions) {
                 }
                 copy.isLoading = false; // Hide the 'generating' animation
             },
-            // copyText1() {
-            //     const text1 = document.getElementById('text1').innerText;
-            //     navigator.clipboard.writeText(text1)
-            //         .then(() => console.log('Text 1 copied to clipboard:', text1))
-            //         .catch(error => console.error('Error copying text 1 to clipboard:', error.message));
-            // },
             copyClicked(event) {
-                const button = event.currentTarget;
-                const copyId = button.dataset.copyid;
-                const text = document.getElementById(copyId).innerText;
-                navigator.clipboard.writeText(text)
-                    .then(() => console.log('Text copied to clipboard:', text))
-                    .catch(error => console.error('Error copying text to clipboard:', error.message));
+                copyToClipboard(event);
             }
         },
         mounted() {
