@@ -181,62 +181,45 @@ function runVue(avatars, solutions) {
                 }
             },
             createClicked() {
-                console.log('Create clicked...');
-                const data = {
+                // console.log('Create clicked...');
+                // const data = {
+                //     "industry": this.solution.industry,
+                //     "target_market": this.avatarName
+                // }
+                // axios.post(apiEndpoints.avatars, data)
+                //     .then(this.createAvatar)
+                //     .catch(error => console.error('Error creating avatar:', error.message));
+                this.createAvatar();
+            },
+            createAvatar() {
+                // $('#processing-animation').fadeIn(500);
+                // this.checkAvatarCreated(null);
+                const payload = {
                     "industry": this.solution.industry,
                     "target_market": this.avatarName
                 }
-                axios.post(apiEndpoints.avatars, data)
-                    .then(this.createAvatar)
-                    .catch(error => console.error('Error creating avatar:', error.message));
+                this.generateCopy(this.copies.avatar, apiEndpoints.avatars, payload)
+                    .then(() => this.checkCopyReady(this.copies.avatar, apiEndpoints.avatars));
             },
-            createAvatar(response) {
-                $('#processing-animation').fadeIn(500);
-                this.checkAvatarCreated(null);
-            },
-            checkAvatarCreated(response) {
-                const maxTries = 5; // Number of times to try to load the avatar
-                const timeout = 5000; // How long to wait before checking again
-                const numAvatars = response ? response.data.length : 0;
-                console.log('Number of avatars:', numAvatars);
-                $('#processing-message').text(this.loadingMessages[this.tries]);
-                if (numAvatars > this.avatars.length) {
-                    window.location.reload();
-                } else if (this.tries < maxTries) {
-                    this.tries++;
-                    setTimeout(() => {
-                        axios.get(apiEndpoints.avatars)
-                            .then(this.checkAvatarCreated)
-                            .catch(error => console.error('Error listing avatars:', error.message));
-                    }, timeout);
-                } else {
-                    $('#processing-message').text(this.takingTooLongMessage);
-                    setTimeout(() => window.location.reload(), timeout);
-                }
-            },
-            // async checkAvatarReady(avatar, maxTries=this.defaultMaxTries, timeout=this.defaultTimeout) {
-            //     // Check whether the avatar is ready by querying its requested timestamp
-            //     // If not, wait a while and keep trying until either the avatar is ready or max tries is reached
-            //     console.log('Checking avatar ready...', avatar.requestedTime)
-            //     avatar.isLoading = true; // Show the 'generating' animation
-            //     this.startCopyCountdownMessage(avatar);
-            //     let tries = 0;
-            //     while (tries < maxTries) {
-            //         const endpoint = apiEndpoints.avatars + '?requested_time=' + avatar.requestedTime;
-            //         const response = await axios.get(endpoint);
-            //         if (response.data.length > 0) {
-            //             avatar.copy = response.data[0].copy;
-            //             break;
-            //         } else {
-            //             await this.delay(timeout);
-            //             tries++;
-            //             console.log('Tries:', tries, '/', maxTries);
-            //         }
+            // checkAvatarCreated(response) {
+            //     const maxTries = 5; // Number of times to try to load the avatar
+            //     const timeout = 5000; // How long to wait before checking again
+            //     const numAvatars = response ? response.data.length : 0;
+            //     console.log('Number of avatars:', numAvatars);
+            //     $('#processing-message').text(this.loadingMessages[this.tries]);
+            //     if (numAvatars > this.avatars.length) {
+            //         window.location.reload();
+            //     } else if (this.tries < maxTries) {
+            //         this.tries++;
+            //         setTimeout(() => {
+            //             axios.get(apiEndpoints.avatars)
+            //                 .then(this.checkAvatarCreated)
+            //                 .catch(error => console.error('Error listing avatars:', error.message));
+            //         }, timeout);
+            //     } else {
+            //         $('#processing-message').text(this.takingTooLongMessage);
+            //         setTimeout(() => window.location.reload(), timeout);
             //     }
-            //     if (tries >= maxTries) {
-            //         console.error('Max tries reached. Avatar not ready.');
-            //     }
-            //     avatar.isLoading = false; // Hide the 'generating' animation
             // },
             generateClicked() {
                 this.generateCopies();
