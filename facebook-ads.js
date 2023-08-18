@@ -326,6 +326,7 @@ function runVue(avatars, solutions) {
             copyClicked(event) {
                 const button = event.currentTarget;
                 const copyId = button.dataset.copyId;
+                console.log('Copy clicked...', copyId);
                 const text = document.getElementById(copyId).innerText;
                 navigator.clipboard.writeText(text)
                     .then(() => console.log('Text copied to clipboard:', text))
