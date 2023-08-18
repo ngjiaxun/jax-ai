@@ -181,14 +181,6 @@ function runVue(avatars, solutions) {
                 }
             },
             createClicked() {
-                // console.log('Create clicked...');
-                // const data = {
-                //     "industry": this.solution.industry,
-                //     "target_market": this.avatarName
-                // }
-                // axios.post(apiEndpoints.avatars, data)
-                //     .then(this.createAvatar)
-                //     .catch(error => console.error('Error creating avatar:', error.message));
                 this.createAvatar();
             },
             createAvatar() {
@@ -200,28 +192,9 @@ function runVue(avatars, solutions) {
                 }
                 this.generateCopy(this.copies.avatar, apiEndpoints.avatars, payload)
                     .then(() => this.checkCopyReady(this.copies.avatar, apiEndpoints.avatars))
+                    .then(() => window.location.reload())
                     .catch(error => console.error('Error creating avatar:', error.response.data));
             },
-            // checkAvatarCreated(response) {
-            //     const maxTries = 5; // Number of times to try to load the avatar
-            //     const timeout = 5000; // How long to wait before checking again
-            //     const numAvatars = response ? response.data.length : 0;
-            //     console.log('Number of avatars:', numAvatars);
-            //     $('#processing-message').text(this.loadingMessages[this.tries]);
-            //     if (numAvatars > this.avatars.length) {
-            //         window.location.reload();
-            //     } else if (this.tries < maxTries) {
-            //         this.tries++;
-            //         setTimeout(() => {
-            //             axios.get(apiEndpoints.avatars)
-            //                 .then(this.checkAvatarCreated)
-            //                 .catch(error => console.error('Error listing avatars:', error.message));
-            //         }, timeout);
-            //     } else {
-            //         $('#processing-message').text(this.takingTooLongMessage);
-            //         setTimeout(() => window.location.reload(), timeout);
-            //     }
-            // },
             generateClicked() {
                 this.generateCopies();
                 this.updateAvatar();
@@ -299,10 +272,6 @@ function runVue(avatars, solutions) {
                     .then(() => this.generateCopy(this.copies.descriptions, apiEndpoints.facebookAdsDescriptions, descriptionsPayload))
                     .then(() => this.checkCopyReady(this.copies.descriptions, apiEndpoints.copies))
                     .catch(error => console.error('An error has occurred:', error.response.data));
-                    // .then(response => this.checkCopyReady(response.data[0].requested_time))
-                    // .then(() => this.generateFacebookAdsText(2))
-                    // .then(() => this.delay(5000))
-                    // .catch(error => console.error('An error has occurred:', error.message));
             },
             clearCopies() {
                 this.copies.text1.copy = '';
