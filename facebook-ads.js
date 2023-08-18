@@ -155,7 +155,7 @@ function runVue(avatars, solutions) {
                 console.log(`Loading avatar ${avatarId}...`);
                 axios.get(apiEndpoints.avatars + avatarId)
                     .then(this.retrieveAvatarSuccess)
-                    .catch(error => console.error('Error loading avatar:', error.message));
+                    .catch(error => console.error('Error loading avatar:', error.response.data));
             },
             retrieveAvatarSuccess(response) {
                 // logJSON('Avatar loaded...', response.data);
@@ -199,7 +199,8 @@ function runVue(avatars, solutions) {
                     "target_market": this.avatarName
                 }
                 this.generateCopy(this.copies.avatar, apiEndpoints.avatars, payload)
-                    .then(() => this.checkCopyReady(this.copies.avatar, apiEndpoints.avatars));
+                    .then(() => this.checkCopyReady(this.copies.avatar, apiEndpoints.avatars))
+                    .catch(error => console.error('Error creating avatar:', error.response.data));
             },
             // checkAvatarCreated(response) {
             //     const maxTries = 5; // Number of times to try to load the avatar
