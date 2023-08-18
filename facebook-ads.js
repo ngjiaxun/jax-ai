@@ -64,10 +64,14 @@ function runVue(avatars, solutions) {
                 // isStyleCheckboxChecked: true,
 
                 copies: {
+                    avatar: {
+                        requestedTime: undefined,
+                        isLoading: false // Whether the copy is currently being generated (for the loading animation)
+                    },
                     text1: {
                         requestedTime: undefined,
                         copy: '',
-                        isLoading: false // Whether the copy is currently being generated (for the loading animation)
+                        isLoading: false 
                     },
                     text2: {
                         requestedTime: undefined,
@@ -126,7 +130,7 @@ function runVue(avatars, solutions) {
             // },
             areCopiesLoading() { // The 'generate' button will be hidden while the copies are loading
                 return Object.values(this.copies).some(copy => copy.isLoading);
-            }
+            } 
         },
         methods: {
             avatarSelectionChanged() {
@@ -210,6 +214,30 @@ function runVue(avatars, solutions) {
                     setTimeout(() => window.location.reload(), timeout);
                 }
             },
+            // async checkAvatarReady(avatar, maxTries=this.defaultMaxTries, timeout=this.defaultTimeout) {
+            //     // Check whether the avatar is ready by querying its requested timestamp
+            //     // If not, wait a while and keep trying until either the avatar is ready or max tries is reached
+            //     console.log('Checking avatar ready...', avatar.requestedTime)
+            //     avatar.isLoading = true; // Show the 'generating' animation
+            //     this.startCopyCountdownMessage(avatar);
+            //     let tries = 0;
+            //     while (tries < maxTries) {
+            //         const endpoint = apiEndpoints.avatars + '?requested_time=' + avatar.requestedTime;
+            //         const response = await axios.get(endpoint);
+            //         if (response.data.length > 0) {
+            //             avatar.copy = response.data[0].copy;
+            //             break;
+            //         } else {
+            //             await this.delay(timeout);
+            //             tries++;
+            //             console.log('Tries:', tries, '/', maxTries);
+            //         }
+            //     }
+            //     if (tries >= maxTries) {
+            //         console.error('Max tries reached. Avatar not ready.');
+            //     }
+            //     avatar.isLoading = false; // Hide the 'generating' animation
+            // },
             generateClicked() {
                 this.generateCopies();
                 this.updateAvatar();
@@ -273,12 +301,19 @@ function runVue(avatars, solutions) {
                     ...commonPayload,
                 }
                 this.generateCopy(this.copies.text1, apiEndpoints.facebookAdsText, text1Payload)
+                    .then(() => this.checkCopyReady(this.copies.text1, apiEndpoints.copies))
                     .then(() => this.generateCopy(this.copies.text2, apiEndpoints.facebookAdsText, text2Payload))
+                    .then(() => this.checkCopyReady(this.copies.text2, apiEndpoints.copies))
                     .then(() => this.generateCopy(this.copies.text3, apiEndpoints.facebookAdsTemplatedText, text3Payload))
+                    .then(() => this.checkCopyReady(this.copies.text3, apiEndpoints.copies))
                     .then(() => this.generateCopy(this.copies.text4, apiEndpoints.facebookAdsTemplatedText, text4Payload))
+                    .then(() => this.checkCopyReady(this.copies.text4, apiEndpoints.copies))
                     .then(() => this.generateCopy(this.copies.text5, apiEndpoints.facebookAdsTemplatedText, text5Payload))
+                    .then(() => this.checkCopyReady(this.copies.text5, apiEndpoints.copies))
                     .then(() => this.generateCopy(this.copies.headlines, apiEndpoints.facebookAdsHeadlines, headlinesPayload))
+                    .then(() => this.checkCopyReady(this.copies.headlines, apiEndpoints.copies))
                     .then(() => this.generateCopy(this.copies.descriptions, apiEndpoints.facebookAdsDescriptions, descriptionsPayload))
+                    .then(() => this.checkCopyReady(this.copies.descriptions, apiEndpoints.copies))
                     .catch(error => console.error('An error has occurred:', error.response.data));
                     // .then(response => this.checkCopyReady(response.data[0].requested_time))
                     // .then(() => this.generateFacebookAdsText(2))
@@ -305,10 +340,9 @@ function runVue(avatars, solutions) {
             generateCopy(copy, endpoint, payload) {
                 copy.requestedTime = new Date().toISOString(); // Timestamp for identifying the copy after it's generated
                 payload.requested_time = copy.requestedTime;
-                return axios.post(endpoint, payload)
-                    .then(response => this.checkCopyReady(copy));
+                return axios.post(endpoint, payload);
             },
-            async checkCopyReady(copy, maxTries=this.defaultMaxTries, timeout=this.defaultTimeout) {
+            async checkCopyReady(copy, endpoint, maxTries=this.defaultMaxTries, timeout=this.defaultTimeout) {
                 // Check whether the copy is ready by querying its requested timestamp
                 // If not, wait a while and keep trying until either the copy is ready or max tries is reached
                 console.log('Checking copy ready...', copy.requestedTime)
@@ -316,7 +350,7 @@ function runVue(avatars, solutions) {
                 this.startCopyCountdownMessage(copy);
                 let tries = 0;
                 while (tries < maxTries) {
-                    const endpoint = apiEndpoints.copies + '?requested_time=' + copy.requestedTime;
+                    endpoint += '?requested_time=' + copy.requestedTime;
                     const response = await axios.get(endpoint);
                     if (response.data.length > 0) {
                         copy.copy = response.data[0].copy;
