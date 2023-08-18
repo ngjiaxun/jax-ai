@@ -351,6 +351,7 @@ function runVue(avatars, solutions) {
                 let tries = 0;
                 while (tries < maxTries) {
                     endpoint += '?requested_time=' + copy.requestedTime;
+                    console.log('Endpoint:', endpoint);
                     const response = await axios.get(endpoint);
                     if (response.data.length > 0) {
                         copy.copy = response.data[0].copy;
