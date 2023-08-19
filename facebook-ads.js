@@ -265,8 +265,10 @@ function runVue(avatars, solutions) {
                     .catch(error => console.error('An error has occurred:', error.response.data));
             },
             clearCopies() {
-                this.copies.text1.copy = '';
-                this.copies.text2.copy = '';
+                Object.values(this.copies).forEach(copy => {
+                    copy.requestedTime = undefined;
+                    copy.copy = '';
+                });
             },
             delay(ms=this.defaultTimeout) {
                 return new Promise(resolve => setTimeout(resolve, ms)); 
