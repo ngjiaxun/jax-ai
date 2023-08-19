@@ -52,7 +52,6 @@ function runVue(avatars, solutions) {
                 desireSuggestionIndex: 3, // The starting index for the desire suggestions
 
                 tries: 0, // Current number of tries to load the avatar
-                takingTooLongMessage: TAKING_TOO_LONG_MESSAGE,
                 copyCountdownMessage: '', // The message to display while the copy is being generated
 
                 // isIndustryCheckboxChecked: true,
