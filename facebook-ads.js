@@ -285,7 +285,7 @@ function runVue(avatars, solutions) {
                 copy.requestedTime = new Date().toISOString(); // Timestamp for identifying the copy after it's generated
                 payload.requested_time = copy.requestedTime;
                 return axios.post(generationEndpoint, payload)
-                    .checkCopyReady(copy, checkingEndpoint);
+                    .then(() => this.checkCopyReady(copy, checkingEndpoint));
             },
             async checkCopyReady(copy, endpoint, maxTries=this.defaultMaxTries, timeout=this.defaultTimeout) {
                 // Check whether the copy is ready by querying its requested timestamp
