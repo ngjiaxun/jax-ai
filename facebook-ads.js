@@ -1,5 +1,6 @@
 // Requires authentication.js
 // Requires settings.js
+// Requires common.js
 // Requires inspirational-quotes.js
 
 modifyTags();
@@ -188,8 +189,7 @@ function runVue(avatars, solutions) {
                     "industry": this.solution.industry,
                     "target_market": this.avatarName
                 }
-                this.generateCopy(this.copies.avatar, apiEndpoints.avatars, payload)
-                    .then(() => this.checkCopyReady(this.copies.avatar, apiEndpoints.avatars))
+                this.generateCopy(this.copies.avatar, apiEndpoints.avatars, apiEndpoints.avatars, payload)
                     .then(() => window.location.reload())
                     .catch(error => console.error('Error creating avatar:', error.response.data));
             },
@@ -255,20 +255,13 @@ function runVue(avatars, solutions) {
                 const descriptionsPayload = {
                     ...commonPayload,
                 }
-                this.generateCopy(this.copies.text1, apiEndpoints.facebookAdsText, text1Payload)
-                    .then(() => this.checkCopyReady(this.copies.text1, apiEndpoints.copies))
-                    .then(() => this.generateCopy(this.copies.text2, apiEndpoints.facebookAdsText, text2Payload))
-                    .then(() => this.checkCopyReady(this.copies.text2, apiEndpoints.copies))
-                    .then(() => this.generateCopy(this.copies.text3, apiEndpoints.facebookAdsTemplatedText, text3Payload))
-                    .then(() => this.checkCopyReady(this.copies.text3, apiEndpoints.copies))
-                    .then(() => this.generateCopy(this.copies.text4, apiEndpoints.facebookAdsTemplatedText, text4Payload))
-                    .then(() => this.checkCopyReady(this.copies.text4, apiEndpoints.copies))
-                    .then(() => this.generateCopy(this.copies.text5, apiEndpoints.facebookAdsTemplatedText, text5Payload))
-                    .then(() => this.checkCopyReady(this.copies.text5, apiEndpoints.copies))
-                    .then(() => this.generateCopy(this.copies.headlines, apiEndpoints.facebookAdsHeadlines, headlinesPayload))
-                    .then(() => this.checkCopyReady(this.copies.headlines, apiEndpoints.copies))
-                    .then(() => this.generateCopy(this.copies.descriptions, apiEndpoints.facebookAdsDescriptions, descriptionsPayload))
-                    .then(() => this.checkCopyReady(this.copies.descriptions, apiEndpoints.copies))
+                this.generateCopy(this.copies.text1, apiEndpoints.facebookAdsText, apiEndpoints.copies, text1Payload)
+                    .then(() => this.generateCopy(this.copies.text2, apiEndpoints.facebookAdsText, apiEndpoints.copies, text2Payload))
+                    .then(() => this.generateCopy(this.copies.text3, apiEndpoints.facebookAdsTemplatedText, apiEndpoints.copies, text3Payload))
+                    .then(() => this.generateCopy(this.copies.text4, apiEndpoints.facebookAdsTemplatedText, apiEndpoints.copies, text4Payload))
+                    .then(() => this.generateCopy(this.copies.text5, apiEndpoints.facebookAdsTemplatedText, apiEndpoints.copies, text5Payload))
+                    .then(() => this.generateCopy(this.copies.headlines, apiEndpoints.facebookAdsHeadlines, apiEndpoints.copies, headlinesPayload))
+                    .then(() => this.generateCopy(this.copies.descriptions, apiEndpoints.facebookAdsDescriptions, apiEndpoints.copies, descriptionsPayload))
                     .catch(error => console.error('An error has occurred:', error.response.data));
             },
             clearCopies() {
@@ -288,10 +281,11 @@ function runVue(avatars, solutions) {
                     }
                 }
             },
-            generateCopy(copy, endpoint, payload) {
+            generateCopy(copy, generationEndpoint, checkingEndpoint, payload) {
                 copy.requestedTime = new Date().toISOString(); // Timestamp for identifying the copy after it's generated
                 payload.requested_time = copy.requestedTime;
-                return axios.post(endpoint, payload);
+                return axios.post(generationEndpoint, payload)
+                    .checkCopyReady(copy, checkingEndpoint);
             },
             async checkCopyReady(copy, endpoint, maxTries=this.defaultMaxTries, timeout=this.defaultTimeout) {
                 // Check whether the copy is ready by querying its requested timestamp
