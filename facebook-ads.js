@@ -52,8 +52,6 @@ function runVue(avatars, solutions) {
                 desireSuggestionIndex: 3, // The starting index for the desire suggestions
 
                 tries: 0, // Current number of tries to load the avatar
-                defaultMaxTries: 7, // The default maximum number of times to try to load something
-                defaultTimeout: 5000, // The default amount of time to wait before trying to load something again
                 takingTooLongMessage: TAKING_TOO_LONG_MESSAGE,
                 copyCountdownMessage: '', // The message to display while the copy is being generated
 
@@ -270,8 +268,8 @@ function runVue(avatars, solutions) {
                     copy.copy = '';
                 });
             },
-            delay(ms=this.defaultTimeout) {
-                return new Promise(resolve => setTimeout(resolve, ms)); 
+            delay(timeout=DEFAULT_TIMEOUT) {
+                return new Promise(resolve => setTimeout(resolve, timeout)); 
             },
             async startCopyCountdownMessage(copy) {
                 this.copyCountdownMessage = '';
@@ -289,7 +287,7 @@ function runVue(avatars, solutions) {
                 return axios.post(generationEndpoint, payload)
                     .then(() => this.checkCopyReady(copy, checkingEndpoint));
             },
-            async checkCopyReady(copy, endpoint, maxTries=this.defaultMaxTries, timeout=this.defaultTimeout) {
+            async checkCopyReady(copy, endpoint, maxTries=DEFAULT_MAX_TRIES, timeout=DEFAULT_TIMEOUT) {
                 // Check whether the copy is ready by querying its requested timestamp
                 // If not, wait a while and keep trying until either the copy is ready or max tries is reached
                 console.log('Checking copy ready...', copy.requestedTime)

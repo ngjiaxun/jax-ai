@@ -1,6 +1,7 @@
+const DEFAULT_TIMEOUT = 5000;
+const DEFAULT_MAX_TRIES = 7;
 const SELECT_ONE = 'select one';
 const ADD_NEW = 'add new';
-const TAKING_TOO_LONG_MESSAGE = 'Oops, it looks like our servers are busy! Please try again in a few minutes...';
 const COPY_COUNTDOWN_MESSAGE = [
     'Ready in ',
     '5',
