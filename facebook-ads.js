@@ -268,14 +268,11 @@ function runVue(avatars, solutions) {
                     copy.copy = '';
                 });
             },
-            delay(timeout=DEFAULT_TIMEOUT) {
-                return new Promise(resolve => setTimeout(resolve, timeout)); 
-            },
             async startCopyCountdownMessage(copy) {
                 this.copyCountdownMessage = '';
                 for (let i = 0; i < COPY_COUNTDOWN_MESSAGE.length; i++) {
                     this.copyCountdownMessage += COPY_COUNTDOWN_MESSAGE[i];
-                    await this.delay(1000);
+                    await delay(1000);
                     if (!copy.isLoading) {
                         break;
                     }
@@ -301,7 +298,7 @@ function runVue(avatars, solutions) {
                         copy.copy = response.data[0].copy;
                         break;
                     } else {
-                        await this.delay(timeout);
+                        await delay(timeout);
                         tries++;
                         console.log('Tries:', tries, '/', maxTries);
                     }

@@ -1,3 +1,7 @@
+function delay(timeout) {
+    return new Promise(resolve => setTimeout(resolve, timeout)); 
+}
+
 function copyToClipboard(event) {
     const button = event.currentTarget;
     const copyId = button.dataset.copyid;
