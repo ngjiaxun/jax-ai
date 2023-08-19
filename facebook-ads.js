@@ -163,7 +163,8 @@ function runVue(avatars, solutions) {
                 this.avatar = response.data;
             },
             refreshClicked(event) {
-                const max = MAX_SUGGESTIONS - 1;
+                const maxPainSuggestions = this.avatar.pain_suggestions.length - 1;
+                const maxDesireSuggestions = this.avatar.desire_suggestions.length - 1;
                 const button = event.currentTarget;
                 let index = button.dataset.index;
 
@@ -174,11 +175,11 @@ function runVue(avatars, solutions) {
                 // Go down the list of suggestions every time the refresh button is clicked, until we reach the end, then start over
                 if (index < 3) { // Pains (0, 1, 2)
                     this.avatar.pains[index] = this.avatar.pain_suggestions[this.painSuggestionIndex];
-                    this.painSuggestionIndex = this.painSuggestionIndex < max ? this.painSuggestionIndex + 1 : 0;
+                    this.painSuggestionIndex = this.painSuggestionIndex < maxPainSuggestions ? this.painSuggestionIndex + 1 : 0;
                 } else { // Desires (3, 4, 5)
                     index = index - 3;
                     this.avatar.desires[index] = this.avatar.desire_suggestions[this.desireSuggestionIndex];
-                    this.desireSuggestionIndex = this.desireSuggestionIndex < max ? this.desireSuggestionIndex + 1 : 0;
+                    this.desireSuggestionIndex = this.desireSuggestionIndex < maxDesireSuggestions ? this.desireSuggestionIndex + 1 : 0;
                 }
             },
             createClicked() {
