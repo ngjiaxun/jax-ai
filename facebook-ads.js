@@ -45,7 +45,6 @@ function runVue(avatars, solutions) {
                 avatars: avatars,
                 solution: solutions[0],
                 originalSolution: { ...solutions[0] }, // Disable checkboxes if the value is the same as the original
-                avatar: null,
                 avatarSelection: SELECT_ONE, 
                 avatarName: '',
                 painSuggestionIndex: 3, // The starting index for the pain suggestions
@@ -63,6 +62,7 @@ function runVue(avatars, solutions) {
                 copies: {
                     avatar: {
                         requestedTime: undefined,
+                        data: undefined,
                         isLoading: false // Whether the copy is currently being generated (for the loading animation)
                     },
                     text1: {
@@ -142,7 +142,7 @@ function runVue(avatars, solutions) {
             },
             clearAvatar() {
                 console.log('Clearing avatar...');
-                this.avatar = null;
+                this.copies.avatar.data = null;
                 console.log('Avatar cleared...');
             },
             addNewAvatar() {
@@ -156,11 +156,11 @@ function runVue(avatars, solutions) {
             },
             retrieveAvatarSuccess(response) {
                 // logJSON('Avatar loaded...', response.data);
-                this.avatar = response.data;
+                this.copies.avatar.data = response.data;
             },
             refreshClicked(event) {
-                const maxPainSuggestions = this.avatar.pain_suggestions.length - 1;
-                const maxDesireSuggestions = this.avatar.desire_suggestions.length - 1;
+                const maxPainSuggestions = this.copies.avatar.data.pain_suggestions.length - 1;
+                const maxDesireSuggestions = this.copies.avatar.data.desire_suggestions.length - 1;
                 const button = event.currentTarget;
                 let index = button.dataset.index;
 
@@ -170,11 +170,11 @@ function runVue(avatars, solutions) {
 
                 // Go down the list of suggestions every time the refresh button is clicked, until we reach the end, then start over
                 if (index < 3) { // Pains (0, 1, 2)
-                    this.avatar.pains[index] = this.avatar.pain_suggestions[this.painSuggestionIndex];
+                    this.copies.avatar.data.pains[index] = this.copies.avatar.data.pain_suggestions[this.painSuggestionIndex];
                     this.painSuggestionIndex = this.painSuggestionIndex < maxPainSuggestions ? this.painSuggestionIndex + 1 : 0;
                 } else { // Desires (3, 4, 5)
                     index = index - 3;
-                    this.avatar.desires[index] = this.avatar.desire_suggestions[this.desireSuggestionIndex];
+                    this.copies.avatar.data.desires[index] = this.copies.avatar.data.desire_suggestions[this.desireSuggestionIndex];
                     this.desireSuggestionIndex = this.desireSuggestionIndex < maxDesireSuggestions ? this.desireSuggestionIndex + 1 : 0;
                 }
             },
@@ -196,9 +196,9 @@ function runVue(avatars, solutions) {
                 this.updateSolution();
             },
             updateAvatar() {
-                const endpoint = apiEndpoints.avatars + this.avatar.id;
-                // logJSON('Avatar:', this.avatar);
-                axios.patch(endpoint, this.avatar)
+                const endpoint = apiEndpoints.avatars + this.copies.avatar.data.id;
+                // logJSON('Avatar:', this.copies.avatar.data);
+                axios.patch(endpoint, this.copies.avatar.data)
                     .then(response => console.log('Avatar updated...'))
                     .catch(error => console.error('Error updating avatar:', error.message));
             },
@@ -222,8 +222,8 @@ function runVue(avatars, solutions) {
                 this.clearCopies();
 
                 const commonPayload = {
-                    avatar: this.avatar.id,
-                    ...this.avatar,
+                    avatar: this.copies.avatar.data.id,
+                    ...this.copies.avatar.data,
                     ...this.solution
                 }
                 const text1Payload = {
