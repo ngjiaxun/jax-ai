@@ -61,7 +61,7 @@ function runVue(avatars, solutions) {
 
                 avatar: {
                     requestedTime: undefined,
-                    copy: '',
+                    copy: undefined,
                     isLoading: false // Whether the copy is currently being generated (for the loading animation)
                 },
 
@@ -104,11 +104,14 @@ function runVue(avatars, solutions) {
                 }
             }
         },
-        // watch: {
-        //     'copies.*.isLoading'(newValue, oldValue) {
-        //         console.log('Loading:', newValue);
-        //     }
-        // },
+        watch: {
+            'avatar.isLoading'(newValue, oldValue) {
+                console.log('Loading:', newValue);
+            }
+            // 'copies.*.isLoading'(newValue, oldValue) {
+            //     console.log('Loading:', newValue);
+            // }
+        },
         computed: {
             isAddNew() {
                 return this.avatarSelection === ADD_NEW;
@@ -156,7 +159,6 @@ function runVue(avatars, solutions) {
             },
             retrieveAvatar(avatarId) {
                 console.log(`Retrieving avatar ${avatarId}...`);
-                console.log('Avatar:', this.avatar);
                 axios.get(apiEndpoints.avatars + avatarId)
                     .then(response => this.avatar.copy = response.data)
                     .catch(error => console.error('Error retrieving avatar:', error.response.data));
