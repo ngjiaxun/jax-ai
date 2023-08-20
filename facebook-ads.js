@@ -117,7 +117,12 @@ function runVue(avatars, solutions) {
             areCopiesLoading(newValue) {
                 this.countdown.isCountingDown = newValue;
             },
-            isCountingDown: isCountingDown
+            isCountingDown(newValue) {
+                console.log('isCountingDown:', newValue)
+                if (newValue) {
+                    this.startCountdown();
+                }
+            }
         },
         computed: {
             isAddNew() {
