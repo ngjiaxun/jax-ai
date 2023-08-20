@@ -112,6 +112,7 @@ function runVue(avatars, solutions) {
             },
             'copies.*.isLoading'(newValue) {
                 if (newValue) {
+                    console.log('Starting copy countdown message...');
                     this.startCopyCountdownMessage(this.copies.text1);
                 }
             }
