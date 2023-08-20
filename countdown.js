@@ -41,7 +41,7 @@ const COUNTDOWN_MESSAGE = [
 // E.g. countdown: { ...COUNTDOWN }
 const COUNTDOWN = {
     countdownMessage: '', 
-    isCountingDown: false, 
+    isCountingDown: false // Use watchers to start and stop countdown e.g. areCopiesLoading(newValue) { this.countdown.isCountingDown = newValue; }
 }
 
 // Assign to Vue watch
