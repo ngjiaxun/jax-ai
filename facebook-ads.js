@@ -149,14 +149,10 @@ function runVue(avatars, solutions) {
                 console.log('Preparing to create avatar...');
             },
             retrieveAvatar(avatarId) {
-                console.log(`Loading avatar ${avatarId}...`);
+                console.log(`Retrieving avatar ${avatarId}...`);
                 axios.get(apiEndpoints.avatars + avatarId)
-                    .then(this.retrieveAvatarSuccess)
-                    .catch(error => console.error('Error loading avatar:', error.response.data));
-            },
-            retrieveAvatarSuccess(response) {
-                // logJSON('Avatar loaded...', response.data);
-                this.copies.avatar.data = response.data;
+                    .then(response => this.copies.avatar.copy = response.data)
+                    .catch(error => console.error('Error retrieving avatar:', error.response.data));
             },
             refreshClicked(event) {
                 const maxPainSuggestions = this.copies.avatar.data.pain_suggestions.length - 1;
