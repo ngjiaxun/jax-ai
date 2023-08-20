@@ -51,7 +51,8 @@ function runVue(avatars, solutions) {
                 desireSuggestionIndex: 3, // The starting index for the desire suggestions
 
                 tries: 0, // Current number of tries to load the avatar
-                copyCountdownMessage: '', // The message to display while the copy is being generated
+                countdownMessage: '', // The count down message to display while the copy is being generated
+                isCountingDown: false, // For starting and stopping the countdown
 
                 // isIndustryCheckboxChecked: true,
                 // isResultCheckboxChecked: true,
@@ -106,21 +107,16 @@ function runVue(avatars, solutions) {
         },
         watch: {
             'avatar.isLoading'(newValue) {
-                if (newValue) {
-                    this.startCopyCountdownMessage(this.avatar);
-                }
+                this.isCountingDown = newValue;
             },
             areCopiesLoading(newValue) {
+                this.isCountingDown = newValue;
+            },
+            isCountingDown(newValue) {
                 if (newValue) {
-                    this.startCopyCountdownMessage(this.copies.text1);
+                    this.startCountdown();
                 }
             }
-            // 'copies.*.isLoading'(newValue) {
-            //     if (newValue) {
-            //         console.log('Starting copy countdown message...');
-            //         this.startCopyCountdownMessage(this.copies.text1);
-            //     }
-            // }
         },
         computed: {
             isAddNew() {
@@ -285,12 +281,12 @@ function runVue(avatars, solutions) {
                     }
                 });
             },
-            async startCopyCountdownMessage(copy) {
-                this.copyCountdownMessage = '';
+            async startCountdown() {
+                this.countdownMessage = '';
                 for (let i = 0; i < COPY_COUNTDOWN_MESSAGE.length; i++) {
-                    this.copyCountdownMessage += COPY_COUNTDOWN_MESSAGE[i];
+                    this.countdownMessage += COPY_COUNTDOWN_MESSAGE[i];
                     await delay(1000);
-                    if (!copy.isLoading) {
+                    if (!this.isCountingDown) {
                         break;
                     }
                 }
