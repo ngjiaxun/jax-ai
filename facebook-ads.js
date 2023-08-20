@@ -221,8 +221,6 @@ function runVue(avatars, solutions) {
             },
             generateCopies() {
                 console.log('Generating copies...');
-                this.clearCopies();
-                console.log(this.copies.avatar.copy);
                 const commonPayload = {
                     avatar: this.copies.avatar.copy.id,
                     ...this.copies.avatar.copy,
@@ -255,6 +253,7 @@ function runVue(avatars, solutions) {
                 const descriptionsPayload = {
                     ...commonPayload,
                 }
+                this.clearCopies();
                 this.generateCopy(this.copies.text1, apiEndpoints.facebookAdsText, apiEndpoints.copies, text1Payload)
                     .then(() => this.generateCopy(this.copies.text2, apiEndpoints.facebookAdsText, apiEndpoints.copies, text2Payload))
                     .then(() => this.generateCopy(this.copies.text3, apiEndpoints.facebookAdsTemplatedText, apiEndpoints.copies, text3Payload))
