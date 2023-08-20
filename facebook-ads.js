@@ -107,12 +107,15 @@ function runVue(avatars, solutions) {
         },
         watch: {
             'avatar.isLoading'(newValue) {
+                console.log('Watch avatar isLoading:', newValue);
                 this.isCountingDown = newValue;
             },
             areCopiesLoading(newValue) {
+                console.log('Watch areCopiesLoading:', newValue);
                 this.isCountingDown = newValue;
             },
             isCountingDown(newValue) {
+                console.log('Watch isCountingDown:', newValue);
                 if (newValue) {
                     this.startCountdown();
                 }
