@@ -156,6 +156,7 @@ function runVue(avatars, solutions) {
             },
             retrieveAvatar(avatarId) {
                 console.log(`Retrieving avatar ${avatarId}...`);
+                console.log('Avatar:', this.avatar);
                 axios.get(apiEndpoints.avatars + avatarId)
                     .then(response => this.avatar.copy = response.data)
                     .catch(error => console.error('Error retrieving avatar:', error.response.data));
