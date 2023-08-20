@@ -61,7 +61,7 @@ function runVue(avatars, solutions) {
 
                 avatar: {
                     requestedTime: undefined,
-                    copy: undefined,
+                    copy: '',
                     isLoading: false // Whether the copy is currently being generated (for the loading animation)
                 },
 
