@@ -106,11 +106,15 @@ function runVue(avatars, solutions) {
         },
         watch: {
             'avatar.isLoading'(newValue) {
-                this.startCopyCountdownMessage(this.avatar);
+                if (newValue) {
+                    this.startCopyCountdownMessage(this.avatar);
+                }
+            },
+            'copies.*.isLoading'(newValue) {
+                if (newValue) {
+                    this.startCopyCountdownMessage(this.copies.text1);
+                }
             }
-            // 'copies.*.isLoading'(newValue, oldValue) {
-            //     console.log('Loading:', newValue);
-            // }
         },
         computed: {
             isAddNew() {
