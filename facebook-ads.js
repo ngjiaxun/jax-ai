@@ -55,12 +55,6 @@ function runVue(avatars, solutions) {
 
                 ...COUNTDOWN,
 
-                // isIndustryCheckboxChecked: true,
-                // isResultCheckboxChecked: true,
-                // isCtaCheckboxChecked: true,
-                // isObjectionsCheckboxChecked: true,
-                // isStyleCheckboxChecked: true,
-
                 avatar: {
                     requestedTime: undefined,
                     copy: undefined,
@@ -125,21 +119,6 @@ function runVue(avatars, solutions) {
             areCopiesLoading() { // The 'generate' button will be hidden while the copies are loading
                 return Object.values(this.copies).some(copy => copy.isLoading);
             } 
-            // isIndustryCheckboxDisabled() {
-            //     return this.solution.industry === this.originalSolution.industry;
-            // },
-            // isResultCheckboxDisabled() {
-            //     return this.solution.result === this.originalSolution.result;
-            // },
-            // isCtaCheckboxDisabled() {
-            //     return this.solution.lead_magnet === this.originalSolution.lead_magnet;
-            // },
-            // isObjectionsCheckboxDisabled() {
-            //     return this.solution.objections === this.originalSolution.objections;
-            // },
-            // isStyleCheckboxDisabled() {
-            //     return this.solution.style === this.originalSolution.style;
-            // }
         },
         methods: {
             avatarSelectionChanged() {
@@ -216,12 +195,6 @@ function runVue(avatars, solutions) {
                 const endpoint = apiEndpoints.solutions + this.solution.id;
                 // console.log(endpoint);
 
-                // Update only the fields with 'set default' checkbox checked
-                // this.solution.industry = this.isIndustryCheckboxChecked ? this.solution.industry : this.originalSolution.industry;
-                // this.solution.result = this.isResultCheckboxChecked ? this.solution.result : this.originalSolution.result;
-                // this.solution.lead_magnet = this.isCtaCheckboxChecked ? this.solution.lead_magnet : this.originalSolution.lead_magnet;
-                // this.solution.objections = this.isObjectionsCheckboxChecked ? this.solution.objections : this.originalSolution.objections;
-                // this.solution.style = this.isStyleCheckboxChecked ? this.solution.style : this.originalSolution.style;
                 axios.patch(endpoint, this.solution)
                     .then(response => console.log('Solution updated...'))
                     .catch(error => console.error('Error updating solution:', error));
