@@ -266,7 +266,7 @@ function runVue(avatars, solutions) {
                 console.log('Clearing copies...');
                 Object.values(this.copies).forEach(copy => {
                     copy.requestedTime = undefined;
-                    if ('copy' in copy.copy) {
+                    if (copy.copy && copy.copy.copy) {
                         copy.copy.copy = undefined;
                     }
                 });
