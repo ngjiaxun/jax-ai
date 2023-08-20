@@ -220,13 +220,15 @@ function runVue(avatars, solutions) {
                     .catch(error => console.error('Error updating solution:', error));
             },
             generateCopies() {
+                console.log('Generating copies...');
                 this.clearCopies();
-
+                console.log('Cleared copies...');
                 const commonPayload = {
                     avatar: this.copies.avatar.copy.id,
                     ...this.copies.avatar.copy,
                     ...this.solution
                 }
+                console.log('Common payload:', commonPayload);
                 const text1Payload = {
                     ...commonPayload,
                     prompt_id: 1
