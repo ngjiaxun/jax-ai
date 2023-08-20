@@ -252,9 +252,7 @@ function runVue(avatars, solutions) {
                 const descriptionsPayload = {
                     ...commonPayload,
                 }
-                console.log('Common payload before:', commonPayload);
                 this.clearCopies();
-                console.log('Common payload after:', commonPayload);
                 this.generateCopy(this.copies.text1, apiEndpoints.facebookAdsText, apiEndpoints.copies, text1Payload)
                     .then(() => this.generateCopy(this.copies.text2, apiEndpoints.facebookAdsText, apiEndpoints.copies, text2Payload))
                     .then(() => this.generateCopy(this.copies.text3, apiEndpoints.facebookAdsTemplatedText, apiEndpoints.copies, text3Payload))
@@ -265,10 +263,12 @@ function runVue(avatars, solutions) {
                     .catch(error => console.error('An error has occurred:', error.response.data));
             },
             clearCopies() {
+                console.log('Clearing copies...');
                 Object.values(this.copies).forEach(copy => {
                     copy.requestedTime = undefined;
                     copy.copy = undefined;
                 });
+                console.log('Copies cleared...');
             },
             async startCopyCountdownMessage(copy) {
                 this.copyCountdownMessage = '';
@@ -281,6 +281,7 @@ function runVue(avatars, solutions) {
                 }
             },
             generateCopy(copy, generationEndpoint, checkingEndpoint, payload) {
+                console.log('Generating copy...', copy);
                 copy.requestedTime = new Date().toISOString(); // Timestamp for identifying the copy after it's generated
                 payload.requested_time = copy.requestedTime;
                 return axios.post(generationEndpoint, payload)
