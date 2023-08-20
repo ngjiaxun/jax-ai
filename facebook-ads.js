@@ -7,7 +7,7 @@ modifyTags();
 modifyAttributes();
 listAvatarsAndSolutions();
 
-function addNewAvatarImplementation() {
+function addNewAvatar() {
     console.log('Preparing to create avatar...');
 }
 
@@ -167,7 +167,7 @@ function runVue(avatars, solutions) {
             // addNewAvatar() {
             //     console.log('Preparing to create avatar...');
             // },
-            addNewAvatar: addNewAvatarImplementation,
+            addNewAvatar: addNewAvatar,
             retrieveAvatar(avatarId) {
                 console.log(`Retrieving avatar ${avatarId}...`);
                 axios.get(apiEndpoints.avatars + avatarId)
