@@ -105,7 +105,7 @@ function runVue(avatars, solutions) {
             }
         },
         watch: {
-            'avatar.isLoading'(newValue, oldValue) {
+            'avatar.isLoading'(newValue) {
                 console.log('Loading:', newValue);
             }
             // 'copies.*.isLoading'(newValue, oldValue) {
@@ -298,7 +298,6 @@ function runVue(avatars, solutions) {
                 console.log('Checking copy ready...', copy.requestedTime)
                 endpoint += '?requested_time=' + copy.requestedTime;
                 copy.isLoading = true; // Show the 'generating' animation
-                this.startCopyCountdownMessage(copy);
                 let tries = 0;
                 while (tries < maxTries) {
                     const response = await axios.get(endpoint);
