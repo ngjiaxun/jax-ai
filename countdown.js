@@ -56,13 +56,17 @@ const COUNTDOWN = {
                 this.isCountingDown = newValue;
             },
             // ...
-        },
+        }
     */
     isCountingDown: false 
 }
 
 /* Assign to Vue watch - E.g.
-
+    watch: {
+        // ...
+        isCountingDown: isCountingDown
+        // ...
+    }
 */
 function isCountingDown(newValue) {
     console.log('isCountingDown:', newValue)
