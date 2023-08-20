@@ -53,11 +53,7 @@ function runVue(avatars, solutions) {
 
                 tries: 0, // Current number of tries to load the avatar
 
-                // countdown: { ...COUNTDOWN },
-                countdown: {
-                    countdownMessage: '', 
-                    isCountingDown: false
-                },
+                ...COUNTDOWN,
 
                 // isIndustryCheckboxChecked: true,
                 // isResultCheckboxChecked: true,
@@ -112,17 +108,12 @@ function runVue(avatars, solutions) {
         },
         watch: {
             'avatar.isLoading'(newValue) {
-                this.countdown.isCountingDown = newValue;
+                this.isCountingDown = newValue;
             },
             areCopiesLoading(newValue) {
-                this.countdown.isCountingDown = newValue;
+                this.isCountingDown = newValue;
             },
-            isCountingDown(newValue) {
-                console.log('isCountingDown:', newValue)
-                if (newValue) {
-                    this.startCountdown();
-                }
-            }
+            isCountingDown: isCountingDown
         },
         computed: {
             isAddNew() {
