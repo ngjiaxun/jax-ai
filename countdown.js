@@ -37,15 +37,33 @@ const COUNTDOWN_MESSAGE = [
     ' '
 ];
 
-// Copy to Vue data
-// E.g. { ...COUNTDOWN }
+/* Copy to Vue data - E.g.
+    data() {
+        return {
+            // ...
+            ...COUNTDOWN,
+            // ...
+        }
+    }
+*/
 const COUNTDOWN = {
     countdownMessage: '', 
-    isCountingDown: false // Use watchers to start and stop countdown e.g. areCopiesLoading(newValue) { this.countdown.isCountingDown = newValue; }
+
+    /* Use watchers to start and stop countdown - E.g.
+        watch: {
+            // ...
+            areCopiesLoading(newValue) {
+                this.isCountingDown = newValue;
+            },
+            // ...
+        },
+    */
+    isCountingDown: false 
 }
 
-// Assign to Vue watch
-// E.g. isCountingDown: isCountingDown
+/* Assign to Vue watch - E.g.
+
+*/
 function isCountingDown(newValue) {
     console.log('isCountingDown:', newValue)
     if (newValue) {
@@ -53,8 +71,13 @@ function isCountingDown(newValue) {
     }
 }
 
-// Assign to Vue methods
-// E.g. startCountdown: startCountdown
+/* Assign to Vue methods - E.g.
+    methods: {
+        // ...
+        startCountdown: startCountdown,
+        // ...
+    }
+*/
 async function startCountdown() {
     console.log('Starting countdown...');
     this.countdownMessage = '';
