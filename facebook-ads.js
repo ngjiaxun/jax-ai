@@ -103,6 +103,11 @@ function runVue(avatars, solutions) {
                 }
             }
         },
+        watch: {
+            'copies.*.isLoading'(newValue, oldValue) {
+                console.log('Loading:', newValue);
+            }
+        },
         computed: {
             isAddNew() {
                 return this.avatarSelection === ADD_NEW;
