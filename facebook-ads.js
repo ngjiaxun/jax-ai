@@ -62,42 +62,42 @@ function runVue(avatars, solutions) {
                 copies: {
                     avatar: {
                         requestedTime: undefined,
-                        data: undefined,
+                        copy: undefined,
                         isLoading: false // Whether the copy is currently being generated (for the loading animation)
                     },
                     text1: {
                         requestedTime: undefined,
-                        copy: '',
+                        copy: undefined,
                         isLoading: false 
                     },
                     text2: {
                         requestedTime: undefined,
-                        copy: '',
+                        copy: undefined,
                         isLoading: false
                     },
                     text3: {
                         requestedTime: undefined,
-                        copy: '',
+                        copy: undefined,
                         isLoading: false
                     },
                     text4: {
                         requestedTime: undefined,
-                        copy: '',
+                        copy: undefined,
                         isLoading: false
                     },
                     text5: {
                         requestedTime: undefined,
-                        copy: '',
+                        copy: undefined,
                         isLoading: false
                     },
                     headlines: {
                         requestedTime: undefined,
-                        copy: '',
+                        copy: undefined,
                         isLoading: false
                     },
                     descriptions: {
                         requestedTime: undefined,
-                        copy: '',
+                        copy: undefined,
                         isLoading: false
                     }
                 }
@@ -264,7 +264,7 @@ function runVue(avatars, solutions) {
             clearCopies() {
                 Object.values(this.copies).forEach(copy => {
                     copy.requestedTime = undefined;
-                    copy.copy = '';
+                    copy.copy = undefined;
                 });
             },
             async startCopyCountdownMessage(copy) {
