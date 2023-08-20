@@ -3,13 +3,15 @@
 // Requires common.js
 // Requires inspirational-quotes.js
 
+function generateClicked() {
+    this.generateCopies();
+    this.updateAvatar();
+    this.updateSolution();
+}
+
 modifyTags();
 modifyAttributes();
 listAvatarsAndSolutions();
-
-function addNewAvatar() {
-    console.log('Preparing to create avatar...');
-}
 
 // Add or modify tags where Webflow doesn't allow direct
 function modifyTags() {
@@ -164,10 +166,9 @@ function runVue(avatars, solutions) {
                 this.avatar.copy = null;
                 console.log('Avatar cleared...');
             },
-            // addNewAvatar() {
-            //     console.log('Preparing to create avatar...');
-            // },
-            addNewAvatar: addNewAvatar,
+            addNewAvatar() {
+                console.log('Preparing to create avatar...');
+            },
             retrieveAvatar(avatarId) {
                 console.log(`Retrieving avatar ${avatarId}...`);
                 axios.get(apiEndpoints.avatars + avatarId)
@@ -206,11 +207,12 @@ function runVue(avatars, solutions) {
                     .then(() => window.location.reload())
                     .catch(error => console.error('Error creating avatar:', error.response.data));
             },
-            generateClicked() {
-                this.generateCopies();
-                this.updateAvatar();
-                this.updateSolution();
-            },
+            // generateClicked() {
+            //     this.generateCopies();
+            //     this.updateAvatar();
+            //     this.updateSolution();
+            // },
+            generateClicked: generateClicked,
             updateAvatar() {
                 const endpoint = apiEndpoints.avatars + this.avatar.copy.id;
                 // logJSON('Avatar:', this.avatar.copy);
