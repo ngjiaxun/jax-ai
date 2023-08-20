@@ -1,4 +1,4 @@
-const COPY_COUNTDOWN_MESSAGE = [
+const COUNTDOWN_MESSAGE = [
     'Ready in ',
     '5',
     '.',
@@ -37,13 +37,30 @@ const COPY_COUNTDOWN_MESSAGE = [
     ' '
 ];
 
+// Copy to Vue data
+// E.g. countdown: { ...COUNTDOWN }
+const COUNTDOWN = {
+    countdownMessage: '', 
+    isCountingDown: false, 
+}
+
+// Assign to Vue watch
+// E.g. isCountingDown: isCountingDown
+function isCountingDown(newValue) {
+    if (newValue) {
+        this.startCountdown();
+    }
+}
+
+// Assign to Vue methods
+// E.g. startCountdown: startCountdown
 async function startCountdown() {
     console.log('Starting countdown...');
-    this.countdownMessage = '';
+    this.countdown.countdownMessage = '';
     for (let i = 0; i < COPY_COUNTDOWN_MESSAGE.length; i++) {
-        this.countdownMessage += COPY_COUNTDOWN_MESSAGE[i];
+        this.countdown.countdownMessage += COPY_COUNTDOWN_MESSAGE[i];
         await delay(1000);
-        if (!this.isCountingDown) {
+        if (!this.countdown.isCountingDown) {
             break;
         }
     }

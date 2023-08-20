@@ -52,8 +52,8 @@ function runVue(avatars, solutions) {
                 desireSuggestionIndex: 3, // The starting index for the desire suggestions
 
                 tries: 0, // Current number of tries to load the avatar
-                countdownMessage: '', // The count down message to display while the copy is being generated
-                isCountingDown: false, // For starting and stopping the countdown
+
+                countdown: { ...COUNTDOWN_DATA },
 
                 // isIndustryCheckboxChecked: true,
                 // isResultCheckboxChecked: true,
@@ -108,16 +108,12 @@ function runVue(avatars, solutions) {
         },
         watch: {
             'avatar.isLoading'(newValue) {
-                this.isCountingDown = newValue;
+                this.countdown.isCountingDown = newValue;
             },
             areCopiesLoading(newValue) {
-                this.isCountingDown = newValue;
+                this.countdown.isCountingDown = newValue;
             },
-            isCountingDown(newValue) {
-                if (newValue) {
-                    this.startCountdown();
-                }
-            }
+            isCountingDown: isCountingDown
         },
         computed: {
             isAddNew() {
