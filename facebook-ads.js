@@ -294,7 +294,7 @@ function runVue(avatars, solutions) {
                 while (tries < maxTries) {
                     const response = await axios.get(endpoint);
                     if (response.data.length > 0) {
-                        copy.copy = response.data[0].copy;
+                        copy.copy = response.data[0];
                         break;
                     } else {
                         await delay(timeout);
