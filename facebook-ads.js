@@ -110,12 +110,17 @@ function runVue(avatars, solutions) {
                     this.startCopyCountdownMessage(this.avatar);
                 }
             },
-            'copies.*.isLoading'(newValue) {
+            areCopiesLoading(newValue) {
                 if (newValue) {
-                    console.log('Starting copy countdown message...');
                     this.startCopyCountdownMessage(this.copies.text1);
                 }
             }
+            // 'copies.*.isLoading'(newValue) {
+            //     if (newValue) {
+            //         console.log('Starting copy countdown message...');
+            //         this.startCopyCountdownMessage(this.copies.text1);
+            //     }
+            // }
         },
         computed: {
             isAddNew() {
