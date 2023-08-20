@@ -226,7 +226,6 @@ function runVue(avatars, solutions) {
                     ...this.copies.avatar.copy,
                     ...this.solution
                 }
-                console.log('Common payload:', commonPayload);
                 const text1Payload = {
                     ...commonPayload,
                     prompt_id: 1
@@ -253,7 +252,9 @@ function runVue(avatars, solutions) {
                 const descriptionsPayload = {
                     ...commonPayload,
                 }
+                console.log('Common payload before:', commonPayload);
                 this.clearCopies();
+                console.log('Common payload after:', commonPayload);
                 this.generateCopy(this.copies.text1, apiEndpoints.facebookAdsText, apiEndpoints.copies, text1Payload)
                     .then(() => this.generateCopy(this.copies.text2, apiEndpoints.facebookAdsText, apiEndpoints.copies, text2Payload))
                     .then(() => this.generateCopy(this.copies.text3, apiEndpoints.facebookAdsTemplatedText, apiEndpoints.copies, text3Payload))
