@@ -106,7 +106,7 @@ function runVue(avatars, solutions) {
         },
         watch: {
             'avatar.isLoading'(newValue) {
-                console.log('Loading:', newValue);
+                this.startCopyCountdownMessage(avatar);
             }
             // 'copies.*.isLoading'(newValue, oldValue) {
             //     console.log('Loading:', newValue);
