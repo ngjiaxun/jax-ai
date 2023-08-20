@@ -7,6 +7,10 @@ modifyTags();
 modifyAttributes();
 listAvatarsAndSolutions();
 
+function addNewAvatarImplementation() {
+    console.log('Preparing to create avatar...');
+}
+
 // Add or modify tags where Webflow doesn't allow direct
 function modifyTags() {
     const transition = document.querySelector('Transition');
@@ -107,15 +111,12 @@ function runVue(avatars, solutions) {
         },
         watch: {
             'avatar.isLoading'(newValue) {
-                console.log('Watch avatar isLoading:', newValue);
                 this.isCountingDown = newValue;
             },
             areCopiesLoading(newValue) {
-                console.log('Watch areCopiesLoading:', newValue);
                 this.isCountingDown = newValue;
             },
             isCountingDown(newValue) {
-                console.log('Watch isCountingDown:', newValue);
                 if (newValue) {
                     this.startCountdown();
                 }
@@ -163,9 +164,10 @@ function runVue(avatars, solutions) {
                 this.avatar.copy = null;
                 console.log('Avatar cleared...');
             },
-            addNewAvatar() {
-                console.log('Preparing to create avatar...');
-            },
+            // addNewAvatar() {
+            //     console.log('Preparing to create avatar...');
+            // },
+            addNewAvatar: addNewAvatarImplementation,
             retrieveAvatar(avatarId) {
                 console.log(`Retrieving avatar ${avatarId}...`);
                 axios.get(apiEndpoints.avatars + avatarId)
