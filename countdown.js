@@ -1,3 +1,42 @@
+const COPY_COUNTDOWN_MESSAGE = [
+    'Ready in ',
+    '5',
+    '.',
+    '.',
+    '.',
+    ' ',
+    '4',
+    '.',
+    '.',
+    '.',
+    ' ',
+    '3',
+    '.',
+    '.',
+    '.',
+    ' ',
+    '2',
+    '.',
+    '.',
+    '.',
+    ' ',
+    '1',
+    '.',
+    '.',
+    '.',
+    ' ',
+    'Any',
+    ' ',
+    'second',
+    ' ',
+    'now',
+    '!',
+    '.',
+    '.',
+    '.',
+    ' '
+];
+
 async function startCountdown() {
     console.log('Starting countdown...');
     this.countdownMessage = '';
