@@ -222,7 +222,7 @@ function runVue(avatars, solutions) {
             generateCopies() {
                 console.log('Generating copies...');
                 this.clearCopies();
-                console.log('Cleared copies...');
+                console.log(this.copies.avatar.copy);
                 const commonPayload = {
                     avatar: this.copies.avatar.copy.id,
                     ...this.copies.avatar.copy,
