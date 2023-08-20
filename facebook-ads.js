@@ -285,6 +285,7 @@ function runVue(avatars, solutions) {
                 });
             },
             async startCountdown() {
+                console.log('Starting countdown...');
                 this.countdownMessage = '';
                 for (let i = 0; i < COPY_COUNTDOWN_MESSAGE.length; i++) {
                     this.countdownMessage += COPY_COUNTDOWN_MESSAGE[i];
