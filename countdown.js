@@ -47,6 +47,7 @@ const COUNTDOWN_MESSAGE = [
 // Assign to Vue watch
 // E.g. isCountingDown: isCountingDown
 function isCountingDown(newValue) {
+    console.log('isCountingDown:', newValue)
     if (newValue) {
         this.startCountdown();
     }
