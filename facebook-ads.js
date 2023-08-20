@@ -53,7 +53,12 @@ function runVue(avatars, solutions) {
 
                 tries: 0, // Current number of tries to load the avatar
 
-                countdown: { ...COUNTDOWN },
+                // countdown: { ...COUNTDOWN },
+                countdown: {
+                    countdownMessage: '', 
+                    isCountingDown: false
+                },
+}
 
                 // isIndustryCheckboxChecked: true,
                 // isResultCheckboxChecked: true,

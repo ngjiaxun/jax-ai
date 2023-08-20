@@ -39,10 +39,10 @@ const COUNTDOWN_MESSAGE = [
 
 // Copy to Vue data
 // E.g. countdown: { ...COUNTDOWN }
-const COUNTDOWN = {
-    countdownMessage: '', 
-    isCountingDown: false // Use watchers to start and stop countdown e.g. areCopiesLoading(newValue) { this.countdown.isCountingDown = newValue; }
-}
+// const COUNTDOWN = {
+//     countdownMessage: '', 
+//     isCountingDown: false // Use watchers to start and stop countdown e.g. areCopiesLoading(newValue) { this.countdown.isCountingDown = newValue; }
+// }
 
 // Assign to Vue watch
 // E.g. isCountingDown: isCountingDown
