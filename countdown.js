@@ -56,11 +56,11 @@ function isCountingDown(newValue) {
 // E.g. startCountdown: startCountdown
 async function startCountdown() {
     console.log('Starting countdown...');
-    this.countdown.countdownMessage = '';
-    for (let i = 0; i < COPY_COUNTDOWN_MESSAGE.length; i++) {
-        this.countdown.countdownMessage += COPY_COUNTDOWN_MESSAGE[i];
+    this.countdownMessage = '';
+    for (let i = 0; i < COUNTDOWN_MESSAGE.length; i++) {
+        this.countdownMessage += COUNTDOWN_MESSAGE[i];
         await delay(1000);
-        if (!this.countdown.isCountingDown) {
+        if (!this.isCountingDown) {
             break;
         }
     }
