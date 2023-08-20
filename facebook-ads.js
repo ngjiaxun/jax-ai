@@ -58,7 +58,6 @@ function runVue(avatars, solutions) {
                     countdownMessage: '', 
                     isCountingDown: false
                 },
-}
 
                 // isIndustryCheckboxChecked: true,
                 // isResultCheckboxChecked: true,
