@@ -3,10 +3,16 @@
 // Requires common.js
 // Requires inspirational-quotes.js
 
-function generateClicked() {
-    this.generateCopies();
-    this.updateAvatar();
-    this.updateSolution();
+async function startCountdown() {
+    console.log('Starting countdown...');
+    this.countdownMessage = '';
+    for (let i = 0; i < COPY_COUNTDOWN_MESSAGE.length; i++) {
+        this.countdownMessage += COPY_COUNTDOWN_MESSAGE[i];
+        await delay(1000);
+        if (!this.isCountingDown) {
+            break;
+        }
+    }
 }
 
 modifyTags();
@@ -207,12 +213,11 @@ function runVue(avatars, solutions) {
                     .then(() => window.location.reload())
                     .catch(error => console.error('Error creating avatar:', error.response.data));
             },
-            // generateClicked() {
-            //     this.generateCopies();
-            //     this.updateAvatar();
-            //     this.updateSolution();
-            // },
-            generateClicked: generateClicked,
+            generateClicked() {
+                this.generateCopies();
+                this.updateAvatar();
+                this.updateSolution();
+            },
             updateAvatar() {
                 const endpoint = apiEndpoints.avatars + this.avatar.copy.id;
                 // logJSON('Avatar:', this.avatar.copy);
@@ -288,17 +293,18 @@ function runVue(avatars, solutions) {
                     }
                 });
             },
-            async startCountdown() {
-                console.log('Starting countdown...');
-                this.countdownMessage = '';
-                for (let i = 0; i < COPY_COUNTDOWN_MESSAGE.length; i++) {
-                    this.countdownMessage += COPY_COUNTDOWN_MESSAGE[i];
-                    await delay(1000);
-                    if (!this.isCountingDown) {
-                        break;
-                    }
-                }
-            },
+            // async startCountdown() {
+            //     console.log('Starting countdown...');
+            //     this.countdownMessage = '';
+            //     for (let i = 0; i < COPY_COUNTDOWN_MESSAGE.length; i++) {
+            //         this.countdownMessage += COPY_COUNTDOWN_MESSAGE[i];
+            //         await delay(1000);
+            //         if (!this.isCountingDown) {
+            //             break;
+            //         }
+            //     }
+            // },
+            startCountdown: startCountdown,
             generateCopy(copy, generationEndpoint, checkingEndpoint, payload) {
                 console.log('Generating copy...', copy);
                 copy.requestedTime = new Date().toISOString(); // Timestamp for identifying the copy after it's generated
