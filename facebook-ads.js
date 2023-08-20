@@ -266,9 +266,8 @@ function runVue(avatars, solutions) {
                 console.log('Clearing copies...');
                 Object.values(this.copies).forEach(copy => {
                     copy.requestedTime = undefined;
-                    copy.copy = undefined;
+                    copy.copy.copy = undefined;
                 });
-                console.log('Copies cleared...');
             },
             async startCopyCountdownMessage(copy) {
                 this.copyCountdownMessage = '';
