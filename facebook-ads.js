@@ -166,6 +166,7 @@ function runVue(avatars, solutions) {
                     "target_market": this.avatarName
                 }
                 this.generateCopy(this.avatar, apiEndpoints.avatars, apiEndpoints.avatars, payload)
+                    .then(response => this.avatar.copy = response)
                     .then(() => window.location.reload())
                     .catch(error => console.error('Error creating avatar:', error.response.data));
             },
@@ -226,12 +227,19 @@ function runVue(avatars, solutions) {
                 }
                 this.clearCopies();
                 this.generateCopy(this.copies.text1, apiEndpoints.facebookAdsText, apiEndpoints.copies, text1Payload)
+                    .then(response => this.copies.text1.copy = response)
                     .then(() => this.generateCopy(this.copies.text2, apiEndpoints.facebookAdsText, apiEndpoints.copies, text2Payload))
+                    .then(response => this.copies.text2.copy = response)
                     .then(() => this.generateCopy(this.copies.text3, apiEndpoints.facebookAdsTemplatedText, apiEndpoints.copies, text3Payload))
+                    .then(response => this.copies.text3.copy = response)
                     .then(() => this.generateCopy(this.copies.text4, apiEndpoints.facebookAdsTemplatedText, apiEndpoints.copies, text4Payload))
+                    .then(response => this.copies.text4.copy = response)
                     .then(() => this.generateCopy(this.copies.text5, apiEndpoints.facebookAdsTemplatedText, apiEndpoints.copies, text5Payload))
+                    .then(response => this.copies.text5.copy = response)
                     .then(() => this.generateCopy(this.copies.headlines, apiEndpoints.facebookAdsHeadlines, apiEndpoints.copies, headlinesPayload))
+                    .then(response => this.copies.headlines.copy = response)
                     .then(() => this.generateCopy(this.copies.descriptions, apiEndpoints.facebookAdsDescriptions, apiEndpoints.copies, descriptionsPayload))
+                    .then(response => this.copies.descriptions.copy = response)
                     .catch(error => console.error('An error has occurred:', error.response.data));
             },
             clearCopies() {
@@ -252,16 +260,15 @@ function runVue(avatars, solutions) {
                     .then(() => this.checkCopyReady(requestedTime, copy, checkingEndpoint));
             },
             async checkCopyReady(requestedTime, copy, endpoint, maxTries=DEFAULT_MAX_TRIES, timeout=DEFAULT_TIMEOUT) {
-                // Check whether the copy is ready by querying its requested timestamp
-                // If not, wait a while and keep trying until either the copy is ready or max tries is reached
                 console.log('Checking copy ready...', requestedTime)
                 endpoint += '?requested_time=' + requestedTime;
                 copy.isLoading = true; // Show the 'generating' animation
+                let data;
                 let tries = 0;
                 while (tries < maxTries) {
                     const response = await axios.get(endpoint);
                     if (response.data.length > 0) {
-                        copy.copy = response.data[0];
+                        data = response.data[0];
                         break;
                     } else {
                         await delay(timeout); 
@@ -273,6 +280,7 @@ function runVue(avatars, solutions) {
                     console.error('Max tries reached. Copy not ready.');
                 }
                 copy.isLoading = false; // Hide the 'generating' animation
+                return data;
             },
             copyClicked(event) {
                 copyToClipboard(event);
