@@ -54,7 +54,8 @@ function runVue(avatars, solutions) {
 
                 tries: 0, // Current number of tries to load the avatar
 
-                ...COUNTDOWN,
+                countdownMessage: '', 
+                isCountingDown: false // Toggle in Vue watch - e.g. isGenerating(newValue) { isCountingDown: newValue },
 
                 copies: {
                     avatar: {

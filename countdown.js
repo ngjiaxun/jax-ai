@@ -38,10 +38,10 @@ const COUNTDOWN_MESSAGE = [
 ];
 
 // Assign to Vue data - e.g. countdown: COUNTDOWN
-const COUNTDOWN = {
-    countdownMessage: '', 
-    isCountingDown: false // Toggle in Vue watch - e.g. isGenerating(newValue) { isCountingDown: newValue }
-}
+// const COUNTDOWN = {
+//     countdownMessage: '', 
+//     isCountingDown: false // Toggle in Vue watch - e.g. isGenerating(newValue) { isCountingDown: newValue }
+// }
 
 // Assign to Vue watch - e.g. isCountingDown: isCountingDown
 function isCountingDown(newValue) {
