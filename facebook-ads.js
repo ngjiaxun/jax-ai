@@ -50,6 +50,7 @@ function runVue(avatars, solutions) {
                 avatarName: '',
                 painSuggestionIndex: 3, // The starting index for the pain suggestions
                 desireSuggestionIndex: 3, // The starting index for the desire suggestions
+                troubleshooting: 'troubleshooting',
 
                 tries: 0, // Current number of tries to load the avatar
 
@@ -245,6 +246,7 @@ function runVue(avatars, solutions) {
                 copy.isLoading = true; // Show the 'generating' animation
                 console.log('this in facebook-ads.js', this);
                 console.log('this.countdownMessage in facebook-ads.js', this.countdownMessage);
+                console.log('this.troubleshooting in facebook-ads.js', this.troubleshooting);
                 const requestedTime = new Date().toISOString(); // Timestamp for identifying the copy after it's generated
                 payload.requested_time = requestedTime;
                 await axios.post(generationEndpoint, payload);
