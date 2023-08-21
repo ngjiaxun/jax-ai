@@ -277,6 +277,7 @@ function runVue(avatars, solutions) {
                     if (response.data.length > 0) {
                         return response.data[0];
                     } else {
+                        console.log('countdownMessage:', this.countdownMessage);
                         await delay(timeout); 
                         tries++;
                         console.log('Tries:', tries, '/', maxTries);
