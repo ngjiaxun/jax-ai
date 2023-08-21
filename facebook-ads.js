@@ -279,6 +279,7 @@ function runVue(avatars, solutions) {
                         await delay(timeout); 
                         tries++;
                         console.log('Tries:', tries, '/', maxTries);
+                        console.log('Countdown message:', this.countdownMessage);
                     }
                 }
             },
