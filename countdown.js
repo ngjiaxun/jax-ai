@@ -54,12 +54,12 @@ function isCountingDown(newValue) {
 // Assign to Vue method - e.g. startCountdown: startCountdown
 async function startCountdown() {
     console.log('Starting countdown...');
-    this.countdown.countdownMessage = '';
+    this.countdownMessage = '';
     console.log('this in countdown.js', this);
     for (let i = 0; i < COUNTDOWN_MESSAGE.length; i++) {
-        this.countdown.countdownMessage += COUNTDOWN_MESSAGE[i];
+        this.countdownMessage += COUNTDOWN_MESSAGE[i];
         await delay(1000);
-        if (!this.countdown.isCountingDown) {
+        if (!this.isCountingDown) {
             break;
         }
     }
