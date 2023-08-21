@@ -253,7 +253,7 @@ function runVue(avatars, solutions) {
                 const requestedTime = new Date().toISOString(); // Timestamp for identifying the copy after it's generated
                 payload.requested_time = requestedTime;
                 await axios.post(generationEndpoint, payload);
-                copy.copy = await this.checkCopyReady(requestedTime, copy, checkingEndpoint);
+                copy.copy = await this.checkCopyReady(requestedTime, checkingEndpoint);
                 copy.isLoading = false; // Hide the 'generating' animation
             },
             async checkCopyReady(requestedTime, endpoint, maxTries=DEFAULT_MAX_TRIES, timeout=DEFAULT_TIMEOUT) {
