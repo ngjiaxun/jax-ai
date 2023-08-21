@@ -56,44 +56,36 @@ function runVue(avatars, solutions) {
                 ...COUNTDOWN,
 
                 avatar: {
-                    requestedTime: undefined,
                     copy: undefined,
                     isLoading: false // Whether the copy is currently being generated (for the loading animation)
                 },
 
                 copies: {
                     text1: {
-                        requestedTime: undefined,
                         copy: undefined,
                         isLoading: false 
                     },
                     text2: {
-                        requestedTime: undefined,
                         copy: undefined,
                         isLoading: false
                     },
                     text3: {
-                        requestedTime: undefined,
                         copy: undefined,
                         isLoading: false
                     },
                     text4: {
-                        requestedTime: undefined,
                         copy: undefined,
                         isLoading: false
                     },
                     text5: {
-                        requestedTime: undefined,
                         copy: undefined,
                         isLoading: false
                     },
                     headlines: {
-                        requestedTime: undefined,
                         copy: undefined,
                         isLoading: false
                     },
                     descriptions: {
-                        requestedTime: undefined,
                         copy: undefined,
                         isLoading: false
                     }
@@ -254,16 +246,16 @@ function runVue(avatars, solutions) {
             startCountdown: startCountdown,
             generateCopy(copy, generationEndpoint, checkingEndpoint, payload) {
                 console.log('Generating copy...', copy);
-                copy.requestedTime = new Date().toISOString(); // Timestamp for identifying the copy after it's generated
-                payload.requested_time = copy.requestedTime;
+                const requestedTime = new Date().toISOString(); // Timestamp for identifying the copy after it's generated
+                payload.requested_time = requestedTime;
                 return axios.post(generationEndpoint, payload)
-                    .then(() => this.checkCopyReady(copy, checkingEndpoint));
+                    .then(() => this.checkCopyReady(requestedTime, copy, checkingEndpoint));
             },
-            async checkCopyReady(copy, endpoint, maxTries=DEFAULT_MAX_TRIES, timeout=DEFAULT_TIMEOUT) {
+            async checkCopyReady(requestedTime, copy, endpoint, maxTries=DEFAULT_MAX_TRIES, timeout=DEFAULT_TIMEOUT) {
                 // Check whether the copy is ready by querying its requested timestamp
                 // If not, wait a while and keep trying until either the copy is ready or max tries is reached
-                console.log('Checking copy ready...', copy.requestedTime)
-                endpoint += '?requested_time=' + copy.requestedTime;
+                console.log('Checking copy ready...', requestedTime)
+                endpoint += '?requested_time=' + requestedTime;
                 copy.isLoading = true; // Show the 'generating' animation
                 let tries = 0;
                 while (tries < maxTries) {
@@ -272,7 +264,7 @@ function runVue(avatars, solutions) {
                         copy.copy = response.data[0];
                         break;
                     } else {
-                        await delay(timeout);
+                        await delay(timeout); 
                         tries++;
                         console.log('Tries:', tries, '/', maxTries);
                     }
