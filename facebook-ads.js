@@ -264,12 +264,12 @@ function runVue(avatars, solutions) {
                 await axios.post(generationEndpoint, payload);
                 console.log('Copy generation request sent...');
                 copy.isLoading = true; // Show the 'generating' animation
+                console.log('copy.isLoading set to true...');
                 copy.copy = await this.checkCopyReady(requestedTime, checkingEndpoint);
                 copy.isLoading = false; // Hide the 'generating' animation
             },
             async checkCopyReady(requestedTime, endpoint, maxTries=DEFAULT_MAX_TRIES, timeout=DEFAULT_TIMEOUT) {
                 console.log('Checking if copy is ready...', requestedTime)
-                console.log('Countdown message:', this.countdownMessage);
                 endpoint += '?requested_time=' + requestedTime;
                 let tries = 0;
                 while (tries < maxTries) {
