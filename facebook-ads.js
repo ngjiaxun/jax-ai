@@ -253,6 +253,7 @@ function runVue(avatars, solutions) {
                     this.countdownMessage += COUNTDOWN_MESSAGE[i];
                     await delay(1000);
                     if (!this.isCountingDown) {
+                        console.log('Countdown stopped...');
                         break;
                     }
                 }
