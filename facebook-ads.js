@@ -92,13 +92,7 @@ function runVue(avatars, solutions) {
             }
         },
         watch: {
-            'avatar.isLoading'(newValue) {
-                this.isCountingDown = newValue;
-            },
             areCopiesLoading(newValue) {
-                this.isCountingDown = newValue;
-            },
-            isGeneratingAny(newValue) {
                 this.isCountingDown = newValue;
             },
             isCountingDown: isCountingDown
