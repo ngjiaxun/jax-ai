@@ -243,7 +243,7 @@ function runVue(avatars, solutions) {
             async generateCopy(copy, generationEndpoint, checkingEndpoint, payload) {
                 console.log('Generating copy...', copy);
                 copy.isLoading = true; // Show the 'generating' animation
-                console.log('countdownMessage:', this.countdownMessage);
+                console.log('countdownMessage:', this.countdown.countdownMessage);
                 const requestedTime = new Date().toISOString(); // Timestamp for identifying the copy after it's generated
                 payload.requested_time = requestedTime;
                 await axios.post(generationEndpoint, payload);
