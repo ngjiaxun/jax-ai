@@ -252,12 +252,15 @@ function runVue(avatars, solutions) {
                 console.log('countdownMessage:', this.countdownMessage);
                 for (let i = 0; i < COUNTDOWN_MESSAGE.length; i++) {
                     console.log('Start of for loop...');
+                    console.log('i:', i);
                     console.log('countdownMessage:', this.countdownMessage);
                     this.countdownMessage += COUNTDOWN_MESSAGE[i];
                     console.log('Appending countdownMessage:', COUNTDOWN_MESSAGE[i]);
+                    console.log('i:', i);
                     console.log('countdownMessage:', this.countdownMessage);
                     await delay(1000);
                     console.log('After delay...');
+                    console.log('i:', i);
                     console.log('countdownMessage:', this.countdownMessage);
                     if (!this.isCountingDown) {
                         console.log('Countdown stopped...');
