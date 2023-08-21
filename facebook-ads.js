@@ -259,11 +259,11 @@ function runVue(avatars, solutions) {
             },
             async generateCopy(copy, generationEndpoint, checkingEndpoint, payload) {
                 console.log('Generating copy...', copy);
-                copy.isLoading = true; // Show the 'generating' animation
                 const requestedTime = new Date().toISOString(); // Timestamp for identifying the copy after it's generated
                 payload.requested_time = requestedTime;
                 await axios.post(generationEndpoint, payload);
                 console.log('Copy generation request sent...');
+                copy.isLoading = true; // Show the 'generating' animation
                 copy.copy = await this.checkCopyReady(requestedTime, checkingEndpoint);
                 copy.isLoading = false; // Hide the 'generating' animation
             },
