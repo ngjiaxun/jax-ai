@@ -55,12 +55,11 @@ function runVue(avatars, solutions) {
 
                 ...COUNTDOWN,
 
-                avatar: {
-                    copy: undefined,
-                    isLoading: false // Whether the copy is currently being generated (for the loading animation)
-                },
-
                 copies: {
+                    avatar: {
+                        copy: undefined,
+                        isLoading: false
+                    },
                     text1: {
                         copy: undefined,
                         isLoading: false 
@@ -128,7 +127,7 @@ function runVue(avatars, solutions) {
             },
             clearAvatar() {
                 console.log('Clearing avatar...');
-                this.avatar.copy = null;
+                this.copies.avatar.copy = null;
                 console.log('Avatar cleared...');
             },
             addNewAvatar() {
@@ -137,12 +136,12 @@ function runVue(avatars, solutions) {
             retrieveAvatar(avatarId) {
                 console.log(`Retrieving avatar ${avatarId}...`);
                 axios.get(apiEndpoints.avatars + avatarId)
-                    .then(response => this.avatar.copy = response.data)
+                    .then(response => this.copies.avatar.copy = response.data)
                     .catch(error => console.error('Error retrieving avatar:', error.response.data));
             },
             refreshClicked(event) {
-                const maxPainSuggestions = this.avatar.copy.pain_suggestions.length - 1;
-                const maxDesireSuggestions = this.avatar.copy.desire_suggestions.length - 1;
+                const maxPainSuggestions = this.copies.avatar.copy.pain_suggestions.length - 1;
+                const maxDesireSuggestions = this.copies.avatar.copy.desire_suggestions.length - 1;
                 const button = event.currentTarget;
                 let index = button.dataset.index;
 
@@ -152,11 +151,11 @@ function runVue(avatars, solutions) {
 
                 // Go down the list of suggestions every time the refresh button is clicked, until we reach the end, then start over
                 if (index < 3) { // Pains (0, 1, 2)
-                    this.avatar.copy.pains[index] = this.avatar.copy.pain_suggestions[this.painSuggestionIndex];
+                    this.copies.avatar.copy.pains[index] = this.copies.avatar.copy.pain_suggestions[this.painSuggestionIndex];
                     this.painSuggestionIndex = this.painSuggestionIndex < maxPainSuggestions ? this.painSuggestionIndex + 1 : 0;
                 } else { // Desires (3, 4, 5)
                     index = index - 3;
-                    this.avatar.copy.desires[index] = this.avatar.copy.desire_suggestions[this.desireSuggestionIndex];
+                    this.copies.avatar.copy.desires[index] = this.copies.avatar.copy.desire_suggestions[this.desireSuggestionIndex];
                     this.desireSuggestionIndex = this.desireSuggestionIndex < maxDesireSuggestions ? this.desireSuggestionIndex + 1 : 0;
                 }
             },
@@ -178,9 +177,9 @@ function runVue(avatars, solutions) {
                 this.updateSolution();
             },
             updateAvatar() {
-                const endpoint = apiEndpoints.avatars + this.avatar.copy.id;
-                // logJSON('Avatar:', this.avatar.copy);
-                axios.patch(endpoint, this.avatar.copy)
+                const endpoint = apiEndpoints.avatars + this.copies.avatar.copy.id;
+                // logJSON('Avatar:', this.copies.avatar.copy);
+                axios.patch(endpoint, this.copies.avatar.copy)
                     .then(response => console.log('Avatar updated...'))
                     .catch(error => console.error('Error updating avatar:', error.message));
             },
@@ -197,8 +196,8 @@ function runVue(avatars, solutions) {
             generateCopies() {
                 console.log('Generating copies...');
                 const commonPayload = {
-                    avatar: this.avatar.copy.id,
-                    ...this.avatar.copy,
+                    avatar: this.copies.avatar.copy.id,
+                    ...this.copies.avatar.copy,
                     ...this.solution
                 }
                 const text1Payload = {
