@@ -169,7 +169,6 @@ function runVue(avatars, solutions) {
                     "target_market": this.avatarName
                 }
                 this.generateCopy(this.avatar, apiEndpoints.avatars, apiEndpoints.avatars, payload)
-                    .then(response => this.avatar.copy = response)
                     .then(() => window.location.reload())
                     .catch(error => console.error('Error creating avatar:', error.response.data));
             },
