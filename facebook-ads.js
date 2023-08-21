@@ -97,7 +97,12 @@ function runVue(avatars, solutions) {
             areCopiesLoading(newValue) {
                 this.isCountingDown = newValue;
             },
-            isCountingDown: isCountingDown
+            isCountingDown(newValue) {
+                console.log('isCountingDown:', newValue)
+                if (newValue) {
+                    this.startCountdown();
+                }
+            }
         },
         computed: {
             isAddNew() {
@@ -241,7 +246,20 @@ function runVue(avatars, solutions) {
                     }
                 });
             },
-            startCountdown: startCountdown,
+            async startCountdown() {
+                console.log('Starting countdown...');
+                this.countdownMessage = '';
+                console.log('this in countdown.js', this);
+                console.log('this.countdownMessage in countdown.js', this.countdownMessage);
+                console.log('this.troubleshooting in countdown.js', this.troubleshooting);
+                for (let i = 0; i < COUNTDOWN_MESSAGE.length; i++) {
+                    this.countdownMessage += COUNTDOWN_MESSAGE[i];
+                    await delay(1000);
+                    if (!this.isCountingDown) {
+                        break;
+                    }
+                }
+            },
             async generateCopy(copy, generationEndpoint, checkingEndpoint, payload) {
                 console.log('Generating copy...', copy);
                 copy.isLoading = true; // Show the 'generating' animation
