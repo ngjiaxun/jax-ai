@@ -249,9 +249,6 @@ function runVue(avatars, solutions) {
             async startCountdown() {
                 console.log('Starting countdown...');
                 this.countdownMessage = '';
-                console.log('this in countdown.js', this);
-                console.log('this.countdownMessage in countdown.js', this.countdownMessage);
-                console.log('this.troubleshooting in countdown.js', this.troubleshooting);
                 for (let i = 0; i < COUNTDOWN_MESSAGE.length; i++) {
                     this.countdownMessage += COUNTDOWN_MESSAGE[i];
                     await delay(1000);
@@ -263,12 +260,10 @@ function runVue(avatars, solutions) {
             async generateCopy(copy, generationEndpoint, checkingEndpoint, payload) {
                 console.log('Generating copy...', copy);
                 copy.isLoading = true; // Show the 'generating' animation
-                console.log('this in facebook-ads.js', this);
-                console.log('this.countdownMessage in facebook-ads.js', this.countdownMessage);
-                console.log('this.troubleshooting in facebook-ads.js', this.troubleshooting);
                 const requestedTime = new Date().toISOString(); // Timestamp for identifying the copy after it's generated
                 payload.requested_time = requestedTime;
                 await axios.post(generationEndpoint, payload);
+                console.log('Copy generation request sent...');
                 copy.copy = await this.checkCopyReady(requestedTime, checkingEndpoint);
                 copy.isLoading = false; // Hide the 'generating' animation
             },
