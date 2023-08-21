@@ -56,6 +56,7 @@ async function startCountdown() {
     console.log('Starting countdown...');
     this.countdownMessage = '';
     console.log('this in countdown.js', this);
+    console.log('this.countdownMessage in countdown.js', this.countdownMessage);
     for (let i = 0; i < COUNTDOWN_MESSAGE.length; i++) {
         this.countdownMessage += COUNTDOWN_MESSAGE[i];
         await delay(1000);

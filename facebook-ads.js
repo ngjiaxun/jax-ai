@@ -244,6 +244,7 @@ function runVue(avatars, solutions) {
                 console.log('Generating copy...', copy);
                 copy.isLoading = true; // Show the 'generating' animation
                 console.log('this in facebook-ads.js', this);
+                console.log('this.countdownMessage in facebook-ads.js', this.countdownMessage);
                 const requestedTime = new Date().toISOString(); // Timestamp for identifying the copy after it's generated
                 payload.requested_time = requestedTime;
                 await axios.post(generationEndpoint, payload);
