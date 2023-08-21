@@ -53,7 +53,7 @@ function runVue(avatars, solutions) {
 
                 tries: 0, // Current number of tries to load the avatar
 
-                ...COUNTDOWN,
+                countdown: COUNTDOWN,
 
                 copies: {
                     avatar: {

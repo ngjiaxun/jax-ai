@@ -37,7 +37,7 @@ const COUNTDOWN_MESSAGE = [
     ' '
 ];
 
-// Copy to Vue data - e.g. ...COUNTDOWN
+// Assign to Vue data - e.g. countdown: COUNTDOWN
 const COUNTDOWN = {
     countdownMessage: '', 
     isCountingDown: false // Toggle in Vue watch - e.g. isGenerating(newValue) { isCountingDown: newValue }
@@ -54,11 +54,11 @@ function isCountingDown(newValue) {
 // Assign to Vue method - e.g. startCountdown: startCountdown
 async function startCountdown() {
     console.log('Starting countdown...');
-    this.countdownMessage = '';
+    this.countdown.countdownMessage = '';
     for (let i = 0; i < COUNTDOWN_MESSAGE.length; i++) {
-        this.countdownMessage += COUNTDOWN_MESSAGE[i];
+        this.countdown.countdownMessage += COUNTDOWN_MESSAGE[i];
         await delay(1000);
-        if (!this.isCountingDown) {
+        if (!this.countdown.isCountingDown) {
             break;
         }
     }
