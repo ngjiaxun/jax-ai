@@ -37,37 +37,13 @@ const COUNTDOWN_MESSAGE = [
     ' '
 ];
 
-/* Copy to Vue data - E.g.
-    data() {
-        return {
-            // ...
-            ...COUNTDOWN,
-            // ...
-        }
-    }
-*/
+// Copy to Vue data - e.g. ...COUNTDOWN
 const COUNTDOWN = {
     countdownMessage: '', 
-
-    /* Use watchers to start and stop countdown - E.g.
-        watch: {
-            // ...
-            areCopiesLoading(newValue) {
-                this.isCountingDown = newValue;
-            },
-            // ...
-        }
-    */
-    isCountingDown: false 
+    isCountingDown: false // Toggle in Vue watch - e.g. isGenerating(newValue) { isCountingDown: newValue }
 }
 
-/* Assign to Vue watch - E.g.
-    watch: {
-        // ...
-        isCountingDown: isCountingDown
-        // ...
-    }
-*/
+// Assign to Vue watch - e.g. isCountingDown: isCountingDown
 function isCountingDown(newValue) {
     console.log('isCountingDown:', newValue)
     if (newValue) {
@@ -75,13 +51,7 @@ function isCountingDown(newValue) {
     }
 }
 
-/* Assign to Vue methods - E.g.
-    methods: {
-        // ...
-        startCountdown: startCountdown,
-        // ...
-    }
-*/
+// Assign to Vue method - e.g. startCountdown: startCountdown
 async function startCountdown() {
     console.log('Starting countdown...');
     this.countdownMessage = '';
