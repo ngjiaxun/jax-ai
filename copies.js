@@ -66,7 +66,6 @@ const copies = {
             this.startCountdown(copy);
             copy.data = await this.checkCopyReady(requestedTime, checkingEndpoint);
             copy.isGenerating = false; 
-            console.log('Copy generated:', copy.data);
         },
         async checkCopyReady(requestedTime, endpoint, maxTries=DEFAULT_MAX_TRIES, timeout=DEFAULT_TIMEOUT) {
             console.log('Checking if copy is ready...', requestedTime)
