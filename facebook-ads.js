@@ -278,6 +278,7 @@ function runVue(avatars, solutions) {
                 console.log('copy.isLoading set to true...');
                 this.startCountdown();
                 copy.copy = await this.checkCopyReady(requestedTime, checkingEndpoint);
+                console.log('After checkCopyReady...');
                 this.isCountingDown = false;
                 copy.isLoading = false; // Hide the 'generating' animation
             },
