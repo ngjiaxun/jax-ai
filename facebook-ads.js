@@ -93,17 +93,6 @@ function runVue(avatars, solutions) {
                 }
             }
         },
-        watch: {
-            areCopiesLoading(newValue) {
-                // this.isCountingDown = newValue;
-            },
-            isCountingDown(newValue) {
-                console.log('isCountingDown:', newValue)
-                if (newValue) {
-                    // this.startCountdown();
-                }
-            }
-        },
         computed: {
             isAddNew() {
                 return this.avatarSelection === ADD_NEW;
@@ -249,38 +238,23 @@ function runVue(avatars, solutions) {
             async startCountdown() {
                 console.log('Starting countdown...');
                 this.countdownMessage = '';
-                console.log('countdownMessage:', this.countdownMessage);
                 for (let i = 0; i < COUNTDOWN_MESSAGE.length; i++) {
-                    console.log('Start of for loop...');
-                    console.log('i:', i);
-                    console.log('countdownMessage:', this.countdownMessage);
                     this.countdownMessage += COUNTDOWN_MESSAGE[i];
-                    console.log('Appending countdownMessage:', COUNTDOWN_MESSAGE[i]);
-                    console.log('i:', i);
-                    console.log('countdownMessage:', this.countdownMessage);
                     await delay(1000);
-                    console.log('After delay...');
-                    console.log('i:', i);
-                    console.log('countdownMessage:', this.countdownMessage);
                     if (!this.isCountingDown) {
-                        console.log('Countdown stopped...');
                         break;
                     }
                 }
             },
+            
             async generateCopy(copy, generationEndpoint, checkingEndpoint, payload) {
                 console.log('Generating copy...', copy);
                 const requestedTime = new Date().toISOString(); // Timestamp for identifying the copy after it's generated
                 payload.requested_time = requestedTime;
                 await axios.post(generationEndpoint, payload);
-                console.log('Copy generation request sent...');
-                copy.isLoading = true; // Show the 'generating' animation
-                console.log('copy.isLoading set to true...');
-                this.startCountdown();
+                copy.isLoading = true; 
                 copy.copy = await this.checkCopyReady(requestedTime, checkingEndpoint);
-                console.log('After checkCopyReady...');
-                this.isCountingDown = false;
-                copy.isLoading = false; // Hide the 'generating' animation
+                copy.isLoading = false; 
             },
             async checkCopyReady(requestedTime, endpoint, maxTries=DEFAULT_MAX_TRIES, timeout=DEFAULT_TIMEOUT) {
                 console.log('Checking if copy is ready...', requestedTime)
@@ -291,11 +265,9 @@ function runVue(avatars, solutions) {
                     if (response.data.length > 0) {
                         return response.data[0];
                     } else {
-                        console.log('countdownMessage:', this.countdownMessage);
                         await delay(timeout); 
                         tries++;
                         console.log('Tries:', tries, '/', maxTries);
-                        console.log('countdownMessage:', this.countdownMessage);
                     }
                 }
             },
