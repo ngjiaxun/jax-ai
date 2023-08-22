@@ -76,7 +76,7 @@ function runVue(avatars, solutions) {
                 return this.avatarSelection === SELECT_ONE;
             },
             areCopiesLoading() { // The 'generate' button will be hidden while the copies are loading
-                return Object.values(this.copies).some(copy => copy.isLoading);
+                return Object.values(this.copies).some(copy => copy.isGenerating);
             }
         },
         methods: {

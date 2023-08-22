@@ -42,7 +42,7 @@ const copies = {
         countdownMessage: '',
         copy: {
             data: undefined,
-            isLoading: false
+            isGenerating: false
         }
     },
     methods: {
@@ -52,7 +52,7 @@ const copies = {
             for (let i = 0; i < COUNTDOWN_MESSAGE.length; i++) {
                 this.countdownMessage += COUNTDOWN_MESSAGE[i];
                 await delay(1000);
-                if (!copy.isLoading) {
+                if (!copy.isGenerating) {
                     break;
                 }
             }
@@ -62,10 +62,11 @@ const copies = {
             const requestedTime = new Date().toISOString(); // Timestamp for identifying the copy after it's generated
             payload.requested_time = requestedTime;
             await axios.post(generationEndpoint, payload);
-            copy.isLoading = true; 
+            copy.isGenerating = true; 
             this.startCountdown(copy);
             copy.data = await this.checkCopyReady(requestedTime, checkingEndpoint);
-            copy.isLoading = false; 
+            console.log('Copy generated:', copy.data);
+            copy.isGenerating = false; 
         },
         async checkCopyReady(requestedTime, endpoint, maxTries=DEFAULT_MAX_TRIES, timeout=DEFAULT_TIMEOUT) {
             console.log('Checking if copy is ready...', requestedTime)
