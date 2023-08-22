@@ -100,7 +100,7 @@ function runVue(avatars, solutions) {
             isCountingDown(newValue) {
                 console.log('isCountingDown:', newValue)
                 if (newValue) {
-                    this.startCountdown();
+                    // this.startCountdown();
                 }
             }
         },
@@ -276,6 +276,7 @@ function runVue(avatars, solutions) {
                 console.log('Copy generation request sent...');
                 copy.isLoading = true; // Show the 'generating' animation
                 console.log('copy.isLoading set to true...');
+                this.startCountdown();
                 copy.copy = await this.checkCopyReady(requestedTime, checkingEndpoint);
                 copy.isLoading = false; // Hide the 'generating' animation
             },
