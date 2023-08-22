@@ -234,12 +234,15 @@ function runVue(avatars, solutions) {
                     }
                 });
             },
-            async restartCountdown() {
+            async startCountdown(copy) {
                 console.log('Restarting countdown...');
                 this.countdownMessage = '';
                 for (let i = 0; i < COUNTDOWN_MESSAGE.length; i++) {
                     this.countdownMessage += COUNTDOWN_MESSAGE[i];
                     await delay(1000);
+                    if (!copy.isLoading) {
+                        break;
+                    }
                 }
             },
             
@@ -249,14 +252,14 @@ function runVue(avatars, solutions) {
                 payload.requested_time = requestedTime;
                 await axios.post(generationEndpoint, payload);
                 copy.isLoading = true; 
-                this.restartCountdown();
+                this.startCountdown(copy);
                 copy.copy = await this.checkCopyReady(requestedTime, checkingEndpoint);
                 copy.isLoading = false; 
             },
             async checkCopyReady(requestedTime, endpoint, maxTries=DEFAULT_MAX_TRIES, timeout=DEFAULT_TIMEOUT) {
                 console.log('Checking if copy is ready...', requestedTime)
                 endpoint += '?requested_time=' + requestedTime;
-                let tries = 0;
+                let tries = 0; 
                 while (tries < maxTries) {
                     const response = await axios.get(endpoint);
                     if (response.data.length > 0) {
