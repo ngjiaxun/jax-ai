@@ -95,7 +95,7 @@ function runVue(avatars, solutions) {
         },
         watch: {
             areCopiesLoading(newValue) {
-                this.isCountingDown = newValue;
+                // this.isCountingDown = newValue;
             },
             isCountingDown(newValue) {
                 console.log('isCountingDown:', newValue)
@@ -278,6 +278,7 @@ function runVue(avatars, solutions) {
                 console.log('copy.isLoading set to true...');
                 this.startCountdown();
                 copy.copy = await this.checkCopyReady(requestedTime, checkingEndpoint);
+                this.isCountingDown = false;
                 copy.isLoading = false; // Hide the 'generating' animation
             },
             async checkCopyReady(requestedTime, endpoint, maxTries=DEFAULT_MAX_TRIES, timeout=DEFAULT_TIMEOUT) {
