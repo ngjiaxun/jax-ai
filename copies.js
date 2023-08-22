@@ -41,7 +41,7 @@ const copies = {
     data: {
         countdownMessage: '',
         copy: {
-            copy: undefined,
+            data: undefined,
             isLoading: false
         }
     },
@@ -64,7 +64,7 @@ const copies = {
             await axios.post(generationEndpoint, payload);
             copy.isLoading = true; 
             this.startCountdown(copy);
-            copy.copy = await this.checkCopyReady(requestedTime, checkingEndpoint);
+            copy.data = await this.checkCopyReady(requestedTime, checkingEndpoint);
             copy.isLoading = false; 
         },
         async checkCopyReady(requestedTime, endpoint, maxTries=DEFAULT_MAX_TRIES, timeout=DEFAULT_TIMEOUT) {

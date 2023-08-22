@@ -95,7 +95,7 @@ function runVue(avatars, solutions) {
             },
             clearAvatar() {
                 console.log('Clearing avatar...');
-                this.copies.avatar.copy = null;
+                this.copies.avatar.data = null;
                 console.log('Avatar cleared...');
             },
             addNewAvatar() {
@@ -104,12 +104,12 @@ function runVue(avatars, solutions) {
             retrieveAvatar(avatarId) {
                 console.log(`Retrieving avatar ${avatarId}...`);
                 axios.get(apiEndpoints.avatars + avatarId)
-                    .then(response => this.copies.avatar.copy = response.data)
+                    .then(response => this.copies.avatar.data = response.data)
                     .catch(error => console.error('Error retrieving avatar:', error.response.data));
             },
             refreshClicked(event) {
-                const maxPainSuggestions = this.copies.avatar.copy.pain_suggestions.length - 1;
-                const maxDesireSuggestions = this.copies.avatar.copy.desire_suggestions.length - 1;
+                const maxPainSuggestions = this.copies.avatar.data.pain_suggestions.length - 1;
+                const maxDesireSuggestions = this.copies.avatar.data.desire_suggestions.length - 1;
                 const button = event.currentTarget;
                 let index = button.dataset.index;
 
@@ -119,11 +119,11 @@ function runVue(avatars, solutions) {
 
                 // Go down the list of suggestions every time the refresh button is clicked, until we reach the end, then start over
                 if (index < 3) { // Pains (0, 1, 2)
-                    this.copies.avatar.copy.pains[index] = this.copies.avatar.copy.pain_suggestions[this.painSuggestionIndex];
+                    this.copies.avatar.data.pains[index] = this.copies.avatar.data.pain_suggestions[this.painSuggestionIndex];
                     this.painSuggestionIndex = this.painSuggestionIndex < maxPainSuggestions ? this.painSuggestionIndex + 1 : 0;
                 } else { // Desires (3, 4, 5)
                     index = index - 3;
-                    this.copies.avatar.copy.desires[index] = this.copies.avatar.copy.desire_suggestions[this.desireSuggestionIndex];
+                    this.copies.avatar.data.desires[index] = this.copies.avatar.data.desire_suggestions[this.desireSuggestionIndex];
                     this.desireSuggestionIndex = this.desireSuggestionIndex < maxDesireSuggestions ? this.desireSuggestionIndex + 1 : 0;
                 }
             },
@@ -145,9 +145,9 @@ function runVue(avatars, solutions) {
                 this.updateSolution();
             },
             updateAvatar() {
-                const endpoint = apiEndpoints.avatars + this.copies.avatar.copy.id;
-                // logJSON('Avatar:', this.copies.avatar.copy);
-                axios.patch(endpoint, this.copies.avatar.copy)
+                const endpoint = apiEndpoints.avatars + this.copies.avatar.data.id;
+                // logJSON('Avatar:', this.copies.avatar.data);
+                axios.patch(endpoint, this.copies.avatar.data)
                     .then(response => console.log('Avatar updated...'))
                     .catch(error => console.error('Error updating avatar:', error.message));
             },
@@ -164,8 +164,8 @@ function runVue(avatars, solutions) {
             generateCopies() {
                 console.log('Generating copies...');
                 const commonPayload = {
-                    avatar: this.copies.avatar.copy.id,
-                    ...this.copies.avatar.copy,
+                    avatar: this.copies.avatar.data.id,
+                    ...this.copies.avatar.data,
                     ...this.solution
                 }
                 const text1Payload = {
@@ -208,8 +208,8 @@ function runVue(avatars, solutions) {
                 console.log('Clearing copies...');
                 Object.values(this.copies).forEach(copy => {
                     copy.requestedTime = undefined;
-                    if (copy.copy) {
-                        copy.copy.copy = undefined;
+                    if (copy.data) {
+                        copy.data.copy = undefined;
                     }
                 });
             },
