@@ -57,38 +57,14 @@ function runVue(avatars, solutions) {
                 ...copies.data,
 
                 copies: {
-                    avatar: {
-                        copy: undefined,
-                        isLoading: false
-                    },
-                    text1: {
-                        copy: undefined,
-                        isLoading: false 
-                    },
-                    text2: {
-                        copy: undefined,
-                        isLoading: false
-                    },
-                    text3: {
-                        copy: undefined,
-                        isLoading: false
-                    },
-                    text4: {
-                        copy: undefined,
-                        isLoading: false
-                    },
-                    text5: {
-                        copy: undefined,
-                        isLoading: false
-                    },
-                    headlines: {
-                        copy: undefined,
-                        isLoading: false
-                    },
-                    descriptions: {
-                        copy: undefined,
-                        isLoading: false
-                    }
+                    avatar: {...copies.data.copy},
+                    text1: {...copies.data.copy},
+                    text2: {...copies.data.copy},
+                    text3: {...copies.data.copy},
+                    text4: {...copies.data.copy},
+                    text5: {...copies.data.copy},
+                    headlines: {...copies.data.copy},
+                    descriptions: {...copies.data.copy}
                 }
             }
         },

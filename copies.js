@@ -40,6 +40,10 @@ const COUNTDOWN_MESSAGE = [
 const copies = {
     data: {
         countdownMessage: '',
+        copy: {
+            copy: undefined,
+            isLoading: false
+        }
     },
     methods: {
         async startCountdown(copy) {
