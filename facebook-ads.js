@@ -55,7 +55,6 @@ function runVue(avatars, solutions) {
                 tries: 0, // Current number of tries to load the avatar
 
                 countdownMessage: '', 
-                isCountingDown: false,
 
                 copies: {
                     avatar: {
@@ -235,15 +234,12 @@ function runVue(avatars, solutions) {
                     }
                 });
             },
-            async startCountdown() {
-                console.log('Starting countdown...');
+            async restartCountdown() {
+                console.log('Restarting countdown...');
                 this.countdownMessage = '';
                 for (let i = 0; i < COUNTDOWN_MESSAGE.length; i++) {
                     this.countdownMessage += COUNTDOWN_MESSAGE[i];
                     await delay(1000);
-                    if (!this.isCountingDown) {
-                        break;
-                    }
                 }
             },
             
@@ -253,6 +249,7 @@ function runVue(avatars, solutions) {
                 payload.requested_time = requestedTime;
                 await axios.post(generationEndpoint, payload);
                 copy.isLoading = true; 
+                this.restartCountdown();
                 copy.copy = await this.checkCopyReady(requestedTime, checkingEndpoint);
                 copy.isLoading = false; 
             },
