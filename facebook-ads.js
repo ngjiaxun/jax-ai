@@ -76,6 +76,12 @@ function runVue(avatars, solutions) {
             isSelectOne() {
                 return this.avatarSelection === SELECT_ONE;
             },
+            isPainSectionVisible() {
+                return !isAddNew && !isSelectOne && copies.avatar.data;
+            },
+            isStepTwoSectionVisible() {
+                return !isGeneratingAny && !isAddNew && !isSelectOne;
+            }
         },
         methods: {
             startCountdown: copies.method.startCountdown,
