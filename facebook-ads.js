@@ -66,6 +66,7 @@ function runVue(avatars, solutions) {
         },
         computed: {
             isGeneratingAny: copies.computed.isGeneratingAny,
+
             isAddNew() {
                 return this.avatarSelection === ADD_NEW;
             },
@@ -86,6 +87,7 @@ function runVue(avatars, solutions) {
             retrieveCopy: copies.method.retrieveCopy,
             clearProp: copies.method.clearProp,
             getProp: copies.method.getProp,
+
             avatarSelectionChanged() {
                 console.log(`Avatar ${this.avatarSelection} selected...`);
                 if (this.isSelectOne) {
@@ -131,8 +133,14 @@ function runVue(avatars, solutions) {
             },
             generateClicked() {
                 this.generateCopies();
-                this.updateAvatar();
+                this.updateCopy(this.copies.avatar, apiEndpoints.avatars);
                 this.updateSolution();
+            },
+            updateCopy(copy, endpoint) {
+                const endpoint = apiEndpoints.copies + copy.data.id;
+                axios.patch(endpoint, copy.data)
+                    .then(response => console.log('Copy updated...'))
+                    .catch(error => console.error('Error updating copy:', error.message));
             },
             updateAvatar() {
                 const endpoint = apiEndpoints.avatars + this.copies.avatar.data.id;
