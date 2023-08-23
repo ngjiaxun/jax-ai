@@ -47,7 +47,7 @@ const copies = {
     },
     computed: {
         getProp(copy, prop) {
-            return this.copies[copy].data ? this.copies[copy].data[prop] : '';
+            return copy.data ? copy.data[prop] : '';
         },
         isGeneratingAny() { // The 'generate' button will be hidden while the copies are loading
             return Object.values(this.copies).some(copy => copy.isGenerating);
