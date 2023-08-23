@@ -85,6 +85,7 @@ function runVue(avatars, solutions) {
             generateCopy: copies.method.generateCopy,
             checkCopyReady: copies.method.checkCopyReady,
             retrieveCopy: copies.method.retrieveCopy,
+            updateCopy: copies.method.updateCopy,
             clearProp: copies.method.clearProp,
             getProp: copies.method.getProp,
 
@@ -135,18 +136,6 @@ function runVue(avatars, solutions) {
                 this.generateCopies();
                 this.updateCopy(this.copies.avatar, apiEndpoints.avatars);
                 this.updateSolution();
-            },
-            updateCopy(copy, endpoint) {
-                axios.patch(endpoint + copy.data.id, copy.data)
-                    .then(response => console.log('Copy updated...'))
-                    .catch(error => console.error('Error updating copy:', error.message));
-            },
-            updateAvatar() {
-                const endpoint = apiEndpoints.avatars + this.copies.avatar.data.id;
-                // logJSON('Avatar:', this.copies.avatar.data);
-                axios.patch(endpoint, this.copies.avatar.data)
-                    .then(response => console.log('Avatar updated...'))
-                    .catch(error => console.error('Error updating avatar:', error.message));
             },
             updateSolution() {
                 // logJSON('Solution:', this.solution);

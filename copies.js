@@ -93,6 +93,11 @@ const copies = {
                 .then(response => copy.data = response.data)
                 .catch(error => console.error('Error retrieving copy:', error.response.data));
         },
+        updateCopy(copy, endpoint) {
+            axios.patch(endpoint + copy.data.id, copy.data)
+                .then(response => console.log('Copy updated...', response.data.id))
+                .catch(error => console.error('Error updating copy:', error.message));
+        },
         clearProp(prop) {
             console.log('Clearing property...', prop);
             Object.values(this.copies).forEach(copy => {
