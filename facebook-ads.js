@@ -137,8 +137,7 @@ function runVue(avatars, solutions) {
                 this.updateSolution();
             },
             updateCopy(copy, endpoint) {
-                const endpoint = apiEndpoints.copies + copy.data.id;
-                axios.patch(endpoint, copy.data)
+                axios.patch(endpoint + copy.data.id, copy.data)
                     .then(response => console.log('Copy updated...'))
                     .catch(error => console.error('Error updating copy:', error.message));
             },
