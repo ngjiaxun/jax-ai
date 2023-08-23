@@ -87,11 +87,11 @@ const copies = {
                 }
             }
         },
-        clearCopies() {
-            console.log('Clearing copies...');
+        clearProperty(prop) {
+            console.log('Clearing property...', prop);
             Object.values(this.copies).forEach(copy => {
                 if (copy.data) {
-                    copy.data['copy'] = '';
+                    copy.data[prop] = '';
                 }
             });
         }

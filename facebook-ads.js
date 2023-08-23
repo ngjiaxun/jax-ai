@@ -81,21 +81,17 @@ function runVue(avatars, solutions) {
             startCountdown: copies.method.startCountdown,
             generateCopy: copies.method.generateCopy,
             checkCopyReady: copies.method.checkCopyReady,
-            clearCopies: copies.method.clearCopies,
+            clearProperty: copies.method.clearProperty,
             avatarSelectionChanged() {
                 console.log(`Avatar ${this.avatarSelection} selected...`);
                 if (this.isSelectOne) {
-                    this.clearAvatar();
+                    console.log('Clearing avatar...');
+                    this.copies.avatar.data = null;
                 } else if (this.isAddNew) {
                     this.addNewAvatar();
                 } else {
                     this.retrieveAvatar(this.avatarSelection);
                 }
-            },
-            clearAvatar() {
-                console.log('Clearing avatar...');
-                this.copies.avatar.data = null;
-                console.log('Avatar cleared...');
             },
             addNewAvatar() {
                 console.log('Preparing to create avatar...');
@@ -193,7 +189,7 @@ function runVue(avatars, solutions) {
                 const descriptionsPayload = {
                     ...commonPayload,
                 }
-                this.clearCopies();
+                this.clearProperty('copy');
                 this.generateCopy(this.copies.text1, apiEndpoints.facebookAdsText, apiEndpoints.copies, text1Payload)
                     .then(() => this.generateCopy(this.copies.text2, apiEndpoints.facebookAdsText, apiEndpoints.copies, text2Payload))
                     .then(() => this.generateCopy(this.copies.text3, apiEndpoints.facebookAdsTemplatedText, apiEndpoints.copies, text3Payload))
