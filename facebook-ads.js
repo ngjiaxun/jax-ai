@@ -69,13 +69,14 @@ function runVue(avatars, solutions) {
             }
         },
         computed: {
+            getProp: copies.computed.getProp,
+            isGeneratingAny: copies.computed.isGeneratingAny,
             isAddNew() {
                 return this.avatarSelection === ADD_NEW;
             },
             isSelectOne() {
                 return this.avatarSelection === SELECT_ONE;
             },
-            isGeneratingAny: copies.computed.isGeneratingAny
         },
         methods: {
             startCountdown: copies.method.startCountdown,
