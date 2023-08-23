@@ -86,6 +86,10 @@ const copies = {
                     console.log('Tries:', tries, '/', maxTries);
                 }
             }
+        },
+        clearCopies() {
+            console.log('Clearing copies...');
+            Object.values(this.copies).forEach(copy => copy.data = undefined);
         }
     }
 };

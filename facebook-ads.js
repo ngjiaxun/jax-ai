@@ -81,6 +81,7 @@ function runVue(avatars, solutions) {
             startCountdown: copies.method.startCountdown,
             generateCopy: copies.method.generateCopy,
             checkCopyReady: copies.method.checkCopyReady,
+            clearCopies: copies.method.clearCopies,
             avatarSelectionChanged() {
                 console.log(`Avatar ${this.avatarSelection} selected...`);
                 if (this.isSelectOne) {
@@ -201,15 +202,6 @@ function runVue(avatars, solutions) {
                     .then(() => this.generateCopy(this.copies.headlines, apiEndpoints.facebookAdsHeadlines, apiEndpoints.copies, headlinesPayload))
                     .then(() => this.generateCopy(this.copies.descriptions, apiEndpoints.facebookAdsDescriptions, apiEndpoints.copies, descriptionsPayload))
                     .catch(error => console.error('An error has occurred:', error.response.data));
-            },
-            clearCopies() {
-                console.log('Clearing copies...');
-                Object.values(this.copies).forEach(copy => {
-                    copy.requestedTime = undefined;
-                    if (copy.data) {
-                        copy.data.copy = undefined;
-                    }
-                });
             },
             copyClicked(event) {
                 copyToClipboard(event);
