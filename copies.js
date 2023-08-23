@@ -95,8 +95,8 @@ const copies = {
                 }
             });
         },
-        getProp(copy, prop) {
-            return copy.data ? copy.data[prop] : '';
+        getProp(copyStr, prop) {
+            return this.copies[copyStr].data ? this.copies[copyStr].data[prop] : '';
         }
     }
 };
