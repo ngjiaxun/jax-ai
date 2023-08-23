@@ -52,7 +52,7 @@ const copies = {
     },
     method: {
         async startCountdown(copy) {
-            console.log('Restarting countdown...');
+            console.log('Starting countdown...');
             this.countdownMessage = '';
             for (let i = 0; i < COUNTDOWN_MESSAGE.length; i++) {
                 this.countdownMessage += COUNTDOWN_MESSAGE[i];
@@ -63,7 +63,7 @@ const copies = {
             }
         },
         async generateCopy(copy, generationEndpoint, checkingEndpoint, payload) {
-            console.log('Generating copy...', copy);
+            console.log('Generating copy...');
             const requestedTime = new Date().toISOString(); // Timestamp for identifying the copy after it's generated
             payload.requested_time = requestedTime;
             await axios.post(generationEndpoint, payload);
@@ -91,7 +91,7 @@ const copies = {
             console.log('Clearing copies...');
             Object.values(this.copies).forEach(copy => {
                 if (copy.data) {
-                    copy.data.copy = undefined;
+                    copy.data.copy = '';
                 }
             });
         }
