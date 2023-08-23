@@ -77,10 +77,10 @@ function runVue(avatars, solutions) {
                 return this.avatarSelection === SELECT_ONE;
             },
             isPainSectionVisible() {
-                return !isAddNew && !isSelectOne && copies.avatar.data;
+                return !this.isAddNew && !this.isSelectOne && this.copies.avatar.data;
             },
             isStepTwoSectionVisible() {
-                return !isGeneratingAny && !isAddNew && !isSelectOne;
+                return !this.isGeneratingAny && !this.isAddNew && !this.isSelectOne;
             }
         },
         methods: {
