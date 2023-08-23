@@ -87,6 +87,12 @@ const copies = {
                 }
             }
         },
+        retrieveCopy(copy, endpoint, copyId) {
+            console.log(`Retrieving copy ${copyId}...`);
+            axios.get(endpoint + copyId)
+                .then(response => copy.data = response.data)
+                .catch(error => console.error('Error retrieving copy:', error.response.data));
+        },
         clearProp(prop) {
             console.log('Clearing property...', prop);
             Object.values(this.copies).forEach(copy => {

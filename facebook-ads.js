@@ -45,26 +45,22 @@ function runVue(avatars, solutions) {
                 loading: true, // Whether the page is loading
                 avatars: avatars,
                 solution: solutions[0],
-                originalSolution: { ...solutions[0] }, // Disable checkboxes if the value is the same as the original
                 avatarSelection: SELECT_ONE, 
                 avatarName: '',
                 painSuggestionIndex: 3, // The starting index for the pain suggestions
                 desireSuggestionIndex: 3, // The starting index for the desire suggestions
-                troubleshooting: 'troubleshooting',
-
-                tries: 0, // Current number of tries to load the avatar
 
                 ...copies.data,
 
                 copies: {
-                    avatar: {...copies.data.copy},
-                    text1: {...copies.data.copy},
-                    text2: {...copies.data.copy},
-                    text3: {...copies.data.copy},
-                    text4: {...copies.data.copy},
-                    text5: {...copies.data.copy},
-                    headlines: {...copies.data.copy},
-                    descriptions: {...copies.data.copy}
+                    avatar: { ...copies.data.copy },
+                    text1: { ...copies.data.copy },
+                    text2: { ...copies.data.copy },
+                    text3: { ...copies.data.copy },
+                    text4: { ...copies.data.copy },
+                    text5: { ...copies.data.copy },
+                    headlines: { ...copies.data.copy },
+                    descriptions: { ...copies.data.copy }
                 }
             }
         },
@@ -87,6 +83,7 @@ function runVue(avatars, solutions) {
             startCountdown: copies.method.startCountdown,
             generateCopy: copies.method.generateCopy,
             checkCopyReady: copies.method.checkCopyReady,
+            retrieveCopy: copies.method.retrieveCopy,
             clearProp: copies.method.clearProp,
             getProp: copies.method.getProp,
             avatarSelectionChanged() {
@@ -95,25 +92,10 @@ function runVue(avatars, solutions) {
                     console.log('Clearing avatar...');
                     this.copies.avatar.data = null;
                 } else if (this.isAddNew) {
-                    this.addNewAvatar();
+                    console.log('Add new avatar selected...');
                 } else {
                     this.retrieveCopy(this.copies.avatar, apiEndpoints.avatars, this.avatarSelection);
                 }
-            },
-            addNewAvatar() {
-                console.log('Preparing to create avatar...');
-            },
-            retrieveAvatar(avatarId) {
-                console.log(`Retrieving avatar ${avatarId}...`);
-                axios.get(apiEndpoints.avatars + avatarId)
-                    .then(response => this.copies.avatar.data = response.data)
-                    .catch(error => console.error('Error retrieving avatar:', error.response.data));
-            },
-            retrieveCopy(copy, endpoint, copyId) {
-                console.log(`Retrieving copy ${copyId}...`);
-                axios.get(endpoint + copyId)
-                    .then(response => copy.data = response.data)
-                    .catch(error => console.error('Error retrieving copy:', error.response.data));
             },
             refreshClicked(event) {
                 const maxPainSuggestions = this.copies.avatar.data.pain_suggestions.length - 1;
