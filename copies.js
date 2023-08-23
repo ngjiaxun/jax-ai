@@ -45,7 +45,12 @@ const copies = {
             isGenerating: false
         }
     },
-    methods: {
+    computed: {
+        isGeneratingAny() { // The 'generate' button will be hidden while the copies are loading
+            return Object.values(this.copies).some(copy => copy.isGenerating);
+        }
+    },
+    method: {
         async startCountdown(copy) {
             console.log('Restarting countdown...');
             this.countdownMessage = '';

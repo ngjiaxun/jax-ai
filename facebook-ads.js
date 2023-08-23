@@ -75,14 +75,12 @@ function runVue(avatars, solutions) {
             isSelectOne() {
                 return this.avatarSelection === SELECT_ONE;
             },
-            areCopiesLoading() { // The 'generate' button will be hidden while the copies are loading
-                return Object.values(this.copies).some(copy => copy.isGenerating);
-            }
+            isGeneratingAny: copies.computed.isGeneratingAny
         },
         methods: {
-            startCountdown: copies.methods.startCountdown,
-            generateCopy: copies.methods.generateCopy,
-            checkCopyReady: copies.methods.checkCopyReady,
+            startCountdown: copies.method.startCountdown,
+            generateCopy: copies.method.generateCopy,
+            checkCopyReady: copies.method.checkCopyReady,
             avatarSelectionChanged() {
                 console.log(`Avatar ${this.avatarSelection} selected...`);
                 if (this.isSelectOne) {
