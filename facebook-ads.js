@@ -69,7 +69,6 @@ function runVue(avatars, solutions) {
             }
         },
         computed: {
-            getProp: copies.computed.getProp,
             isGeneratingAny: copies.computed.isGeneratingAny,
             isAddNew() {
                 return this.avatarSelection === ADD_NEW;
@@ -83,6 +82,7 @@ function runVue(avatars, solutions) {
             generateCopy: copies.method.generateCopy,
             checkCopyReady: copies.method.checkCopyReady,
             clearProperty: copies.method.clearProperty,
+            getProp: copies.method.getProp,
             avatarSelectionChanged() {
                 console.log(`Avatar ${this.avatarSelection} selected...`);
                 if (this.isSelectOne) {

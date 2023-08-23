@@ -46,9 +46,6 @@ const copies = {
         }
     },
     computed: {
-        getProp(copy, prop) {
-            return copy.data ? copy.data[prop] : '';
-        },
         isGeneratingAny() { // The 'generate' button will be hidden while the copies are loading
             return Object.values(this.copies).some(copy => copy.isGenerating);
         }
@@ -97,6 +94,9 @@ const copies = {
                     copy.data[prop] = '';
                 }
             });
+        },
+        getProp(copy, prop) {
+            return copy.data ? copy.data[prop] : '';
         }
     }
 };
