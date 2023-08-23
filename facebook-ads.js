@@ -87,7 +87,7 @@ function runVue(avatars, solutions) {
             startCountdown: copies.method.startCountdown,
             generateCopy: copies.method.generateCopy,
             checkCopyReady: copies.method.checkCopyReady,
-            clearProperty: copies.method.clearProperty,
+            clearProp: copies.method.clearProp,
             getProp: copies.method.getProp,
             avatarSelectionChanged() {
                 console.log(`Avatar ${this.avatarSelection} selected...`);
@@ -97,7 +97,7 @@ function runVue(avatars, solutions) {
                 } else if (this.isAddNew) {
                     this.addNewAvatar();
                 } else {
-                    this.retrieveAvatar(this.avatarSelection);
+                    this.retrieveCopy(this.copies.avatar, apiEndpoints.avatars, this.avatarSelection);
                 }
             },
             addNewAvatar() {
@@ -108,6 +108,12 @@ function runVue(avatars, solutions) {
                 axios.get(apiEndpoints.avatars + avatarId)
                     .then(response => this.copies.avatar.data = response.data)
                     .catch(error => console.error('Error retrieving avatar:', error.response.data));
+            },
+            retrieveCopy(copy, endpoint, copyId) {
+                console.log(`Retrieving copy ${copyId}...`);
+                axios.get(endpoint + copyId)
+                    .then(response => copy.data = response.data)
+                    .catch(error => console.error('Error retrieving copy:', error.response.data));
             },
             refreshClicked(event) {
                 const maxPainSuggestions = this.copies.avatar.data.pain_suggestions.length - 1;
@@ -196,7 +202,7 @@ function runVue(avatars, solutions) {
                 const descriptionsPayload = {
                     ...commonPayload,
                 }
-                this.clearProperty('copy');
+                this.clearProp('copy');
                 this.generateCopy(this.copies.text1, apiEndpoints.facebookAdsText, apiEndpoints.copies, text1Payload)
                     .then(() => this.generateCopy(this.copies.text2, apiEndpoints.facebookAdsText, apiEndpoints.copies, text2Payload))
                     .then(() => this.generateCopy(this.copies.text3, apiEndpoints.facebookAdsTemplatedText, apiEndpoints.copies, text3Payload))

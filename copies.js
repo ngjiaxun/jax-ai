@@ -87,7 +87,7 @@ const copies = {
                 }
             }
         },
-        clearProperty(prop) {
+        clearProp(prop) {
             console.log('Clearing property...', prop);
             Object.values(this.copies).forEach(copy => {
                 if (copy.data) {
