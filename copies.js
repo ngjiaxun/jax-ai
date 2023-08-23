@@ -91,7 +91,7 @@ const copies = {
             console.log('Clearing copies...');
             Object.values(this.copies).forEach(copy => {
                 if (copy.data) {
-                    copy.data = undefined;
+                    copy.data.copy = undefined;
                 }
             });
         }
