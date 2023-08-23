@@ -89,7 +89,11 @@ const copies = {
         },
         clearCopies() {
             console.log('Clearing copies...');
-            Object.values(this.copies).forEach(copy => copy.data = undefined);
+            Object.values(this.copies).forEach(copy => {
+                if (copy.data) {
+                    copy.data = undefined;
+                }
+            });
         }
     }
 };
