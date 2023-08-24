@@ -50,7 +50,7 @@ const copies = {
             return Object.values(this.copies).some(copy => copy.isGenerating);
         }
     },
-    method: {
+    methods: {
         async startCountdown(copy) {
             console.log('Starting countdown...');
             this.countdownMessage = '';

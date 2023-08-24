@@ -3,7 +3,7 @@ let isAuthenticated = false;
 const loginPage = '/sign-in';
 const welcomePage = '/avatars';
 const apiDomain = 'https://jaxai-prod-817de5757e84.herokuapp.com/';
-const apiEndpoints = {
+const endpoints = {
     users: 'auth/users/',
     me: 'auth/users/me/',
     jwtCreate: 'auth/jwt/create/',
@@ -17,7 +17,7 @@ const apiEndpoints = {
 }
 
 // Prepend api domain to api endpoints
-Object.keys(apiEndpoints).forEach(key => apiEndpoints[key] = apiDomain + apiEndpoints[key]);
+Object.keys(endpoints).forEach(key => endpoints[key] = apiDomain + endpoints[key]);
 
 // Pages that won't be authenticated
 const publicPages = ['/register-now', '/forgot-password'];
@@ -37,7 +37,7 @@ axios.defaults.headers.common['Content-Type'] = 'application/json';
 if (!isPublicPage) {
     if (token) {
         axios.defaults.headers.common['Authorization'] = `JWT ${token}`;
-        axios.get(apiEndpoints.me).then(doSuccess).catch(doFail);
+        axios.get(endpoints.me).then(doSuccess).catch(doFail);
     } else {
         redirectToLoginPage();
     }

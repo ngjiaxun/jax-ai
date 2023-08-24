@@ -8,14 +8,14 @@ modifyTags();
 modifyAttributes();
 listAvatarsAndSolutions();
 
-// Add or modify tags where Webflow doesn't allow direct
+// Hack for modifying tags where Webflow doesn't allow directly
 function modifyTags() {
     const transition = document.querySelector('Transition');
     const loadingAnimation = document.getElementById('loading-animation');
     transition.appendChild(loadingAnimation);
 }
 
-// Add or modify attributes where Webflow doesn't allow directly
+// Hack for adding or modifying attributes where Webflow doesn't allow directly
 function modifyAttributes() {
     const option = document.querySelector('#avatar-select-field').options[1]; // The option after 'Select one...' in the avatar select field
     option.setAttribute('v-for', 'avatar in avatars');
@@ -26,8 +26,8 @@ function modifyAttributes() {
 
 function listAvatarsAndSolutions() {
     const requests = [
-        axios.get(apiEndpoints.avatars),
-        axios.get(apiEndpoints.solutions),
+        axios.get(endpoints.avatars),
+        axios.get(endpoints.solutions),
         new Promise(resolve => setTimeout(resolve, 2000)) // Let the loading animation play at least once
     ];
     Promise.all(requests)
@@ -43,7 +43,7 @@ function runVue(avatars, solutions) {
                 quoteOfTheDay: getQuoteOfTheDay(),
 
                 loading: true, // Whether the page is loading
-                avatars: avatars,
+                avatars: avatars, 
                 solution: solutions[0],
                 avatarSelection: SELECT_ONE, 
                 avatarName: '',
@@ -65,6 +65,11 @@ function runVue(avatars, solutions) {
                 }
             }
         },
+        watch: {
+            avatarSelection() {
+                this.avatarSelectionChanged();
+            }
+        },
         computed: {
             isGeneratingAny: copies.computed.isGeneratingAny,
 
@@ -82,23 +87,22 @@ function runVue(avatars, solutions) {
             }
         },
         methods: {
-            startCountdown: copies.method.startCountdown,
-            generateCopy: copies.method.generateCopy,
-            checkCopyReady: copies.method.checkCopyReady,
-            retrieveCopy: copies.method.retrieveCopy,
-            updateCopy: copies.method.updateCopy,
-            clearProp: copies.method.clearProp,
-            getProp: copies.method.getProp,
+            startCountdown: copies.methods.startCountdown,
+            generateCopy: copies.methods.generateCopy,
+            checkCopyReady: copies.methods.checkCopyReady,
+            retrieveCopy: copies.methods.retrieveCopy,
+            updateCopy: copies.methods.updateCopy,
+            clearProp: copies.methods.clearProp,
+            getProp: copies.methods.getProp,
 
             avatarSelectionChanged() {
-                console.log(`Avatar ${this.avatarSelection} selected...`);
                 if (this.isSelectOne) {
                     console.log('Clearing avatar...');
                     this.copies.avatar.data = null;
                 } else if (this.isAddNew) {
                     console.log('Add new avatar selected...');
                 } else {
-                    this.retrieveCopy(this.copies.avatar, apiEndpoints.avatars, this.avatarSelection);
+                    this.retrieveCopy(this.copies.avatar, endpoints.avatars, this.avatarSelection);
                 }
             },
             refreshClicked(event) {
@@ -106,10 +110,6 @@ function runVue(avatars, solutions) {
                 const maxDesireSuggestions = this.copies.avatar.data.desire_suggestions.length - 1;
                 const button = event.currentTarget;
                 let index = button.dataset.index;
-
-                console.log('Refresh clicked...');
-                console.log('Button:', button);
-                console.log('Index:', index);
 
                 // Go down the list of suggestions every time the refresh button is clicked, until we reach the end, then start over
                 if (index < 3) { // Pains (0, 1, 2)
@@ -129,25 +129,15 @@ function runVue(avatars, solutions) {
                     "industry": this.solution.industry,
                     "target_market": this.avatarName
                 }
-                this.generateCopy(this.copies.avatar, apiEndpoints.avatars, apiEndpoints.avatars, payload)
+                this.generateCopy(this.copies.avatar, endpoints.avatars, endpoints.avatars, payload)
                     .then(() => window.location.reload())
                     .catch(error => console.error('Error creating avatar:', error.response.data));
             },
             generateClicked() {
                 this.generateCopies();
-                this.updateCopy(this.copies.avatar, apiEndpoints.avatars);
-                this.updateCopy(this.copies.solution, apiEndpoints.solutions);
+                this.updateCopy(this.copies.avatar, endpoints.avatars);
+                this.updateCopy(this.copies.solution, endpoints.solutions);
             },
-            // updateSolution() {
-            //     // logJSON('Solution:', this.solution);
-
-            //     const endpoint = apiEndpoints.solutions + this.solution.id;
-            //     // console.log(endpoint);
-
-            //     axios.patch(endpoint, this.solution)
-            //         .then(response => console.log('Solution updated...'))
-            //         .catch(error => console.error('Error updating solution:', error));
-            // },
             generateCopies() {
                 console.log('Generating copies...');
                 const commonPayload = {
@@ -182,13 +172,13 @@ function runVue(avatars, solutions) {
                     ...commonPayload,
                 }
                 this.clearProp('copy');
-                this.generateCopy(this.copies.text1, apiEndpoints.facebookAdsText, apiEndpoints.copies, text1Payload)
-                    .then(() => this.generateCopy(this.copies.text2, apiEndpoints.facebookAdsText, apiEndpoints.copies, text2Payload))
-                    .then(() => this.generateCopy(this.copies.text3, apiEndpoints.facebookAdsTemplatedText, apiEndpoints.copies, text3Payload))
-                    .then(() => this.generateCopy(this.copies.text4, apiEndpoints.facebookAdsTemplatedText, apiEndpoints.copies, text4Payload))
-                    .then(() => this.generateCopy(this.copies.text5, apiEndpoints.facebookAdsTemplatedText, apiEndpoints.copies, text5Payload))
-                    .then(() => this.generateCopy(this.copies.headlines, apiEndpoints.facebookAdsHeadlines, apiEndpoints.copies, headlinesPayload))
-                    .then(() => this.generateCopy(this.copies.descriptions, apiEndpoints.facebookAdsDescriptions, apiEndpoints.copies, descriptionsPayload))
+                this.generateCopy(this.copies.text1, endpoints.facebookAdsText, endpoints.copies, text1Payload)
+                    .then(() => this.generateCopy(this.copies.text2, endpoints.facebookAdsText, endpoints.copies, text2Payload))
+                    .then(() => this.generateCopy(this.copies.text3, endpoints.facebookAdsTemplatedText, endpoints.copies, text3Payload))
+                    .then(() => this.generateCopy(this.copies.text4, endpoints.facebookAdsTemplatedText, endpoints.copies, text4Payload))
+                    .then(() => this.generateCopy(this.copies.text5, endpoints.facebookAdsTemplatedText, endpoints.copies, text5Payload))
+                    .then(() => this.generateCopy(this.copies.headlines, endpoints.facebookAdsHeadlines, endpoints.copies, headlinesPayload))
+                    .then(() => this.generateCopy(this.copies.descriptions, endpoints.facebookAdsDescriptions, endpoints.copies, descriptionsPayload))
                     .catch(error => console.error('An error has occurred:', error.response.data));
             },
             copyClicked(event) {
@@ -197,8 +187,7 @@ function runVue(avatars, solutions) {
         },
         mounted() {
             const option = document.querySelector('#avatar-select-field').options[1] // The option after 'Select one...' in the avatar select field
-            this.avatarSelection = option.value;
-            this.avatarSelectionChanged(); // Manually call the avatar selection changed event
+            this.avatarSelection = option.value; // Select the first avatar by default
             this.loading = false; // Hide the page loading animation
         }
     }).mount('#app')
