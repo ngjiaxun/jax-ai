@@ -39,7 +39,9 @@ const COUNTDOWN_MESSAGE = [
 
 const copies = {
     data: {
-        countdownMessage: '',
+        data: {
+            countdownMessage: ''
+        },
         copy: {
             data: undefined,
             isGenerating: false

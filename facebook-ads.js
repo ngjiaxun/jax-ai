@@ -50,9 +50,10 @@ function runVue(avatars, solutions) {
                 painSuggestionIndex: 3, // The starting index for the pain suggestions
                 desireSuggestionIndex: 3, // The starting index for the desire suggestions
 
-                ...copies.data,
+                ...copies.data.data,
 
                 copies: {
+                    solution: { data: solutions[0] },
                     avatar: { ...copies.data.copy },
                     text1: { ...copies.data.copy },
                     text2: { ...copies.data.copy },
@@ -135,18 +136,18 @@ function runVue(avatars, solutions) {
             generateClicked() {
                 this.generateCopies();
                 this.updateCopy(this.copies.avatar, apiEndpoints.avatars);
-                this.updateSolution();
+                this.updateCopy(this.copies.solution, apiEndpoints.solutions);
             },
-            updateSolution() {
-                // logJSON('Solution:', this.solution);
+            // updateSolution() {
+            //     // logJSON('Solution:', this.solution);
 
-                const endpoint = apiEndpoints.solutions + this.solution.id;
-                // console.log(endpoint);
+            //     const endpoint = apiEndpoints.solutions + this.solution.id;
+            //     // console.log(endpoint);
 
-                axios.patch(endpoint, this.solution)
-                    .then(response => console.log('Solution updated...'))
-                    .catch(error => console.error('Error updating solution:', error));
-            },
+            //     axios.patch(endpoint, this.solution)
+            //         .then(response => console.log('Solution updated...'))
+            //         .catch(error => console.error('Error updating solution:', error));
+            // },
             generateCopies() {
                 console.log('Generating copies...');
                 const commonPayload = {
