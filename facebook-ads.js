@@ -119,7 +119,7 @@ function runVue(avatars, solutions) {
                 }
             },
             createClicked() {
-                // this.avatarLoadingMessage = AVATAR_LOADING_MESSAGES[1];
+                this.avatarLoadingMessage = AVATAR_LOADING_MESSAGES[1];
                 this.createAvatar();
             },
             createAvatar() {
