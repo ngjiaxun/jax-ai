@@ -98,8 +98,11 @@ const copies = {
         async retrieveCopy(copy, endpoint, copyId) {
             console.log('Retrieving copy...', copyId);
             try {
+                copy.isGenerating = true;
+                this.startCountdown(copy);
                 const response = await axios.get(endpoint + copyId);
                 copy.data = response.data;
+                copy.isGenerating = false;
             } catch (error) {
                 console.error('Error retrieving copy:', error.message);
             }
