@@ -50,18 +50,18 @@ function runVue(avatars, solutions) {
                 painSuggestionIndex: 3, // The starting index for the pain suggestions
                 desireSuggestionIndex: 3, // The starting index for the desire suggestions
 
-                ...copies.data.data,
+                ...copies.data,
 
                 copies: {
                     solution: { data: solutions[0] },
-                    avatar: { ...copies.data.copy },
-                    text1: { ...copies.data.copy },
-                    text2: { ...copies.data.copy },
-                    text3: { ...copies.data.copy },
-                    text4: { ...copies.data.copy },
-                    text5: { ...copies.data.copy },
-                    headlines: { ...copies.data.copy },
-                    descriptions: { ...copies.data.copy }
+                    avatar: { ...copies.copy },
+                    text1: { ...copies.copy },
+                    text2: { ...copies.copy },
+                    text3: { ...copies.copy },
+                    text4: { ...copies.copy },
+                    text5: { ...copies.copy },
+                    headlines: { ...copies.copy },
+                    descriptions: { ...copies.copy }
                 }
             }
         },

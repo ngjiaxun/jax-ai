@@ -38,14 +38,12 @@ const COUNTDOWN_MESSAGE = [
 ];
 
 const copies = {
+    copy: {
+        data: undefined,
+        isGenerating: false
+    },
     data: {
-        data: {
-            countdownMessage: ''
-        },
-        copy: {
-            data: undefined,
-            isGenerating: false
-        }
+        countdownMessage: ''
     },
     computed: {
         isGeneratingAny() { // The 'generate' button will be hidden while the copies are loading
@@ -66,39 +64,53 @@ const copies = {
         },
         async generateCopy(copy, generationEndpoint, checkingEndpoint, payload) {
             console.log('Generating copy...');
-            const requestedTime = new Date().toISOString(); // Timestamp for identifying the copy after it's generated
-            payload.requested_time = requestedTime;
-            await axios.post(generationEndpoint, payload);
-            copy.isGenerating = true; 
-            this.startCountdown(copy);
-            copy.data = await this.checkCopyReady(requestedTime, checkingEndpoint);
-            copy.isGenerating = false; 
+            try {
+                const requestedTime = new Date().toISOString(); // Timestamp for identifying the copy after it's generated
+                payload.requested_time = requestedTime;
+                await axios.post(generationEndpoint, payload);
+                copy.isGenerating = true; 
+                this.startCountdown(copy);
+                copy.data = await this.checkCopyReady(requestedTime, checkingEndpoint);
+                copy.isGenerating = false; 
+            } catch (error) {
+                console.error('Error generating copy:', error.message);
+            }
         },
         async checkCopyReady(requestedTime, endpoint, maxTries=DEFAULT_MAX_TRIES, timeout=DEFAULT_TIMEOUT) {
             console.log('Checking if copy is ready...', requestedTime)
-            endpoint += '?requested_time=' + requestedTime;
-            let tries = 0; 
-            while (tries < maxTries) {
-                const response = await axios.get(endpoint);
-                if (response.data.length > 0) {
-                    return response.data[0];
-                } else {
-                    await delay(timeout); 
-                    tries++;
-                    console.log('Tries:', tries, '/', maxTries);
+            try {
+                endpoint += '?requested_time=' + requestedTime;
+                let tries = 0; 
+                while (tries < maxTries) {
+                    const response = await axios.get(endpoint);
+                    if (response.data.length > 0) {
+                        return response.data[0];
+                    } else {
+                        await delay(timeout); 
+                        tries++;
+                        console.log('Tries:', tries, '/', maxTries);
+                    }
                 }
+            } catch (error) {
+                console.error('Error checking if copy is ready:', error.message);
             }
         },
-        retrieveCopy(copy, endpoint, copyId) {
-            console.log(`Retrieving copy ${copyId}...`);
-            axios.get(endpoint + copyId)
-                .then(response => copy.data = response.data)
-                .catch(error => console.error('Error retrieving copy:', error.response.data));
+        async retrieveCopy(copy, endpoint, copyId) {
+            console.log('Retrieving copy...', copyId);
+            try {
+                const response = await axios.get(endpoint + copyId);
+                copy.data = response.data;
+            } catch (error) {
+                console.error('Error retrieving copy:', error.message);
+            }
         },
-        updateCopy(copy, endpoint) {
-            axios.patch(endpoint + copy.data.id, copy.data)
-                .then(response => console.log('Copy updated...', response.data.id))
-                .catch(error => console.error('Error updating copy:', error.message));
+        async updateCopy(copy, endpoint) {
+            console.log('Updating copy...', copy.data.id);
+            try {
+                await axios.patch(endpoint + copy.data.id, copy.data);
+            } catch (error) {
+                console.error('Error updating copy:', error.message);
+            }
         },
         clearProp(prop) {
             console.log('Clearing property...', prop);
