@@ -65,11 +65,11 @@ function runVue(avatars, solutions) {
                 }
             }
         },
-        watch: {
-            avatarSelection() {
-                this.avatarSelectionChanged();
-            }
-        },
+        // watch: {
+        //     avatarSelection() {
+        //         this.avatarSelectionChanged();
+        //     }
+        // },
         computed: {
             isGeneratingAny: copies.computed.isGeneratingAny,
 
