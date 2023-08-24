@@ -47,6 +47,7 @@ function runVue(avatars, solutions) {
                 solution: solutions[0],
                 avatarSelection: SELECT_ONE, 
                 avatarName: '',
+                avatarLoadingMessage: AVATAR_LOADING_MESSAGES[0],
                 painSuggestionIndex: 3, // The starting index for the pain suggestions
                 desireSuggestionIndex: 3, // The starting index for the desire suggestions
 
@@ -97,6 +98,7 @@ function runVue(avatars, solutions) {
                 } else if (this.isAddNew) {
                     console.log('Add new avatar selected...');
                 } else {
+                    this.avatarLoadingMessage = AVATAR_LOADING_MESSAGES[0];
                     this.retrieveCopy(this.copies.avatar, endpoints.avatars, this.avatarSelection);
                 }
             },
@@ -117,6 +119,7 @@ function runVue(avatars, solutions) {
                 }
             },
             createClicked() {
+                this.avatarLoadingMessage = AVATAR_LOADING_MESSAGES[1];
                 this.createAvatar();
             },
             createAvatar() {
