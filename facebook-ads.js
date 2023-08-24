@@ -65,11 +65,6 @@ function runVue(avatars, solutions) {
                 }
             }
         },
-        // watch: {
-        //     avatarSelection() {
-        //         this.avatarSelectionChanged();
-        //     }
-        // },
         computed: {
             isGeneratingAny: copies.computed.isGeneratingAny,
 
@@ -186,8 +181,9 @@ function runVue(avatars, solutions) {
             }
         },
         mounted() {
-            const option = document.querySelector('#avatar-select-field').options[1] // The option after 'Select one...' in the avatar select field
-            this.avatarSelection = option.value; // Select the first avatar by default
+            // const option = document.querySelector('#avatar-select-field').options[1] // The option after 'Select one...' in the avatar select field
+            // this.avatarSelection = option.value; // Select the first avatar by default
+            this.avatarSelection = this.avatars[0].id; // Select the first avatar by default
             this.loading = false; // Hide the page loading animation
         }
     }).mount('#app')
