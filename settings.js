@@ -1,5 +1,3 @@
-const loginPage = '/sign-in';
-const welcomePage = '/avatars';
 const apiDomain = 'https://jaxai-prod-817de5757e84.herokuapp.com/';
 const endpoints = {
     users: 'auth/users/',
@@ -13,6 +11,9 @@ const endpoints = {
     facebookAdsHeadlines: 'scripts/facebookads/headlines/',
     facebookAdsDescriptions: 'scripts/facebookads/descriptions/'
 }
+
+// Prepend api domain to api endpoints
+Object.keys(endpoints).forEach(key => endpoints[key] = apiDomain + endpoints[key]);
 
 const SELECT_ONE = 'select one';
 const ADD_NEW = 'add new';

@@ -1,9 +1,7 @@
 // Requires settings.js
 
-let isAuthenticated = false;
-
-// Prepend api domain to api endpoints
-Object.keys(endpoints).forEach(key => endpoints[key] = apiDomain + endpoints[key]);
+const loginPage = '/sign-in';
+const welcomePage = '/avatars';
 
 // Pages that won't be authenticated
 const publicPages = ['/register-now', '/forgot-password'];
@@ -16,6 +14,8 @@ const isPublicPage = publicPages.some(page => currentPage === page);
 
 // Grab the JWT token from local storage
 const token = localStorage.getItem('jwtToken');
+
+let isAuthenticated = false;
 
 axios.defaults.headers.common['Content-Type'] = 'application/json';
 
