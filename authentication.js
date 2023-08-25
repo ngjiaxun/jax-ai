@@ -1,20 +1,6 @@
-let isAuthenticated = false;
+// Requires settings.js
 
-const loginPage = '/sign-in';
-const welcomePage = '/avatars';
-const apiDomain = 'https://jaxai-prod-817de5757e84.herokuapp.com/';
-const endpoints = {
-    users: 'auth/users/',
-    me: 'auth/users/me/',
-    jwtCreate: 'auth/jwt/create/',
-    avatars: 'scripts/avatars/',
-    solutions: 'scripts/solutions/',
-    copies: 'scripts/copies/',
-    facebookAdsText: 'scripts/facebookads/text/',
-    facebookAdsTemplatedText: 'scripts/facebookads/templatedtextv2/',
-    facebookAdsHeadlines: 'scripts/facebookads/headlines/',
-    facebookAdsDescriptions: 'scripts/facebookads/descriptions/'
-}
+let isAuthenticated = false;
 
 // Prepend api domain to api endpoints
 Object.keys(endpoints).forEach(key => endpoints[key] = apiDomain + endpoints[key]);
@@ -61,7 +47,8 @@ function doFail(error) {
     redirectToLoginPage();
 }
 
-// Format and print JSON to console for debugging purposes
-function logJSON(msg, json) {
-    console.log(msg + '\n' + JSON.stringify(json, null, 2));
+function logout() {
+    console.log('Logging out...');
+    localStorage.removeItem('jwtToken');
+    redirectToLoginPage();
 }

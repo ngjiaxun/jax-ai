@@ -1,3 +1,5 @@
+const DEFAULT_TIMEOUT = 5000;
+const DEFAULT_MAX_TRIES = 7;
 const COUNTDOWN_MESSAGE = [
     'Ready in ',
     '5',

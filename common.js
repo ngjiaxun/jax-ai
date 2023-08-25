@@ -10,3 +10,8 @@ function copyToClipboard(event) {
         .then(() => console.log('Text copied to clipboard:', text))
         .catch(error => console.error('Error copying text to clipboard:', error.message));
 }
+
+// Format and print JSON to console for debugging purposes
+function logJSON(msg, json) {
+    console.log(msg + '\n' + JSON.stringify(json, null, 2));
+}
