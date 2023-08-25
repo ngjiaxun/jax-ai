@@ -4,7 +4,7 @@ const loginPage = '/sign-in';
 const welcomePage = '/avatars';
 
 // Pages that won't be authenticated
-const publicPages = ['/register-now', '/forgot-password'];
+const publicPages = ['/sign-up', '/forgot-password'];
 
 // Get the current page URL
 const currentPage = window.location.pathname;
