@@ -1,9 +1,3 @@
-// Requires authentication.js
-// Requires settings.js
-// Requires common.js
-// Requires countdown.js
-// Requires inspirational-quotes.js
-
 modifyTags();
 modifyAttributes();
 listAvatarsAndSolutions();

@@ -97,6 +97,15 @@ const copies = {
                 console.error('Error checking if copy is ready:', error.message);
             }
         },
+        async createCopy(copy, endpoint, payload) {
+            console.log('Creating copy...');
+            try {
+                const response = await axios.post(endpoint, payload);
+                copy.data = response.data;
+            } catch (error) {
+                console.error('Error creating copy:', error.message);
+            }
+        },
         async retrieveCopy(copy, endpoint, copyId) {
             console.log('Retrieving copy...', copyId);
             try {
