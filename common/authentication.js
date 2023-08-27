@@ -29,6 +29,13 @@ if (!isPublicPage) {
     }
 }
 
+// If the user's business info hasn't been set, go to the onboarding page
+// function redirectToOnboardingPage() {
+//     if (currentPage != onboardingPage) {
+//         window.location.href = onboardingPage;
+//     }
+// }
+
 function redirectToLoginPage() {
     if (currentPage != loginPage) {
         window.location.href = loginPage;

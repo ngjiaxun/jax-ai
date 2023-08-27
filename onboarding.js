@@ -24,6 +24,14 @@ createApp({
             this.createCopy(this.copies.solution, endpoints.solutions);
         }
     },
-    mounted() {
+    beforeCreate() {
+        // If solution already exists, go to welcome page
+        axios.get(endpoints.solutions)
+            .then(response => {
+                if (response.data.length) {
+                    window.location.href = welcomePage;
+                }
+            }
+        );
     }
 }).mount('#app')
