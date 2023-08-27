@@ -37,18 +37,25 @@ function runVue() {
         },
         methods: {
             ...copies.methods,
-            setStep(step) {
-                this.currentStep = step;
-                if (step === 4) {
-                    this.createSolution();
+            setStep(step, key) {
+                if (this.copies.solution.data[key] !== '') {
+                    this.currentStep = step;
+                    if (step === 4) {
+                        this.createSolution();
+                    }
                 }
             },
             createSolution() {
                 this.createCopy(this.copies.solution, endpoints.solutions);
             },
-            classCurrent(step) {
+            classStepCurrent(step) {
                 return {
                     'step-current': step === this.currentStep
+                };
+            },
+            classButtonDisabled(key) {
+                return {
+                    'button-disabled': this.copies.solution.data[key] === ''
                 };
             }
         }
