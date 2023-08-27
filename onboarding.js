@@ -17,10 +17,10 @@ createApp({
         setStep(step) {
             this.currentStep = step;
             if (step === 4) {
-                this.saveBusinessInfo();
+                this.createSolution();
             }
         },
-        saveBusinessInfo() {
+        createSolution() {
             this.createCopy(this.copies.solution, endpoints.solutions);
         }
     },
