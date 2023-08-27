@@ -38,7 +38,6 @@ function runVue(avatars, solutions) {
 
                 loading: true, // Whether the page is loading
                 avatars: avatars, 
-                solution: solutions[0],
                 avatarSelection: SELECT_ONE, 
                 avatarName: '',
                 avatarLoadingMessage: AVATAR_LOADING_MESSAGES[0],
@@ -121,7 +120,7 @@ function runVue(avatars, solutions) {
             },
             createAvatar() {
                 const payload = {
-                    "industry": this.solution.industry,
+                    "industry": this.copies.solution.data.industry,
                     "target_market": this.avatarName
                 }
                 this.generateCopy(this.copies.avatar, endpoints.avatars, endpoints.avatars, payload)
@@ -138,7 +137,7 @@ function runVue(avatars, solutions) {
                 const commonPayload = {
                     avatar: this.copies.avatar.data.id,
                     ...this.copies.avatar.data,
-                    ...this.solution
+                    ...this.copies.solution.data
                 }
                 const text1Payload = {
                     ...commonPayload,
