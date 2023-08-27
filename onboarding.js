@@ -1,39 +1,44 @@
-const { createApp } = Vue
-createApp({
-    data() {
-        return {
-            ...copies.data,
-            copies: {
-                solution: { ...copies.copy }
-            },
-            currentStep: 1
+ensureSolutionDoesNotAlreadyExist()
+    .then(runVue)
+    .catch(error => console.error('Error ensuring solution does not already exist:', error.response.data));
+
+async function ensureSolutionDoesNotAlreadyExist() {
+    try {
+        const response = await axios.get(endpoints.solutions);
+        if (response.data) {
+            window.location.href = welcomePage;
         }
-    },
-    computed: {
-        ...copies.computed
-    },
-    methods: {
-        ...copies.methods,
-        setStep(step) {
-            this.currentStep = step;
-            if (step === 4) {
-                this.createSolution();
+    } catch (error) {
+        console.error('Error retrieving solution:', error.response.data);
+    }
+}
+
+function runVue() {
+    const { createApp } = Vue
+    createApp({
+        data() {
+            return {
+                ...copies.data,
+                copies: {
+                    solution: { ...copies.copy }
+                },
+                currentStep: 1
             }
         },
-        createSolution() {
-            this.createCopy(this.copies.solution, endpoints.solutions);
-        }
-    },
-    beforeCreate() {
-        // If solution already exists, go to welcome page
-        axios.get(endpoints.solutions)
-            .then(response => {
-                console.log('Solutions:', response.data);
-                if (response.data.length) {
-                    window.location.href = welcomePage;
+        computed: {
+            ...copies.computed
+        },
+        methods: {
+            ...copies.methods,
+            setStep(step) {
+                this.currentStep = step;
+                if (step === 4) {
+                    this.createSolution();
                 }
+            },
+            createSolution() {
+                this.createCopy(this.copies.solution, endpoints.solutions);
             }
-        )
-        .catch(error => console.error('Error fetching data:', error.message));
-    }
-}).mount('#app')
+        }
+    }).mount('#app')
+}
