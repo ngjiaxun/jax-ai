@@ -17,8 +17,11 @@ createApp({
         setStep(step) {
             this.currentStep = step;
             if (step === 4) {
-                this.saveCopy();
+                this.saveBusinessInfo();
             }
+        },
+        saveBusinessInfo() {
+            this.createCopy(this.copies.solution, endpoints.solutions);
         }
     },
     mounted() {

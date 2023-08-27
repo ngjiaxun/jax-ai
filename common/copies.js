@@ -97,7 +97,7 @@ const copies = {
                 console.error('Error checking if copy is ready:', error.message);
             }
         },
-        async createCopy(copy, endpoint, payload) {
+        async createCopy(copy, endpoint, payload=copy.data) {
             console.log('Creating copy...');
             try {
                 const response = await axios.post(endpoint, payload);

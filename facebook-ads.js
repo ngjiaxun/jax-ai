@@ -60,6 +60,9 @@ function runVue(avatars, solutions) {
                 }
             }
         },
+        watch: {
+            avatarSelection: 'avatarSelectionChanged'
+        },
         computed: {
             isGeneratingAny: copies.computed.isGeneratingAny,
 
