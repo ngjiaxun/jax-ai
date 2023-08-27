@@ -20,7 +20,14 @@ function runVue() {
             return {
                 ...copies.data,
                 copies: {
-                    solution: { ...copies.copy }
+                    solution: { 
+                        ...copies.copy,
+                        data: {
+                            industry: '',
+                            result: '',
+                            lead_magnet: ''
+                        }
+                    }
                 },
                 currentStep: 1
             }
