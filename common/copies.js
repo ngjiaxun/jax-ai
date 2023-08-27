@@ -75,7 +75,7 @@ const copies = {
                 copy.data = await this.checkCopyReady(requestedTime, checkingEndpoint);
                 copy.isGenerating = false; 
             } catch (error) {
-                console.error('Error generating copy:', error.message);
+                console.error('Error generating copy:', error.response.data);
             }
         },
         async checkCopyReady(requestedTime, endpoint, maxTries=DEFAULT_MAX_TRIES, timeout=DEFAULT_TIMEOUT) {
@@ -94,7 +94,7 @@ const copies = {
                     }
                 }
             } catch (error) {
-                console.error('Error checking if copy is ready:', error.message);
+                console.error('Error checking if copy is ready:', error.response.data);
             }
         },
         async createCopy(copy, endpoint, payload=copy.data) {
@@ -103,7 +103,7 @@ const copies = {
                 const response = await axios.post(endpoint, payload);
                 copy.data = response.data;
             } catch (error) {
-                console.error('Error creating copy:', error.message);
+                console.error('Error creating copy:', error.response.data);
             }
         },
         async retrieveCopy(copy, endpoint, copyId) {
@@ -115,7 +115,7 @@ const copies = {
                 copy.data = response.data;
                 copy.isGenerating = false;
             } catch (error) {
-                console.error('Error retrieving copy:', error.message);
+                console.error('Error retrieving copy:', error.response.data);
             }
         },
         async updateCopy(copy, endpoint) {
@@ -123,7 +123,7 @@ const copies = {
             try {
                 await axios.patch(endpoint + copy.data.id, copy.data);
             } catch (error) {
-                console.error('Error updating copy:', error.message);
+                console.error('Error updating copy:', error.response.data);
             }
         },
         clearProp(prop) {
