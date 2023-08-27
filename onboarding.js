@@ -45,6 +45,11 @@ function runVue() {
             },
             createSolution() {
                 this.createCopy(this.copies.solution, endpoints.solutions);
+            },
+            classCurrent(step) {
+                return {
+                    'step-current': step === this.currentStep
+                };
             }
         }
     }).mount('#app')
