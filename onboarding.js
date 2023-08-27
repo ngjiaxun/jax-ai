@@ -28,6 +28,7 @@ createApp({
         // If solution already exists, go to welcome page
         axios.get(endpoints.solutions)
             .then(response => {
+                console.log('Solutions:', response.data);
                 if (response.data.length) {
                     window.location.href = welcomePage;
                 }
