@@ -5,7 +5,7 @@ ensureSolutionDoesNotAlreadyExist()
 async function ensureSolutionDoesNotAlreadyExist() {
     try {
         const response = await axios.get(endpoints.solutions);
-        if (response.data) {
+        if (response.data.length) {
             window.location.href = welcomePage;
         }
     } catch (error) {
