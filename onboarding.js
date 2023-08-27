@@ -33,6 +33,7 @@ createApp({
                     window.location.href = welcomePage;
                 }
             }
-        );
+        )
+        .catch(error => console.error('Error fetching data:', error.message));
     }
 }).mount('#app')
