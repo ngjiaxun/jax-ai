@@ -36,7 +36,7 @@ function runVue(avatars, solutions) {
             return {
                 quoteOfTheDay: getQuoteOfTheDay(),
 
-                loading: true, // Whether the page is loading
+                isPageLoading: true, 
                 avatars: avatars, 
                 avatarSelection: SELECT_ONE, 
                 avatarName: '',
@@ -181,7 +181,7 @@ function runVue(avatars, solutions) {
         },
         mounted() {
             this.avatarSelection = (this.avatars && this.avatars.length) ? this.avatars[0].id: this.avatarSelection; // Select the first avatar by default
-            this.loading = false; // Hide the page loading animation
+            this.isPageLoading = false; // Hide the page loading animation
         }
     }).mount('#app')
 }

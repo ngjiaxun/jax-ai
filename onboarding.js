@@ -58,6 +58,9 @@ function runVue() {
                     'button-disabled': this.copies.solution.data[key] === ''
                 };
             }
+        },
+        mounted() {
+            $('#loading-splash').fadeOut(2000);
         }
     }).mount('#app')
 }
