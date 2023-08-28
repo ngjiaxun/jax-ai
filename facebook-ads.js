@@ -1,13 +1,5 @@
-modifyTags();
 modifyAttributes();
 listAvatarsAndSolutions();
-
-// Hack for modifying tags where Webflow doesn't allow directly
-function modifyTags() {
-    const transition = document.querySelector('Transition');
-    const loadingAnimation = document.getElementById('loading-animation');
-    transition.appendChild(loadingAnimation);
-}
 
 // Hack for adding or modifying attributes where Webflow doesn't allow directly
 function modifyAttributes() {
@@ -36,7 +28,6 @@ function runVue(avatars, solutions) {
             return {
                 quoteOfTheDay: getQuoteOfTheDay(),
 
-                isPageLoading: true, 
                 avatars: avatars, 
                 avatarSelection: SELECT_ONE, 
                 avatarName: '',
@@ -181,7 +172,7 @@ function runVue(avatars, solutions) {
         },
         mounted() {
             this.avatarSelection = (this.avatars && this.avatars.length) ? this.avatars[0].id: this.avatarSelection; // Select the first avatar by default
-            this.isPageLoading = false; // Hide the page loading animation
+            fadeOutLoadingScreen();
         }
     }).mount('#app')
 }
