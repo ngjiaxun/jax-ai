@@ -60,7 +60,8 @@ function runVue() {
             }
         },
         mounted() {
-            $('#loading-splash').fadeOut(2000);
+            delay(2000)
+                .then(() => $('#loading-splash').fadeOut(1000));
         }
     }).mount('#app')
 }
