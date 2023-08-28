@@ -31,3 +31,11 @@ function copyToClipboard(event) {
 function logJSON(msg, json) {
     console.log(msg + '\n' + JSON.stringify(json, null, 2));
 }
+
+function handleEnterKeyPress(event) {
+    const signInButton = document.getElementById('sign-in-button');
+    // If the user presses enter on one of the form's fields, programmatically click the 'sign up' button
+    if (event.keyCode === 13) {
+        signInButton.click();
+    }
+}

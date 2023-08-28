@@ -37,26 +37,34 @@ function runVue() {
         },
         methods: {
             ...copies.methods,
-            setStep(step, key) {
-                if (this.copies.solution.data[key] !== '') {
-                    this.currentStep = step;
-                    if (step === 4) {
-                        this.createSolution();
-                    }
+            enterPressed(event, field, nextStep) {
+                event.preventDefault();
+                if (event.key === 'Enter') {
+                    this.nextClicked(field, nextStep);
+                }
+            },
+            nextClicked(field, nextStep) {
+                if (!this.isSolutionFieldEmpty(field)) {
+                    this.setStep(nextStep);
+                }
+            },
+            isEmpty(field) {
+                return this.copies.solution.data[field] === '';
+            },
+            setStep(step) {
+                this.currentStep = step;
+                if (step === 4) {
+                    this.createSolution();
                 }
             },
             createSolution() {
                 this.createCopy(this.copies.solution, endpoints.solutions);
             },
-            classStepCurrent(step) {
-                return {
-                    'step-current': step === this.currentStep
-                };
+            applyClassStepCurrent(step) {
+                return { 'step-current': step === this.currentStep };
             },
-            classButtonDisabled(key) {
-                return {
-                    'button-disabled': this.copies.solution.data[key] === ''
-                };
+            applyClassButtonDisabled(field) {
+                return { 'button-disabled': this.isEmpty(field) };
             }
         },
         mounted() {
