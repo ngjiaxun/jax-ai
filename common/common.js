@@ -14,6 +14,10 @@ function delay(timeout) {
     return new Promise(resolve => setTimeout(resolve, timeout)); 
 }
 
+function fadeOutLoadingScreen() {
+    delay(1000).then(() => $('#loading-splash').fadeOut(1000));
+}
+
 function copyToClipboard(event) {
     const button = event.currentTarget;
     const copyId = button.dataset.copyid;
