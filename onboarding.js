@@ -1,6 +1,6 @@
 ensureSolutionDoesNotAlreadyExist()
     .then(runVue)
-    .catch(error => console.error('Error ensuring solution does not already exist:', error.response.data));
+    .catch(error => console.error('Error ensuring solution does not already exist:', error.response));
 
 async function ensureSolutionDoesNotAlreadyExist() {
     try {
