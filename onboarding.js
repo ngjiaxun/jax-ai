@@ -38,8 +38,8 @@ function runVue() {
         methods: {
             ...copies.methods,
             enterPressed(event, field, nextStep) {
-                event.preventDefault();
                 if (event.key === 'Enter') {
+                    event.preventDefault();
                     this.nextClicked(field, nextStep);
                 }
             },
