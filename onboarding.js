@@ -44,7 +44,7 @@ function runVue() {
                 }
             },
             nextClicked(field, nextStep) {
-                if (!this.isSolutionFieldEmpty(field)) {
+                if (!this.isEmpty(field)) {
                     this.setStep(nextStep);
                 }
             },
