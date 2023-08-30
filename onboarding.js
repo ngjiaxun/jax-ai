@@ -38,10 +38,13 @@ function runVue() {
             ...copies.computed
         },
         watch: {
-            currentStep(newStep) {
-                const field = document.getElementById(`${FIELD_ID_PREFIX}${newStep}`);
-                field.focus();
-            }
+            currentStep: {
+                handler(newStep) {
+                    const field = document.getElementById(`${FIELD_ID_PREFIX}${newStep}`);
+                    field.focus();
+                },
+                flush: 'post'
+              }
         },
         methods: {
             ...copies.methods,
