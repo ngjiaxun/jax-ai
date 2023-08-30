@@ -22,7 +22,7 @@ function runVue() {
             return {
                 ...copies.data,
                 copies: {
-                    solution: { 
+                    solution: {
                         ...copies.copy,
                         data: {
                             industry: '',
@@ -40,11 +40,12 @@ function runVue() {
         watch: {
             currentStep: {
                 handler(newStep) {
+                    // Focus the field for the current step
                     const field = document.getElementById(`${FIELD_ID_PREFIX}${newStep}`);
                     field.focus();
                 },
-                flush: 'post'
-              }
+                flush: 'post' // Wait for v-if to update the DOM before focusing the field
+            }
         },
         methods: {
             ...copies.methods,

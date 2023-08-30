@@ -1,15 +1,3 @@
-addLogoutEventListener();
-
-function addLogoutEventListener() {
-    const logoutLink = document.getElementById('log-out');
-    if (logoutLink) {
-        logoutLink.addEventListener('click', (event) => {
-            event.preventDefault(); // Prevent the default link behavior (navigation)
-            logout(); // Call the logout function
-        });
-    }
-}
-
 function delay(timeout) {
     return new Promise(resolve => setTimeout(resolve, timeout)); 
 }

@@ -2,6 +2,7 @@
 
 const loginPage = '/sign-in';
 const welcomePage = '/avatars';
+const onboardingPage = '/onboarding';
 
 // Pages that won't be authenticated
 const publicPages = ['/register-now', '/forgot-password'];
@@ -15,26 +16,46 @@ const isPublicPage = publicPages.some(page => currentPage === page);
 // Grab the JWT token from local storage
 const token = localStorage.getItem('jwtToken');
 
-let isAuthenticated = false;
+// let isAuthenticated = false;
 
-axios.defaults.headers.common['Content-Type'] = 'application/json';
+authenticateUser();
+ensureSolutionExists();
+addLogoutEventListener();
 
-// Authenticate the user if it's a members-only page
-if (!isPublicPage) {
-    if (token) {
-        axios.defaults.headers.common['Authorization'] = `JWT ${token}`;
-        axios.get(endpoints.me).then(doSuccess).catch(doFail);
-    } else {
-        redirectToLoginPage();
+function authenticateUser() {
+    axios.defaults.headers.common['Content-Type'] = 'application/json';
+    // Authenticate the user if it's a members-only page
+    if (!isPublicPage) {
+        if (token) {
+            axios.defaults.headers.common['Authorization'] = `JWT ${token}`;
+            axios.get(endpoints.me).then(doSuccess).catch(doFail);
+        } else {
+            redirectToLoginPage();
+        }
     }
 }
 
-// If the user's business info hasn't been set, go to the onboarding page
-// function redirectToOnboardingPage() {
-//     if (currentPage != onboardingPage) {
-//         window.location.href = onboardingPage;
-//     }
-// }
+async function ensureSolutionExists() {
+    try {
+        // If the user's business info hasn't been set, go to the onboarding page
+        const response = await axios.get(endpoints.solutions);
+        if (!response.data.length) {
+            window.location.href = onboardingPage;
+        }
+    } catch (error) {
+        console.error('Error retrieving solution:', error.response.data);
+    }
+}
+
+function addLogoutEventListener() {
+    const logoutLink = document.getElementById('log-out');
+    if (logoutLink) {
+        logoutLink.addEventListener('click', (event) => {
+            event.preventDefault(); // Prevent the default link behavior (navigation)
+            logout(); // Call the logout function
+        });
+    }
+}
 
 function redirectToLoginPage() {
     if (currentPage != loginPage) {
