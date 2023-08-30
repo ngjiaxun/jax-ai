@@ -1,3 +1,5 @@
+const FIELD_ID_PREFIX = 'onboarding-field-';
+
 ensureSolutionDoesNotAlreadyExist()
     .then(runVue)
     .catch(error => console.error('Error ensuring solution does not already exist:', error.message));
@@ -52,6 +54,8 @@ function runVue() {
                 return this.copies.solution.data[field] === '';
             },
             setStep(step) {
+                const field = document.getElementById(`${FIELD_ID_PREFIX}${step}`);
+                field.focus();
                 this.currentStep = step;
                 if (step === 4) {
                     this.createSolution();
