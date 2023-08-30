@@ -36,14 +36,16 @@ function authenticateUser() {
 }
 
 async function ensureSolutionExists() {
-    try {
-        // If the user's business info hasn't been set, go to the onboarding page
-        const response = await axios.get(endpoints.solutions);
-        if (!response.data.length) {
-            window.location.href = onboardingPage;
+    if (currentPage !== onboardingPage) {
+        try {
+            // If the user's business info hasn't been set, go to the onboarding page
+            const response = await axios.get(endpoints.solutions);
+            if (!response.data.length) {
+                window.location.href = onboardingPage;
+            }
+        } catch (error) {
+            console.error('Error retrieving solution:', error.response.data);
         }
-    } catch (error) {
-        console.error('Error retrieving solution:', error.response.data);
     }
 }
 
