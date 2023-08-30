@@ -37,6 +37,12 @@ function runVue() {
         computed: {
             ...copies.computed
         },
+        watch: {
+            currentStep(newStep) {
+                const field = document.getElementById(`${FIELD_ID_PREFIX}${newStep}`);
+                field.focus();
+            }
+        },
         methods: {
             ...copies.methods,
             enterPressed(event, field, nextStep) {
@@ -54,8 +60,6 @@ function runVue() {
                 return this.copies.solution.data[field] === '';
             },
             setStep(step) {
-                const field = document.getElementById(`${FIELD_ID_PREFIX}${step}`);
-                field.focus();
                 this.currentStep = step;
                 if (step === 4) {
                     this.createSolution();
