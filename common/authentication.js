@@ -49,6 +49,7 @@ async function ensureSolutionExists() {
 
 function addLogoutEventListener() {
     const logoutLink = document.getElementById('log-out');
+    console.log('logoutLink:', logoutLink);
     if (logoutLink) {
         logoutLink.addEventListener('click', (event) => {
             event.preventDefault(); // Prevent the default link behavior (navigation)
