@@ -1,5 +1,3 @@
-// Requires settings.js
-
 const loginPage = '/sign-in';
 const welcomePage = '/avatars';
 const onboardingPage = '/onboarding';
