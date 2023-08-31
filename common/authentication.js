@@ -18,7 +18,7 @@ const token = localStorage.getItem('jwtToken');
 
 authenticateUser();
 ensureSolutionExists();
-$(document).ready(function() {
+document.addEventListener('DOMContentLoaded', function() {
     addLogoutEventListener();
 });
 
