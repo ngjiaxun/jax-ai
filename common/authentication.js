@@ -15,7 +15,6 @@ const isPublicPage = publicPages.some(page => currentPage === page);
 const token = localStorage.getItem('jwtToken');
 
 authenticateUser();
-ensureSolutionExists();
 document.addEventListener('DOMContentLoaded', function() {
     addLogoutEventListener();
 });
@@ -26,7 +25,9 @@ function authenticateUser() {
     if (!isPublicPage) {
         if (token) {
             axios.defaults.headers.common['Authorization'] = `JWT ${token}`;
-            axios.get(endpoints.me).then(doSuccess).catch(doFail);
+            axios.get(endpoints.me)
+                .then(doSuccess)
+                .catch(doFail);
         } else {
             redirectToLoginPage();
         }
@@ -68,6 +69,7 @@ function doSuccess(response) {
     if (currentPage === loginPage) {
         window.location.href = welcomePage;
     }
+    ensureSolutionExists();
 }
 
 function doFail(error) {
