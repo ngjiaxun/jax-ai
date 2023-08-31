@@ -16,8 +16,6 @@ const isPublicPage = publicPages.some(page => currentPage === page);
 // Grab the JWT token from local storage
 const token = localStorage.getItem('jwtToken');
 
-// let isAuthenticated = false;
-
 authenticateUser();
 ensureSolutionExists();
 addLogoutEventListener();
