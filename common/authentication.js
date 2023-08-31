@@ -14,6 +14,8 @@ const isPublicPage = publicPages.some(page => currentPage === page);
 // Grab the JWT token from local storage
 const token = localStorage.getItem('jwtToken');
 
+let username = '';
+
 authenticateUser();
 document.addEventListener('DOMContentLoaded', function() {
     addLogoutEventListener();
@@ -66,6 +68,7 @@ function redirectToLoginPage() {
 
 function doSuccess(response) {
     console.log('Authentication successful...');
+    username = response.data.first_name;
     if (currentPage === loginPage) {
         window.location.href = welcomePage;
     }
