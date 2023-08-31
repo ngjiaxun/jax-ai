@@ -18,7 +18,9 @@ const token = localStorage.getItem('jwtToken');
 
 authenticateUser();
 ensureSolutionExists();
-addLogoutEventListener();
+$( document ).ready(function() {
+    addLogoutEventListener();
+});
 
 function authenticateUser() {
     axios.defaults.headers.common['Content-Type'] = 'application/json';
