@@ -1,3 +1,4 @@
+runVue();
 function runVue() {
     const { createApp } = Vue
     createApp({
