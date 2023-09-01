@@ -20,6 +20,7 @@ function runVue() {
     createApp({
         data() {
             return {
+                username: username,
                 ...copies.data,
                 copies: {
                     solution: {

@@ -1,19 +1,23 @@
-function runVue(data) {
+function runVue() {
     const { createApp } = Vue
     createApp({
         data() {
             return {
                 username: username,
-                avatars: data
+                ...copies.data,
+                copies: {
+                }
             }
         },
+        watch: {
+        },
+        computed: {
+        },
         methods: {
+            ...copies.methods,
         },
         mounted() {
+            fadeOutLoadingScreen();
         }
     }).mount('#app')
 }
-
-axios.get(endpoints.avatars)
-    .then(response => runVue(response.data))
-    .catch(error => console.error('Error fetching data:', error.message));
