@@ -1,10 +1,11 @@
-runVue();
-function runVue() {
+init().then(user => runVue(user));
+
+function runVue(user) {
     const { createApp } = Vue
     createApp({
         data() {
             return {
-                username: username,
+                user: user,
                 ...copies.data,
                 copies: {
                 }

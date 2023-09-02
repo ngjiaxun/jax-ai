@@ -8,31 +8,39 @@ const publicPages = ['/register-now', '/forgot-password'];
 // Get the current page URL
 const currentPage = window.location.pathname;
 
-// Check if the visitor is on an excluded page
-const isPublicPage = publicPages.some(page => currentPage === page);
-
 // Grab the JWT token from local storage
 const token = localStorage.getItem('jwtToken');
 
-let username = '';
-
-authenticateUser();
-document.addEventListener('DOMContentLoaded', function() {
-    addLogoutEventListener();
-});
-
-function authenticateUser() {
+function init() {
     axios.defaults.headers.common['Content-Type'] = 'application/json';
-    // Authenticate the user if it's a members-only page
+    const isPublicPage = publicPages.some(page => currentPage === page);
     if (!isPublicPage) {
-        if (token) {
+        return authenticateUser();
+    }
+
+    document.addEventListener('DOMContentLoaded', function() {
+        addLogoutEventListener();
+    });
+}
+
+async function authenticateUser() {
+    if (token) {
+        try {
             axios.defaults.headers.common['Authorization'] = `JWT ${token}`;
-            axios.get(endpoints.me)
-                .then(doSuccess)
-                .catch(doFail);
-        } else {
+            const response = await axios.get(endpoints.me);
+
+            if (currentPage === loginPage) {
+                window.location.href = welcomePage;
+            }
+            ensureSolutionExists();
+
+            return response.data;
+        } catch (error) {
+            console.log('Authentication failed...', error.message);
             redirectToLoginPage();
         }
+    } else {
+        redirectToLoginPage();
     }
 }
 
@@ -64,20 +72,6 @@ function redirectToLoginPage() {
     if (currentPage != loginPage) {
         window.location.href = loginPage;
     }
-}
-
-function doSuccess(response) {
-    console.log('Authentication successful...');
-    username = response.data.first_name;
-    if (currentPage === loginPage) {
-        window.location.href = welcomePage;
-    }
-    ensureSolutionExists();
-}
-
-function doFail(error) {
-    console.log('Authentication failed...');
-    redirectToLoginPage();
 }
 
 function logout() {
