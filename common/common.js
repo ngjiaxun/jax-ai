@@ -1,5 +1,5 @@
 function delay(timeout) {
-    return new Promise(resolve => setTimeout(resolve, timeout)); 
+    return new Promise(resolve => setTimeout(resolve, timeout));
 }
 
 function fadeOutLoadingScreen() {
@@ -26,4 +26,14 @@ function handleEnterKeyPress(event) {
     if (event.keyCode === 13) {
         signInButton.click();
     }
+}
+
+function reInitWebflow() {
+    // https://discourse.webflow.com/t/vue-js-stops-tabs-interactions/82870/2
+    this.$nextTick(function () {
+        //RE-INIT WF as Vue.js init breaks WF interactions
+        Webflow.destroy();
+        Webflow.ready();
+        Webflow.require('ix2').init();
+    });
 }
