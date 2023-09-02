@@ -1,5 +1,5 @@
 (function main() {
-    init()
+    preInit()
         .then(user => runVue(user))
         .catch(error => console.error('Error initializing Jax AI:', error.message));
 })();
