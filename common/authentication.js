@@ -17,10 +17,6 @@ function init() {
     if (!isPublicPage) {
         return authenticateUser();
     }
-
-    document.addEventListener('DOMContentLoaded', function() {
-        addLogoutEventListener();
-    });
 }
 
 async function authenticateUser() {
