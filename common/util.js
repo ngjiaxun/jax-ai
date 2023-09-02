@@ -28,12 +28,25 @@ function handleEnterKeyPress(event) {
     }
 }
 
-function reInitWebflow() {
-    // https://discourse.webflow.com/t/vue-js-stops-tabs-interactions/82870/2
-    this.$nextTick(function () {
-        //RE-INIT WF as Vue.js init breaks WF interactions
-        Webflow.destroy();
-        Webflow.ready();
-        Webflow.require('ix2').init();
-    });
-}
+const util = {
+    methods: {
+        reInitWebflow() {
+            // https://discourse.webflow.com/t/vue-js-stops-tabs-interactions/82870/2
+            this.$nextTick(function () {
+                //RE-INIT WF as Vue.js init breaks WF interactions
+                Webflow.destroy();
+                Webflow.ready();
+                Webflow.require('ix2').init();
+            });
+        },
+        logout() {
+            console.log('Logging out...');
+            localStorage.removeItem('jwtToken');
+            redirectToLoginPage();
+        },
+        init() {
+            fadeOutLoadingScreen();
+            this.reInitWebflow();
+        }
+    }
+};

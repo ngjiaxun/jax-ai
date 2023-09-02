@@ -11,7 +11,7 @@ const currentPage = window.location.pathname;
 // Grab the JWT token from local storage
 const token = localStorage.getItem('jwtToken');
 
-function init() {
+function preInit() {
     axios.defaults.headers.common['Content-Type'] = 'application/json';
     const isPublicPage = publicPages.some(page => currentPage === page);
     if (!isPublicPage) {
@@ -68,10 +68,4 @@ function redirectToLoginPage() {
     if (currentPage != loginPage) {
         window.location.href = loginPage;
     }
-}
-
-function logout() {
-    console.log('Logging out...');
-    localStorage.removeItem('jwtToken');
-    redirectToLoginPage();
 }

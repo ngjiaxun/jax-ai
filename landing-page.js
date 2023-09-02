@@ -21,12 +21,10 @@ function runVue(user) {
         },
         methods: {
             ...copies.methods,
-            logout: logout,
-            reInitWebflow: reInitWebflow
+            ...util.methods,
         },
         mounted() {
-            fadeOutLoadingScreen();
-            this.reInitWebflow();
+            this.init();
         }
     }).mount('#app')
 }
