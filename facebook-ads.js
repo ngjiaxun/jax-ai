@@ -65,7 +65,7 @@ function runVue(user, avatars, solutions) {
     createApp({
         data() {
             return {
-                username: username,
+                user: user,
                 quoteOfTheDay: getQuoteOfTheDay(),
 
                 avatars: avatars,
