@@ -10,36 +10,6 @@
     }
 })();
 
-// function runVue(user) {
-//     const { createApp } = Vue
-//     createApp({
-//         data() {
-//             return {
-//                 user: user,
-//                 ...copies.data,
-//                 copies: {
-//                 }
-//             }
-//         },
-//         watch: {
-//         },
-//         computed: {
-//             ...copies.computed,
-//         },
-//         methods: {
-//             ...copies.methods,
-//             ...util.methods,
-//         },
-//         mounted() {
-//             this.init();
-//         }
-//     }).mount('#app')
-// }
-
-
-// modifyAttributes();
-// listAvatarsAndSolutions();
-
 // Hack for adding or modifying attributes where Webflow doesn't allow directly
 function modifyAttributes() {
     const option = document.querySelector('#avatar-select-field').options[1]; // The option after 'Select one...' in the avatar select field
@@ -48,17 +18,6 @@ function modifyAttributes() {
     option.removeAttribute('value'); // Webflow adds this attribute automatically, which prevents Vue from binding the value
     option.setAttribute(':value', 'avatar.id');
 }
-
-// function listAvatarsAndSolutions() {
-//     const requests = [
-//         axios.get(endpoints.avatars),
-//         axios.get(endpoints.solutions),
-//         new Promise(resolve => setTimeout(resolve, 2000)) // Let the loading animation play at least once
-//     ];
-//     Promise.all(requests)
-//         .then(responses => runVue(responses[0].data, responses[1].data))
-//         .catch(error => console.error('Error fetching data:', error.message));
-// }
 
 function runVue(user, avatars, solutions) {
     const { createApp } = Vue
@@ -211,8 +170,8 @@ function runVue(user, avatars, solutions) {
             }
         },
         mounted() {
+            this.init();
             this.avatarSelection = (this.avatars && this.avatars.length) ? this.avatars[0].id : this.avatarSelection; // Select the first avatar by default
-            fadeOutLoadingScreen();
         }
     }).mount('#app')
 }
