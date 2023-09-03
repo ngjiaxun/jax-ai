@@ -10,15 +10,6 @@
     }
 })();
 
-// Hack for adding or modifying attributes where Webflow doesn't allow directly
-function modifyAttributes() {
-    const option = document.querySelector('#avatar-select-field').options[1]; // The option after 'Select one...' in the avatar select field
-    option.setAttribute('v-for', 'avatar in avatars');
-    option.setAttribute(':key', 'avatar.id');
-    option.removeAttribute('value'); // Webflow adds this attribute automatically, which prevents Vue from binding the value
-    option.setAttribute(':value', 'avatar.id');
-}
-
 function runVue(user, avatars, solutions) {
     const { createApp } = Vue
     createApp({
@@ -167,4 +158,13 @@ function runVue(user, avatars, solutions) {
             this.avatarSelection = (this.avatars && this.avatars.length) ? this.avatars[0].id : this.avatarSelection; // Select the first avatar by default
         }
     }).mount('#app')
+}
+
+// Hack for adding or modifying attributes where Webflow doesn't allow directly
+function modifyAttributes() {
+    const option = document.querySelector('#avatar-select-field').options[1]; // The option after 'Select one...' in the avatar select field
+    option.setAttribute('v-for', 'avatar in avatars');
+    option.setAttribute(':key', 'avatar.id');
+    option.removeAttribute('value'); // Webflow adds this attribute automatically, which prevents Vue from binding the value
+    option.setAttribute(':value', 'avatar.id');
 }
