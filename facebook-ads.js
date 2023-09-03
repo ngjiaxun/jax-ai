@@ -1,5 +1,44 @@
-modifyAttributes();
-listAvatarsAndSolutions();
+(async function main() {
+    try {
+        const user = await preInit();
+        const avatars = await axios.get(endpoints.avatars);
+        const solutions = await axios.get(endpoints.solutions);
+        modifyAttributes();
+        runVue(user, avatars.data, solutions.data);
+    } catch (error) {
+        console.error('Error initializing Jax AI:', error.message);
+    }
+})();
+
+// function runVue(user) {
+//     const { createApp } = Vue
+//     createApp({
+//         data() {
+//             return {
+//                 user: user,
+//                 ...copies.data,
+//                 copies: {
+//                 }
+//             }
+//         },
+//         watch: {
+//         },
+//         computed: {
+//             ...copies.computed,
+//         },
+//         methods: {
+//             ...copies.methods,
+//             ...util.methods,
+//         },
+//         mounted() {
+//             this.init();
+//         }
+//     }).mount('#app')
+// }
+
+
+// modifyAttributes();
+// listAvatarsAndSolutions();
 
 // Hack for adding or modifying attributes where Webflow doesn't allow directly
 function modifyAttributes() {
@@ -10,18 +49,18 @@ function modifyAttributes() {
     option.setAttribute(':value', 'avatar.id');
 }
 
-function listAvatarsAndSolutions() {
-    const requests = [
-        axios.get(endpoints.avatars),
-        axios.get(endpoints.solutions),
-        new Promise(resolve => setTimeout(resolve, 2000)) // Let the loading animation play at least once
-    ];
-    Promise.all(requests)
-        .then(responses => runVue(responses[0].data, responses[1].data))
-        .catch(error => console.error('Error fetching data:', error.message));
-}
+// function listAvatarsAndSolutions() {
+//     const requests = [
+//         axios.get(endpoints.avatars),
+//         axios.get(endpoints.solutions),
+//         new Promise(resolve => setTimeout(resolve, 2000)) // Let the loading animation play at least once
+//     ];
+//     Promise.all(requests)
+//         .then(responses => runVue(responses[0].data, responses[1].data))
+//         .catch(error => console.error('Error fetching data:', error.message));
+// }
 
-function runVue(avatars, solutions) {
+function runVue(user, avatars, solutions) {
     const { createApp } = Vue
     createApp({
         data() {
@@ -29,8 +68,8 @@ function runVue(avatars, solutions) {
                 username: username,
                 quoteOfTheDay: getQuoteOfTheDay(),
 
-                avatars: avatars, 
-                avatarSelection: SELECT_ONE, 
+                avatars: avatars,
+                avatarSelection: SELECT_ONE,
                 avatarName: '',
                 avatarLoadingMessage: AVATAR_LOADING_MESSAGES[0],
                 painSuggestionIndex: 3, // The starting index for the pain suggestions
@@ -172,7 +211,7 @@ function runVue(avatars, solutions) {
             }
         },
         mounted() {
-            this.avatarSelection = (this.avatars && this.avatars.length) ? this.avatars[0].id: this.avatarSelection; // Select the first avatar by default
+            this.avatarSelection = (this.avatars && this.avatars.length) ? this.avatars[0].id : this.avatarSelection; // Select the first avatar by default
             fadeOutLoadingScreen();
         }
     }).mount('#app')
