@@ -21,6 +21,7 @@ function runVue(user) {
         watch: {
         },
         computed: {
+            ...copies.computed,
         },
         methods: {
             ...copies.methods,
