@@ -1,9 +1,18 @@
-function runVue() {
+(async function main() {
+    try {
+        const user = await preInit();
+        runVue(user);
+    } catch (error) {
+        console.error('Error initializing Jax AI:', error.message);
+    }
+})();
+
+function runVue(user) {
     const { createApp } = Vue
     createApp({
         data() {
             return {
-                username: username,
+                user: user,
                 ...copies.data,
                 copies: {
                 }
@@ -15,9 +24,10 @@ function runVue() {
         },
         methods: {
             ...copies.methods,
+            ...util.methods,
         },
         mounted() {
-            fadeOutLoadingScreen();
+            this.init();
         }
     }).mount('#app')
 }
