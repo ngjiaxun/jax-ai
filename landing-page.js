@@ -1,7 +1,10 @@
-(function main() {
-    preInit()
-        .then(user => runVue(user))
-        .catch(error => console.error('Error initializing Jax AI:', error.message));
+(async function main() {
+    try {
+        const user = await preInit();
+        runVue(user);
+    } catch (error) {
+        console.error('Error initializing Jax AI:', error.message);
+    }
 })();
 
 function runVue(user) {
