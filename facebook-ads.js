@@ -53,8 +53,7 @@ function runVue(user, avatars, solutions) {
             avatarSelection: 'avatarSelectionChanged'
         },
         computed: {
-            isGeneratingAny: copies.computed.isGeneratingAny,
-
+            ...copies.computed,
             isAddNew() {
                 return this.avatarSelection === ADD_NEW;
             },
@@ -69,14 +68,8 @@ function runVue(user, avatars, solutions) {
             }
         },
         methods: {
-            startCountdown: copies.methods.startCountdown,
-            generateCopy: copies.methods.generateCopy,
-            checkCopyReady: copies.methods.checkCopyReady,
-            retrieveCopy: copies.methods.retrieveCopy,
-            updateCopy: copies.methods.updateCopy,
-            clearProp: copies.methods.clearProp,
-            getProp: copies.methods.getProp,
-
+            ...copies.methods,
+            ...util.methods,
             avatarSelectionChanged() {
                 if (this.isSelectOne) {
                     console.log('Clearing avatar...');
