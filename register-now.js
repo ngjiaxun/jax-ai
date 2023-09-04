@@ -22,7 +22,7 @@ createApp({
         },
         signUpClicked() {
             // Use the reCAPTCHA script to generate a token
-            grecaptcha.ready(function () {
+            grecaptcha.ready(() => {
                 grecaptcha.execute(RECAPTCHA_SITE_KEY, { action: 'submit' }).then(token => {
                     // Add your logic to submit to your backend server here.
                     this.formData.recaptchaToken = token;
