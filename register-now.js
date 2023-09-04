@@ -7,7 +7,8 @@ createApp({
                 username: '',
                 email: '',
                 password: '',
-                first_name: ''
+                first_name: '',
+                recaptchaToken: ''
             }
         }
     },
@@ -18,6 +19,16 @@ createApp({
             if (event.keyCode === 13) {
                 signUpButton.click();
             }
+        },
+        signUpClicked() {
+            // Use the reCAPTCHA script to generate a token
+            grecaptcha.ready(function () {
+                grecaptcha.execute(RECAPTCHA_SITE_KEY, { action: 'submit' }).then(function (token) {
+                    // Add your logic to submit to your backend server here.
+                    this.formData.recaptchaToken = token;
+                    registerUser();
+                });
+            });
         },
         registerUser() {
             const signUpForm = document.getElementById('sign-up-form');

@@ -1,3 +1,5 @@
+const RECAPTCHA_SITE_KEY = '6Ldwq_knAAAAAG3LpMIRYzyHPvJxzXeOJgfJGfKi';
+
 const apiDomain = 'https://jaxai-prod-817de5757e84.herokuapp.com/';
 const endpoints = {
     users: 'auth/users/',
