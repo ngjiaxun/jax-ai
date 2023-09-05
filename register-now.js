@@ -24,10 +24,10 @@ createApp({
             // Use the reCAPTCHA script to generate a token
             grecaptcha.ready(() => {
                 grecaptcha.execute(RECAPTCHA_SITE_KEY, { action: 'submit' }).then(token => {
-                    // console.log('reCAPTCHA token:', token);
+                    console.log('reCAPTCHA token:', token);
                     // Add your logic to submit to your backend server here.
                     this.formData.recaptcha_token = token;
-                    this.registerUser();
+                    // this.registerUser();
                 });
             });
         },
