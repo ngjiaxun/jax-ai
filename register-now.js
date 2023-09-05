@@ -8,7 +8,7 @@ createApp({
                 email: '',
                 password: '',
                 first_name: '',
-                recaptchaToken: ''
+                recaptcha_token: ''
             }
         }
     },
@@ -26,7 +26,7 @@ createApp({
                 grecaptcha.execute(RECAPTCHA_SITE_KEY, { action: 'submit' }).then(token => {
                     console.log('reCAPTCHA token:', token);
                     // Add your logic to submit to your backend server here.
-                    this.formData.recaptchaToken = token;
+                    this.formData.recaptcha_token = token;
                     // this.registerUser();
                 });
             });
