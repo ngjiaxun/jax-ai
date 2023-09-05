@@ -27,7 +27,7 @@ createApp({
                     console.log('reCAPTCHA token:', token);
                     // Add your logic to submit to your backend server here.
                     this.formData.recaptchaToken = token;
-                    this.registerUser();
+                    // this.registerUser();
                 });
             });
         },
