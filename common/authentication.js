@@ -12,12 +12,27 @@ const currentPage = window.location.pathname;
 const token = localStorage.getItem('jwtToken');
 
 function preInit() {
+    expireTokenIfIdle();
     axios.defaults.headers.common['Content-Type'] = 'application/json';
     const isPublicPage = publicPages.some(page => currentPage === page);
     if (!isPublicPage) {
         return authenticateUser();
     }
 }
+
+function expireTokenIfIdle() {
+    const lastPageLoad = localStorage.getItem('lastPageLoad');
+    if (lastPageLoad) {
+        const currentTime = new Date().getTime();
+        const elapsedTime = currentTime - parseInt(lastPageLoad);
+        // If the user is idle for too long, require them to login again
+        if (elapsedTime > IDLE_EXPIRY_MINUTES * 60 * 1000) {
+            localStorage.removeItem('jwtToken');
+        }
+    }  
+    localStorage.setItem('lastPageLoad', new Date().getTime().toString());
+}
+
 
 async function authenticateUser() {
     if (token) {
@@ -51,16 +66,6 @@ async function ensureSolutionExists() {
         } catch (error) {
             console.error('Error retrieving solution:', error.response.data);
         }
-    }
-}
-
-function addLogoutEventListener() {
-    const logoutLink = document.getElementById('log-out');
-    if (logoutLink) {
-        logoutLink.addEventListener('click', (event) => {
-            event.preventDefault(); // Prevent the default link behavior (navigation)
-            logout(); // Call the logout function
-        });
     }
 }
 

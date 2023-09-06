@@ -28,6 +28,7 @@ createApp({
                     .post(endpoints.jwtCreate, this.formData)
                     .then(response => {
                         localStorage.setItem('jwtToken', response.data.access);
+                        localStorage.setItem('lastPageLoad', new Date().getTime().toString());
                         window.location.href = welcomePage;
                     })
                     .catch(error => alert(JSON.stringify(error.response.data, null, 2).replace(/[{}\[\],]/g, '')));
