@@ -8,9 +8,6 @@ const publicPages = ['/register-now', '/forgot-password'];
 // Get the current page URL
 const currentPage = window.location.pathname;
 
-// Grab the JWT token from local storage
-const token = localStorage.getItem('jwtToken');
-
 function preInit() {
     expireTokenIfIdle();
     axios.defaults.headers.common['Content-Type'] = 'application/json';
@@ -28,12 +25,12 @@ function expireTokenIfIdle() {
         console.log('Elapsed time:', elapsedTime / 60 / 1000, 'minutes');
         // If the user is idle for too long, require them to login again
         if (elapsedTime > IDLE_EXPIRY_MINUTES * 60 * 1000) {
-            localStorage.removeItem('jwtToken');
+            clearToken();
             console.log('User has been idle for too long. Please login again.');
         }
     } else {
         // If the user has never logged in before, require them to login
-        localStorage.removeItem('jwtToken');
+        clearToken();
         console.log('User has never logged in before. Please login.');
     }
     localStorage.setItem('lastPageLoad', new Date().getTime().toString());
@@ -41,9 +38,9 @@ function expireTokenIfIdle() {
 
 
 async function authenticateUser() {
-    if (token) {
+    if (getToken()) {
         try {
-            axios.defaults.headers.common['Authorization'] = `JWT ${token}`;
+            axios.defaults.headers.common['Authorization'] = `JWT ${getToken()}`;
             const response = await axios.get(endpoints.me);
 
             if (currentPage === loginPage) {
@@ -79,4 +76,12 @@ function redirectToLoginPage() {
     if (currentPage != loginPage) {
         window.location.href = loginPage;
     }
+}
+
+function getToken() {
+    return localStorage.getItem('jwtToken');
+}
+
+function clearToken() {
+    localStorage.removeItem('jwtToken');
 }
