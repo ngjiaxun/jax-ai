@@ -22,7 +22,7 @@ function expireTokenIfIdle() {
     if (lastPageLoad) {
         const currentTime = new Date().getTime();
         const elapsedTime = currentTime - parseInt(lastPageLoad);
-        console.log('Elapsed time:', elapsedTime / 60 / 1000, 'minutes');
+        // console.log('Elapsed time:', elapsedTime / 60 / 1000, 'minutes');
         // If the user is idle for too long, require them to login again
         if (elapsedTime > IDLE_EXPIRY_MINUTES * 60 * 1000) {
             clearToken();
