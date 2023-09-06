@@ -30,6 +30,7 @@ function expireTokenIfIdle() {
             localStorage.removeItem('jwtToken');
         }
     } else {
+        // If the user has never logged in before, require them to login
         localStorage.removeItem('jwtToken');
     }
     localStorage.setItem('lastPageLoad', new Date().getTime().toString());
