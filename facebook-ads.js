@@ -54,8 +54,11 @@ function runVue(user, avatars, solutions) {
             isPainSectionVisible() {
                 return !this.isAddNew && !this.isSelectOne && this.copies.avatar.data;
             },
+            isStepOneSectionVisible() {
+                return !this.isGeneratingAny && !this.isAnyReady;
+            },
             isStepTwoSectionVisible() {
-                return !this.isGeneratingAny && !this.isAddNew && !this.isSelectOne;
+                return !this.isGeneratingAny && !this.isAnyReady && !this.isAddNew && !this.isSelectOne;
             }
         },
         methods: {
