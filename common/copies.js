@@ -48,12 +48,6 @@ const copies = {
         countdownMessage: ''
     },
     computed: {
-        isGeneratingAny() {
-            return Object.values(this.copies).some(copy => copy.isGenerating);
-        },
-        isAnyReady() {
-            return Object.values(this.copies).some(copy => copy.data);
-        }
     },
     methods: {
         async startCountdown(copy) {
@@ -129,16 +123,22 @@ const copies = {
                 console.error('Error updating copy:', error.response.data);
             }
         },
-        clearProp(prop) {
-            console.log('Clearing property...', prop);
-            Object.values(this.copies).forEach(copy => {
-                if (copy.data) {
-                    copy.data[prop] = '';
-                }
-            });
+        isAnyGenerating(copies) {
+            return Object.values(copies).some(copy => copy.isGenerating);
         },
-        getProp(copyStr, prop) {
-            return this.copies[copyStr].data ? this.copies[copyStr].data[prop] : '';
+        isAnyReady(copies) {
+            return Object.values(copies).some(copy => copy.data);
         }
+        // clearProp(prop) {
+        //     console.log('Clearing property...', prop);
+        //     Object.values(this.copies).forEach(copy => {
+        //         if (copy.data) {
+        //             copy.data[prop] = '';
+        //         }
+        //     });
+        // },
+        // getProp(copyStr, prop) {
+        //     return this.copies[copyStr].data ? this.copies[copyStr].data[prop] : '';
+        // }
     }
 };

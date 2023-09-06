@@ -16,8 +16,6 @@ function runVue(user, avatars, solutions) {
         data() {
             return {
                 user: user,
-                quoteOfTheDay: getQuoteOfTheDay(),
-
                 avatars: avatars,
                 avatarSelection: SELECT_ONE,
                 avatarName: '',
@@ -27,9 +25,9 @@ function runVue(user, avatars, solutions) {
 
                 ...copies.data,
 
+                solution: { data: solutions[0] },
+                avatar: { ...copies.copy },
                 copies: {
-                    solution: { data: solutions[0] },
-                    avatar: { ...copies.copy },
                     text1: { ...copies.copy },
                     text2: { ...copies.copy },
                     text3: { ...copies.copy },
@@ -52,13 +50,13 @@ function runVue(user, avatars, solutions) {
                 return this.avatarSelection === SELECT_ONE;
             },
             isPainSectionVisible() {
-                return !this.isAddNew && !this.isSelectOne && this.copies.avatar.data;
+                return !this.isAddNew && !this.isSelectOne && this.avatar.data;
             },
             isStepOneSectionVisible() {
-                return !this.isGeneratingAny && !this.isAnyReady;
+                return !this.isAnyGenerating(this.copies) && !this.avatar.isGenerating && !this.isAnyReady(this.copies);
             },
             isStepTwoSectionVisible() {
-                return !this.isGeneratingAny && !this.isAnyReady && !this.isAddNew && !this.isSelectOne;
+                return !this.isAnyGenerating(this.copies) && !this.avatar.isGenerating && !this.isAnyReady(this.copies) && !this.isAddNew && !this.isSelectOne;
             }
         },
         methods: {
@@ -68,27 +66,27 @@ function runVue(user, avatars, solutions) {
             avatarSelectionChanged() {
                 if (this.isSelectOne) {
                     console.log('Clearing avatar...');
-                    this.copies.avatar.data = null;
+                    this.avatar.data = null;
                 } else if (this.isAddNew) {
                     console.log('Add new avatar selected...');
                 } else {
                     this.avatarLoadingMessage = AVATAR_LOADING_MESSAGES[0];
-                    this.retrieveCopy(this.copies.avatar, endpoints.avatars, this.avatarSelection);
+                    this.retrieveCopy(this.avatar, endpoints.avatars, this.avatarSelection);
                 }
             },
             refreshClicked(event) {
-                const maxPainSuggestions = this.copies.avatar.data.pain_suggestions.length - 1;
-                const maxDesireSuggestions = this.copies.avatar.data.desire_suggestions.length - 1;
+                const maxPainSuggestions = this.avatar.data.pain_suggestions.length - 1;
+                const maxDesireSuggestions = this.avatar.data.desire_suggestions.length - 1;
                 const button = event.currentTarget;
                 let index = button.dataset.index;
 
                 // Go down the list of suggestions every time the refresh button is clicked, until we reach the end, then start over
                 if (index < 3) { // Pains (0, 1, 2)
-                    this.copies.avatar.data.pains[index] = this.copies.avatar.data.pain_suggestions[this.painSuggestionIndex];
+                    this.avatar.data.pains[index] = this.avatar.data.pain_suggestions[this.painSuggestionIndex];
                     this.painSuggestionIndex = this.painSuggestionIndex < maxPainSuggestions ? this.painSuggestionIndex + 1 : 0;
                 } else { // Desires (3, 4, 5)
                     index = index - 3;
-                    this.copies.avatar.data.desires[index] = this.copies.avatar.data.desire_suggestions[this.desireSuggestionIndex];
+                    this.avatar.data.desires[index] = this.avatar.data.desire_suggestions[this.desireSuggestionIndex];
                     this.desireSuggestionIndex = this.desireSuggestionIndex < maxDesireSuggestions ? this.desireSuggestionIndex + 1 : 0;
                 }
             },
@@ -98,24 +96,24 @@ function runVue(user, avatars, solutions) {
             },
             createAvatar() {
                 const payload = {
-                    "industry": this.copies.solution.data.industry,
+                    "industry": this.solution.data.industry,
                     "target_market": this.avatarName
                 }
-                this.generateCopy(this.copies.avatar, endpoints.avatars, endpoints.avatars, payload)
+                this.generateCopy(this.avatar, endpoints.avatars, endpoints.avatars, payload)
                     .then(() => window.location.reload())
                     .catch(error => console.error('Error creating avatar:', error.response.data));
             },
             generateClicked() {
                 this.generateCopies();
-                this.updateCopy(this.copies.avatar, endpoints.avatars);
-                this.updateCopy(this.copies.solution, endpoints.solutions);
+                this.updateCopy(this.avatar, endpoints.avatars);
+                this.updateCopy(this.solution, endpoints.solutions);
             },
             generateCopies() {
                 console.log('Generating copies...');
                 const commonPayload = {
-                    avatar: this.copies.avatar.data.id,
-                    ...this.copies.avatar.data,
-                    ...this.copies.solution.data
+                    avatar: this.avatar.data.id,
+                    ...this.avatar.data,
+                    ...this.solution.data
                 }
                 const text1Payload = {
                     ...commonPayload,
@@ -143,7 +141,6 @@ function runVue(user, avatars, solutions) {
                 const descriptionsPayload = {
                     ...commonPayload,
                 }
-                this.clearProp('copy');
                 this.generateCopy(this.copies.text1, endpoints.facebookAdsText, endpoints.copies, text1Payload)
                     .then(() => this.generateCopy(this.copies.text2, endpoints.facebookAdsText, endpoints.copies, text2Payload))
                     .then(() => this.generateCopy(this.copies.text3, endpoints.facebookAdsTemplatedText, endpoints.copies, text3Payload))
