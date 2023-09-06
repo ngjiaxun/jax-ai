@@ -48,8 +48,11 @@ const copies = {
         countdownMessage: ''
     },
     computed: {
-        isGeneratingAny() { // The 'generate' button will be hidden while the copies are loading
+        isGeneratingAny() {
             return Object.values(this.copies).some(copy => copy.isGenerating);
+        },
+        isAnyReady() {
+            return Object.values(this.copies).some(copy => copy.data);
         }
     },
     methods: {
