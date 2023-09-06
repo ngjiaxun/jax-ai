@@ -46,8 +46,9 @@ function runVue(user) {
             }
         },
         methods: {
-            ...copies.methods,
+            ...authentication.methods,
             ...util.methods,
+            ...copies.methods,
             enterPressed(event, field, nextStep) {
                 if (event.key === 'Enter') {
                     event.preventDefault();

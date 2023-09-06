@@ -26,8 +26,9 @@ function runVue(user, avatars) {
             ...copies.computed,
         },
         methods: {
-            ...copies.methods,
+            ...authentication.methods,
             ...util.methods,
+            ...copies.methods,
         },
         mounted() {
             this.init();

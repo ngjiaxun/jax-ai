@@ -39,11 +39,6 @@ const util = {
                 Webflow.require('ix2').init();
             });
         },
-        logout() {
-            console.log('Logging out...');
-            localStorage.removeItem('jwtToken');
-            redirectToLoginPage();
-        },
         init() {
             fadeOutLoadingScreen();
             this.reInitWebflow();

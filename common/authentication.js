@@ -85,3 +85,13 @@ function getToken() {
 function clearToken() {
     localStorage.removeItem('jwtToken');
 }
+
+const authentication = {
+    methods: {
+        logout() {
+            console.log('Logging out...');
+            clearToken();
+            redirectToLoginPage();
+        }
+    }
+};

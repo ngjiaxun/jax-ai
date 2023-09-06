@@ -59,8 +59,9 @@ function runVue(user, avatars, solutions) {
             }
         },
         methods: {
-            ...copies.methods,
+            ...authentication.methods,
             ...util.methods,
+            ...copies.methods,
             avatarSelectionChanged() {
                 if (this.isSelectOne) {
                     console.log('Clearing avatar...');

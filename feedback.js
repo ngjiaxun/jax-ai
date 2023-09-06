@@ -24,8 +24,9 @@ function runVue(user) {
             ...copies.computed,
         },
         methods: {
-            ...copies.methods,
+            ...authentication.methods,
             ...util.methods,
+            ...copies.methods,
         },
         mounted() {
             this.init();
