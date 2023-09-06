@@ -29,7 +29,9 @@ function expireTokenIfIdle() {
         if (elapsedTime > IDLE_EXPIRY_MINUTES * 60 * 1000) {
             localStorage.removeItem('jwtToken');
         }
-    }  
+    } else {
+        localStorage.removeItem('jwtToken');
+    }
     localStorage.setItem('lastPageLoad', new Date().getTime().toString());
 }
 
