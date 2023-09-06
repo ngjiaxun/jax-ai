@@ -28,10 +28,12 @@ function expireTokenIfIdle() {
         // If the user is idle for too long, require them to login again
         if (elapsedTime > IDLE_EXPIRY_MINUTES * 60 * 1000) {
             localStorage.removeItem('jwtToken');
+            console.log('User has been idle for too long. Please login again.');
         }
     } else {
         // If the user has never logged in before, require them to login
         localStorage.removeItem('jwtToken');
+        console.log('User has never logged in before. Please login.');
     }
     localStorage.setItem('lastPageLoad', new Date().getTime().toString());
 }
