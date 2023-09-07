@@ -57,6 +57,9 @@ function runVue(user, avatars, solutions) {
             },
             isStepTwoSectionVisible() {
                 return !this.isAnyGenerating(this.copies) && !this.avatar.isGenerating && !this.isAnyReady(this.copies) && !this.isAddNew && !this.isSelectOne;
+            },
+            isCopiesSectionVisible() {
+                return this.isAnyGenerating(this.copies) && this.isAnyReady(this.copies);
             }
         },
         methods: {
