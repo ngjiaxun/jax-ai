@@ -42,6 +42,9 @@ const util = {
         init() {
             fadeOutLoadingScreen();
             this.reInitWebflow();
+        },
+        reload() {
+            location.reload();
         }
     }
 };
