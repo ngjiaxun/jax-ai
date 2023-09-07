@@ -59,7 +59,7 @@ function runVue(user, avatars, solutions) {
                 return !this.isAnyGenerating(this.copies) && !this.avatar.isGenerating && !this.isAnyReady(this.copies) && !this.isAddNew && !this.isSelectOne;
             },
             isCopiesSectionVisible() {
-                return this.isAnyGenerating(this.copies) && this.isAnyReady(this.copies);
+                return this.isAnyGenerating(this.copies) || this.avatar.isGenerating || this.isAnyReady(this.copies);
             }
         },
         methods: {
