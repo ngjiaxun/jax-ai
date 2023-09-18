@@ -123,23 +123,23 @@ function runVue(user, avatars, solutions) {
                 }
                 const text1Payload = {
                     ...commonPayload,
-                    prompt_id: 1
+                    prompt_id: 0
                 }
                 const text2Payload = {
                     ...commonPayload,
-                    prompt_id: 2
+                    prompt_id: 1
                 }
                 const text3Payload = {
                     ...commonPayload,
-                    template_id: 0
+                    prompt_id: 2
                 }
                 const text4Payload = {
                     ...commonPayload,
-                    template_id: 1
+                    prompt_id: 3
                 }
                 const text5Payload = {
                     ...commonPayload,
-                    template_id: 2
+                    prompt_id: 4
                 }
                 const headlinesPayload = {
                     ...commonPayload,
