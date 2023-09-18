@@ -58,6 +58,9 @@ function runVue(user, avatars, solutions) {
             isStepTwoSectionVisible() {
                 return !this.isAnyGenerating(this.copies) && !this.avatar.isGenerating && !this.isAnyReady(this.copies) && !this.isAddNew && !this.isSelectOne;
             },
+            isStepThreeSectionVisible() {
+                return this.isStepTwoSectionVisible;
+            },
             isCopiesSectionVisible() {
                 return this.isAnyGenerating(this.copies) || this.avatar.isGenerating || this.isAnyReady(this.copies);
             }
@@ -144,11 +147,11 @@ function runVue(user, avatars, solutions) {
                 const descriptionsPayload = {
                     ...commonPayload,
                 }
-                this.generateCopy(this.copies.text1, endpoints.facebookAdsText, endpoints.copies, text1Payload)
+                this.generateCopy(this.copies.text1, endpoints.facebookAdsText, endpoints.copies, text1Payload) 
                     .then(() => this.generateCopy(this.copies.text2, endpoints.facebookAdsText, endpoints.copies, text2Payload))
-                    .then(() => this.generateCopy(this.copies.text3, endpoints.facebookAdsTemplatedText, endpoints.copies, text3Payload))
-                    .then(() => this.generateCopy(this.copies.text4, endpoints.facebookAdsTemplatedText, endpoints.copies, text4Payload))
-                    .then(() => this.generateCopy(this.copies.text5, endpoints.facebookAdsTemplatedText, endpoints.copies, text5Payload))
+                    .then(() => this.generateCopy(this.copies.text3, endpoints.facebookAdsText, endpoints.copies, text3Payload))
+                    .then(() => this.generateCopy(this.copies.text4, endpoints.facebookAdsText, endpoints.copies, text4Payload))
+                    .then(() => this.generateCopy(this.copies.text5, endpoints.facebookAdsText, endpoints.copies, text5Payload))
                     .then(() => this.generateCopy(this.copies.headlines, endpoints.facebookAdsHeadlines, endpoints.copies, headlinesPayload))
                     .then(() => this.generateCopy(this.copies.descriptions, endpoints.facebookAdsDescriptions, endpoints.copies, descriptionsPayload))
                     .catch(error => console.error('An error has occurred:', error.response.data));

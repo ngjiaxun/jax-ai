@@ -74,6 +74,7 @@ const copies = {
             } catch (error) {
                 console.error('Error generating copy:', error.response.data);
             }
+            return copy;
         },
         async checkCopyReady(requestedTime, endpoint, maxTries=DEFAULT_MAX_TRIES, timeout=DEFAULT_TIMEOUT) {
             console.log('Checking if copy is ready...', requestedTime)
