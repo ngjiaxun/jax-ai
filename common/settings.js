@@ -13,9 +13,7 @@ const endpoints = {
     style: 'scripts/copies/style/',
     translate: 'scripts/copies/translate/',
     facebookAdsText: 'scripts/facebookads/text/',
-    facebookAdsTemplatedText: 'scripts/facebookads/templatedtextv2/',
-    facebookAdsHeadlines: 'scripts/facebookads/headlines/',
-    facebookAdsDescriptions: 'scripts/facebookads/descriptions/'
+    facebookAdsHeadlines: 'scripts/facebookads/headlines/'
 }
 
 // Prepend api domain to api endpoints

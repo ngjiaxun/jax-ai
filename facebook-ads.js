@@ -162,7 +162,7 @@ function runVue(user, avatars, solutions) {
                     .then(() => this.generateCopy(this.copies.text4, endpoints.facebookAdsText, endpoints.copies, text4Payload))
                     .then(() => this.generateCopy(this.copies.text5, endpoints.facebookAdsText, endpoints.copies, text5Payload))
                     .then(() => this.generateCopy(this.copies.headlines, endpoints.facebookAdsHeadlines, endpoints.copies, headlinesPayload))
-                    .then(() => this.generateCopy(this.copies.descriptions, endpoints.facebookAdsDescriptions, endpoints.copies, descriptionsPayload))
+                    .then(() => this.generateCopy(this.copies.descriptions, endpoints.facebookAdsHeadlines, endpoints.copies, descriptionsPayload))
                     .catch(error => console.error('An error has occurred:', error.response.data));
             },
             copyClicked(event) {
