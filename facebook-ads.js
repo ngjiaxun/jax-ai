@@ -143,9 +143,18 @@ function runVue(user, avatars, solutions) {
                 }
                 const headlinesPayload = {
                     ...commonPayload,
+                    no_of_headlines: 20,
+                    max_characters: 40
                 }
                 const descriptionsPayload = {
                     ...commonPayload,
+                    no_of_headlines: 20,
+                    max_characters: 20
+                }
+                const captionsPayload = {
+                    ...commonPayload,
+                    no_of_headlines: 20,
+                    max_characters: 120
                 }
                 this.generateCopy(this.copies.text1, endpoints.facebookAdsText, endpoints.copies, text1Payload) 
                     .then(() => this.generateCopy(this.copies.text2, endpoints.facebookAdsText, endpoints.copies, text2Payload))
