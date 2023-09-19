@@ -28,13 +28,23 @@ function runVue(user, avatars, solutions) {
                 solution: { data: solutions[0] },
                 avatar: { ...copies.copy },
                 copies: {
+                    // Original versions
                     text1: { ...copies.copy },
                     text2: { ...copies.copy },
                     text3: { ...copies.copy },
                     text4: { ...copies.copy },
                     text5: { ...copies.copy },
                     headlines: { ...copies.copy },
-                    descriptions: { ...copies.copy }
+                    descriptions: { ...copies.copy },
+
+                    // Spin versions
+                    text1Spin: { ...copies.copy },
+                    text2Spin: { ...copies.copy },
+                    text3Spin: { ...copies.copy },
+                    text4Spin: { ...copies.copy },
+                    text5Spin: { ...copies.copy },
+                    headlinesSpin: { ...copies.copy },
+                    descriptionsSpin: { ...copies.copy }
                 }
             }
         },
@@ -157,29 +167,27 @@ function runVue(user, avatars, solutions) {
                         no_of_headlines: 20,
                         max_characters: 120
                     }
-                    let copy = {};
-                    
-                    copy = await this.generateCopy(this.copies.text1, endpoints.facebookAdsText, endpoints.copies, text1Payload);
+    
+                    // Original
+                    let text1 = await this.generateCopy(this.copies.text1, endpoints.facebookAdsText, endpoints.copies, text1Payload);
+                    let text2 = await this.generateCopy(this.copies.text2, endpoints.facebookAdsText, endpoints.copies, text2Payload);
+                    let text3 = await this.generateCopy(this.copies.text3, endpoints.facebookAdsText, endpoints.copies, text3Payload);
+                    let text4 = await this.generateCopy(this.copies.text4, endpoints.facebookAdsText, endpoints.copies, text4Payload);
+                    let text5 = await this.generateCopy(this.copies.text5, endpoints.facebookAdsText, endpoints.copies, text5Payload);
+                    let headlines = await this.generateCopy(this.copies.headlines, endpoints.facebookAdsHeadlines, endpoints.copies, headlinesPayload);
+                    let descriptions = await this.generateCopy(this.copies.descriptions, endpoints.facebookAdsHeadlines, endpoints.copies, descriptionsPayload);
 
-                    // if (this.solution.data.spin) {
-
-                    // }
-
-                    copy = await this.generateCopy(this.copies.text2, endpoints.facebookAdsText, endpoints.copies, text2Payload);
-                    copy = await this.generateCopy(this.copies.text3, endpoints.facebookAdsText, endpoints.copies, text3Payload);
-                    copy = await this.generateCopy(this.copies.text4, endpoints.facebookAdsText, endpoints.copies, text4Payload);
-                    copy = await this.generateCopy(this.copies.text5, endpoints.facebookAdsText, endpoints.copies, text5Payload);
-                    copy = await this.generateCopy(this.copies.headlines, endpoints.facebookAdsHeadlines, endpoints.copies, headlinesPayload);
-                    copy = await this.generateCopy(this.copies.descriptions, endpoints.facebookAdsHeadlines, endpoints.copies, descriptionsPayload);
-
-                    // this.generateCopy(this.copies.text1, endpoints.facebookAdsText, endpoints.copies, text1Payload) 
-                    //     .then(() => this.generateCopy(this.copies.text2, endpoints.facebookAdsText, endpoints.copies, text2Payload))
-                    //     .then(() => this.generateCopy(this.copies.text3, endpoints.facebookAdsText, endpoints.copies, text3Payload))
-                    //     .then(() => this.generateCopy(this.copies.text4, endpoints.facebookAdsText, endpoints.copies, text4Payload))
-                    //     .then(() => this.generateCopy(this.copies.text5, endpoints.facebookAdsText, endpoints.copies, text5Payload))
-                    //     .then(() => this.generateCopy(this.copies.headlines, endpoints.facebookAdsHeadlines, endpoints.copies, headlinesPayload))
-                    //     .then(() => this.generateCopy(this.copies.descriptions, endpoints.facebookAdsHeadlines, endpoints.copies, descriptionsPayload))
-                    //     .catch(error => console.error('An error has occurred:', error.response.data));
+                    // Spin
+                    if (this.solution.data.spin) {
+                        const spinPayload = { transformation: this.solution.data.spin }
+                        text1 = await this.generateCopy(this.copies.text1Spin, endpoints.spin, endpoints.copies, { ...spinPayload, transform_from: text1.data.id });
+                        text2 = await this.generateCopy(this.copies.text2Spin, endpoints.spin, endpoints.copies, { ...spinPayload, transform_from: text2.data.id });
+                        text3 = await this.generateCopy(this.copies.text3Spin, endpoints.spin, endpoints.copies, { ...spinPayload, transform_from: text3.data.id });
+                        text4 = await this.generateCopy(this.copies.text4Spin, endpoints.spin, endpoints.copies, { ...spinPayload, transform_from: text4.data.id });
+                        text5 = await this.generateCopy(this.copies.text5Spin, endpoints.spin, endpoints.copies, { ...spinPayload, transform_from: text5.data.id });
+                        // headlines = await this.generateCopy(this.copies.headlinesSpin, endpoints.spin, endpoints.copies,  { ...spinPayload, transform_from: headlines.data.id });
+                        // descriptions = await this.generateCopy(this.copies.descriptionsSpin, endpoints.spin, endpoints.copies, { ...spinPayload, transform_from: descriptions.data.id });
+                    }
                 } catch (error) {
                     console.error('Error generating copies:', error.response.data);
                 }
