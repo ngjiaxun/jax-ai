@@ -114,56 +114,75 @@ function runVue(user, avatars, solutions) {
                 this.updateCopy(this.avatar, endpoints.avatars);
                 this.updateCopy(this.solution, endpoints.solutions);
             },
-            generateCopies() {
+            async generateCopies() {
                 console.log('Generating copies...');
-                const commonPayload = {
-                    avatar: this.avatar.data.id,
-                    ...this.avatar.data,
-                    ...this.solution.data
+                try {
+                    const commonPayload = {
+                        avatar: this.avatar.data.id,
+                        ...this.avatar.data,
+                        ...this.solution.data
+                    }
+                    const text1Payload = {
+                        ...commonPayload,
+                        prompt_id: 0
+                    }
+                    const text2Payload = {
+                        ...commonPayload,
+                        prompt_id: 1
+                    }
+                    const text3Payload = {
+                        ...commonPayload,
+                        prompt_id: 2
+                    }
+                    const text4Payload = {
+                        ...commonPayload,
+                        prompt_id: 3
+                    }
+                    const text5Payload = {
+                        ...commonPayload,
+                        prompt_id: 4
+                    }
+                    const headlinesPayload = {
+                        ...commonPayload,
+                        no_of_headlines: 20,
+                        max_characters: 40
+                    }
+                    const descriptionsPayload = {
+                        ...commonPayload,
+                        no_of_headlines: 20,
+                        max_characters: 20
+                    }
+                    const captionsPayload = {
+                        ...commonPayload,
+                        no_of_headlines: 20,
+                        max_characters: 120
+                    }
+                    let copy = {};
+                    
+                    copy = await this.generateCopy(this.copies.text1, endpoints.facebookAdsText, endpoints.copies, text1Payload);
+
+                    // if (this.solution.data.spin) {
+
+                    // }
+
+                    copy = await this.generateCopy(this.copies.text2, endpoints.facebookAdsText, endpoints.copies, text2Payload);
+                    copy = await this.generateCopy(this.copies.text3, endpoints.facebookAdsText, endpoints.copies, text3Payload);
+                    copy = await this.generateCopy(this.copies.text4, endpoints.facebookAdsText, endpoints.copies, text4Payload);
+                    copy = await this.generateCopy(this.copies.text5, endpoints.facebookAdsText, endpoints.copies, text5Payload);
+                    copy = await this.generateCopy(this.copies.headlines, endpoints.facebookAdsHeadlines, endpoints.copies, headlinesPayload);
+                    copy = await this.generateCopy(this.copies.descriptions, endpoints.facebookAdsHeadlines, endpoints.copies, descriptionsPayload);
+
+                    // this.generateCopy(this.copies.text1, endpoints.facebookAdsText, endpoints.copies, text1Payload) 
+                    //     .then(() => this.generateCopy(this.copies.text2, endpoints.facebookAdsText, endpoints.copies, text2Payload))
+                    //     .then(() => this.generateCopy(this.copies.text3, endpoints.facebookAdsText, endpoints.copies, text3Payload))
+                    //     .then(() => this.generateCopy(this.copies.text4, endpoints.facebookAdsText, endpoints.copies, text4Payload))
+                    //     .then(() => this.generateCopy(this.copies.text5, endpoints.facebookAdsText, endpoints.copies, text5Payload))
+                    //     .then(() => this.generateCopy(this.copies.headlines, endpoints.facebookAdsHeadlines, endpoints.copies, headlinesPayload))
+                    //     .then(() => this.generateCopy(this.copies.descriptions, endpoints.facebookAdsHeadlines, endpoints.copies, descriptionsPayload))
+                    //     .catch(error => console.error('An error has occurred:', error.response.data));
+                } catch (error) {
+                    console.error('Error generating copies:', error.response.data);
                 }
-                const text1Payload = {
-                    ...commonPayload,
-                    prompt_id: 0
-                }
-                const text2Payload = {
-                    ...commonPayload,
-                    prompt_id: 1
-                }
-                const text3Payload = {
-                    ...commonPayload,
-                    prompt_id: 2
-                }
-                const text4Payload = {
-                    ...commonPayload,
-                    prompt_id: 3
-                }
-                const text5Payload = {
-                    ...commonPayload,
-                    prompt_id: 4
-                }
-                const headlinesPayload = {
-                    ...commonPayload,
-                    no_of_headlines: 20,
-                    max_characters: 40
-                }
-                const descriptionsPayload = {
-                    ...commonPayload,
-                    no_of_headlines: 20,
-                    max_characters: 20
-                }
-                const captionsPayload = {
-                    ...commonPayload,
-                    no_of_headlines: 20,
-                    max_characters: 120
-                }
-                this.generateCopy(this.copies.text1, endpoints.facebookAdsText, endpoints.copies, text1Payload) 
-                    .then(() => this.generateCopy(this.copies.text2, endpoints.facebookAdsText, endpoints.copies, text2Payload))
-                    .then(() => this.generateCopy(this.copies.text3, endpoints.facebookAdsText, endpoints.copies, text3Payload))
-                    .then(() => this.generateCopy(this.copies.text4, endpoints.facebookAdsText, endpoints.copies, text4Payload))
-                    .then(() => this.generateCopy(this.copies.text5, endpoints.facebookAdsText, endpoints.copies, text5Payload))
-                    .then(() => this.generateCopy(this.copies.headlines, endpoints.facebookAdsHeadlines, endpoints.copies, headlinesPayload))
-                    .then(() => this.generateCopy(this.copies.descriptions, endpoints.facebookAdsHeadlines, endpoints.copies, descriptionsPayload))
-                    .catch(error => console.error('An error has occurred:', error.response.data));
             },
             copyClicked(event) {
                 copyToClipboard(event);
