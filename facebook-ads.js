@@ -91,6 +91,15 @@ function runVue(user, avatars, solutions) {
             },
             isCopiesSectionVisible() {
                 return this.isAnyGenerating(this.copies) || this.isAnyReady(this.copies);
+            },
+            plusSpin() {
+                return this.solution.data.spin ? ' + ' + this.solution.data.spin : '';
+            },
+            plusStyle() {
+                return this.solution.data.style ? ' + ' + this.solution.data.style : '';
+            },
+            plusTranslation() {
+                return this.solution.data.translation ? ' + ' + this.solution.data.translation : '';
             }
         },
         methods: {
