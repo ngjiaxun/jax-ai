@@ -225,20 +225,20 @@ function runVue(user, avatars, solutions) {
                         descriptions = await this.generateCopy(this.copies.descriptionsStyle, endpoints.transform, endpoints.copies, { ...transformationPayload, transform_from: descriptions.data.id });
                     }
 
-                    // Translate
-                    // if (this.solution.data.translation) {
-                    //     const transformationPayload = { 
-                    //         transformation: this.solution.data.translation,
-                    //         transformation_type: transformation.translation
-                    //     }
-                    //     text1 = await this.generateCopy(this.copies.text1Translation, endpoints.transform, endpoints.copies, { ...transformationPayload, transform_from: text1.data.id });
-                    //     text2 = await this.generateCopy(this.copies.text2Translation, endpoints.transform, endpoints.copies, { ...transformationPayload, transform_from: text2.data.id });
-                    //     text3 = await this.generateCopy(this.copies.text3Translation, endpoints.transform, endpoints.copies, { ...transformationPayload, transform_from: text3.data.id });
-                    //     text4 = await this.generateCopy(this.copies.text4Translation, endpoints.transform, endpoints.copies, { ...transformationPayload, transform_from: text4.data.id });
-                    //     text5 = await this.generateCopy(this.copies.text5Translation, endpoints.transform, endpoints.copies, { ...transformationPayload, transform_from: text5.data.id });
-                    //     headlines = await this.generateCopy(this.copies.headlinesTranslation, endpoints.transform, endpoints.copies,  { ...transformationPayload, transform_from: headlines.data.id });
-                    //     descriptions = await this.generateCopy(this.copies.descriptionsTranslation, endpoints.transform, endpoints.copies, { ...transformationPayload, transform_from: descriptions.data.id });
-                    // }
+                    Translate
+                    if (this.solution.data.translation) {
+                        const transformationPayload = { 
+                            transformation: this.solution.data.translation,
+                            transformation_type: transformation.translation
+                        }
+                        text1 = await this.generateCopy(this.copies.text1Translation, endpoints.transform, endpoints.copies, { ...transformationPayload, transform_from: text1.data.id });
+                        text2 = await this.generateCopy(this.copies.text2Translation, endpoints.transform, endpoints.copies, { ...transformationPayload, transform_from: text2.data.id });
+                        text3 = await this.generateCopy(this.copies.text3Translation, endpoints.transform, endpoints.copies, { ...transformationPayload, transform_from: text3.data.id });
+                        text4 = await this.generateCopy(this.copies.text4Translation, endpoints.transform, endpoints.copies, { ...transformationPayload, transform_from: text4.data.id });
+                        text5 = await this.generateCopy(this.copies.text5Translation, endpoints.transform, endpoints.copies, { ...transformationPayload, transform_from: text5.data.id });
+                        headlines = await this.generateCopy(this.copies.headlinesTranslation, endpoints.transform, endpoints.copies,  { ...transformationPayload, transform_from: headlines.data.id });
+                        descriptions = await this.generateCopy(this.copies.descriptionsTranslation, endpoints.transform, endpoints.copies, { ...transformationPayload, transform_from: descriptions.data.id });
+                    }
                 } catch (error) {
                     console.error('Error generating copies:', error.response.data);
                 }
