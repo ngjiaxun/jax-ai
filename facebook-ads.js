@@ -208,7 +208,7 @@ function runVue(user, avatars, solutions) {
 
                     // Spin
                     if (this.solution.data.spin) {
-                        await this.transformCopies(transformation.spin, copies, {
+                        await this.transformCopies(this.solution.data.spin, transformation.spin, copies, {
                             text1: this.copies.text1Spin,
                             text2: this.copies.text2Spin,
                             text3: this.copies.text3Spin,
@@ -221,7 +221,7 @@ function runVue(user, avatars, solutions) {
 
                     // Style
                     if (this.solution.data.style) {
-                        await this.transformCopies(transformation.style, copies, {
+                        await this.transformCopies(this.solution.data.style, transformation.style, copies, {
                             text1: this.copies.text1Style,
                             text2: this.copies.text2Style,
                             text3: this.copies.text3Style,
@@ -234,7 +234,7 @@ function runVue(user, avatars, solutions) {
 
                     // Translate
                     if (this.solution.data.translation) {
-                        await this.transformCopies(transformation.translation, copies, {
+                        await this.transformCopies(this.solution.data.translation, transformation.translation, copies, {
                             text1: this.copies.text1Translation,
                             text2: this.copies.text2Translation,
                             text3: this.copies.text3Translation,
@@ -248,9 +248,9 @@ function runVue(user, avatars, solutions) {
                     console.error('Error generating copies:', error.message);
                 }
             },
-            async transformCopies(transformationType, from, to) {
+            async transformCopies(transformation, transformationType, from, to) {
                 const payload = { 
-                    transformation: this.solution.data.translation,
+                    transformation: transformation,
                     transformation_type: transformationType
                 }
                 from.text1 = await this.generateCopy(to.text1, endpoints.transform, { ...payload, transform_from: from.text1.data.id });
