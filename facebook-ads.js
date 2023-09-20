@@ -28,41 +28,40 @@ function runVue(user, avatars, solutions) {
                 solution: { data: solutions[0] },
                 avatar: { ...copies.copy },
                 copies: {
-                    // Original versions
                     text1: { ...copies.copy },
                     text2: { ...copies.copy },
                     text3: { ...copies.copy },
                     text4: { ...copies.copy },
                     text5: { ...copies.copy },
                     headlines: { ...copies.copy },
-                    descriptions: { ...copies.copy },
-
-                    // Spun versions
-                    text1Spin: { ...copies.copy },
-                    text2Spin: { ...copies.copy },
-                    text3Spin: { ...copies.copy },
-                    text4Spin: { ...copies.copy },
-                    text5Spin: { ...copies.copy },
-                    headlinesSpin: { ...copies.copy },
-                    descriptionsSpin: { ...copies.copy },
-
-                    // Styled versions
-                    text1Style: { ...copies.copy },
-                    text2Style: { ...copies.copy },
-                    text3Style: { ...copies.copy },
-                    text4Style: { ...copies.copy },
-                    text5Style: { ...copies.copy },
-                    headlinesStyle: { ...copies.copy },
-                    descriptionsStyle: { ...copies.copy },
-
-                    // Translated versions
-                    text1Translation: { ...copies.copy },
-                    text2Translation: { ...copies.copy },
-                    text3Translation: { ...copies.copy },
-                    text4Translation: { ...copies.copy },
-                    text5Translation: { ...copies.copy },
-                    headlinesTranslation: { ...copies.copy },
-                    descriptionsTranslation: { ...copies.copy }
+                    descriptions: { ...copies.copy }
+                },
+                spun: {
+                    text1: { ...copies.copy },
+                    text2: { ...copies.copy },
+                    text3: { ...copies.copy },
+                    text4: { ...copies.copy },
+                    text5: { ...copies.copy },
+                    headlines: { ...copies.copy },
+                    descriptions: { ...copies.copy }
+                },
+                styled: {
+                    text1: { ...copies.copy },
+                    text2: { ...copies.copy },
+                    text3: { ...copies.copy },
+                    text4: { ...copies.copy },
+                    text5: { ...copies.copy },
+                    headlines: { ...copies.copy },
+                    descriptions: { ...copies.copy }
+                },
+                translated: {
+                    text1: { ...copies.copy },
+                    text2: { ...copies.copy },
+                    text3: { ...copies.copy },
+                    text4: { ...copies.copy },
+                    text5: { ...copies.copy },
+                    headlines: { ...copies.copy },
+                    descriptions: { ...copies.copy }
                 }
             }
         },
@@ -81,16 +80,19 @@ function runVue(user, avatars, solutions) {
                 return !this.isAddNew && !this.isSelectOne && this.avatar.data;
             },
             isStepOneSectionVisible() {
-                return !this.isAnyGenerating(this.copies) && !this.avatar.isGenerating && !this.isAnyReady(this.copies);
+                return !this.isAnyCopyGenerating && !this.avatar.isGenerating && !this.isAnyReady(this.copies);
             },
             isStepTwoSectionVisible() {
-                return !this.isAnyGenerating(this.copies) && !this.avatar.isGenerating && !this.isAnyReady(this.copies) && !this.isAddNew && !this.isSelectOne;
+                return !this.isAnyCopyGenerating && !this.avatar.isGenerating && !this.isAnyReady(this.copies) && !this.isAddNew && !this.isSelectOne;
             },
             isStepThreeSectionVisible() {
                 return this.isStepTwoSectionVisible;
             },
             isCopiesSectionVisible() {
-                return this.isAnyGenerating(this.copies) || this.isAnyReady(this.copies);
+                return this.isAnyCopyGenerating || this.isAnyReady(this.copies);
+            },
+            isAnyCopyGenerating() {
+                return this.isAnyGenerating({...this.copies, ...this.spun, ...this.styled, ...this.translated});
             },
             plusSpin() {
                 return this.solution.data.spin ? ' + ' + this.solution.data.spin : '';
@@ -208,28 +210,12 @@ function runVue(user, avatars, solutions) {
 
                     // Spin
                     if (this.solution.data.spin) {
-                        await this.transformCopies(this.solution.data.spin, transformation.spin, copies, {
-                            text1: this.copies.text1Spin,
-                            text2: this.copies.text2Spin,
-                            text3: this.copies.text3Spin,
-                            text4: this.copies.text4Spin,
-                            text5: this.copies.text5Spin,
-                            headlines: this.copies.headlinesSpin,
-                            descriptions: this.copies.descriptionsSpin
-                        });
+                        await this.transformCopies(this.solution.data.spin, transformation.spin, copies, this.spun);
                     }
 
                     // Style
                     if (this.solution.data.style) {
-                        await this.transformCopies(this.solution.data.style, transformation.style, copies, {
-                            text1: this.copies.text1Style,
-                            text2: this.copies.text2Style,
-                            text3: this.copies.text3Style,
-                            text4: this.copies.text4Style,
-                            text5: this.copies.text5Style,
-                            headlines: this.copies.headlinesStyle,
-                            descriptions: this.copies.descriptionsStyle
-                        });
+                        await this.transformCopies(this.solution.data.style, transformation.style, copies, this.styled);
                     }
 
                     // Translate
