@@ -225,7 +225,7 @@ function runVue(user, avatars, solutions) {
                         descriptions = await this.generateCopy(this.copies.descriptionsStyle, endpoints.transform, endpoints.copies, { ...transformationPayload, transform_from: descriptions.data.id });
                     }
 
-                    Translate
+                    // Translate
                     if (this.solution.data.translation) {
                         const transformationPayload = { 
                             transformation: this.solution.data.translation,
