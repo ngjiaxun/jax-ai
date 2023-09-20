@@ -185,7 +185,7 @@ function runVue(user, avatars, solutions) {
                         text3 = await this.generateCopy(this.copies.text3Spin, endpoints.spin, endpoints.copies, { ...spinPayload, transform_from: text3.data.id });
                         text4 = await this.generateCopy(this.copies.text4Spin, endpoints.spin, endpoints.copies, { ...spinPayload, transform_from: text4.data.id });
                         text5 = await this.generateCopy(this.copies.text5Spin, endpoints.spin, endpoints.copies, { ...spinPayload, transform_from: text5.data.id });
-                        // headlines = await this.generateCopy(this.copies.headlinesSpin, endpoints.spin, endpoints.copies,  { ...spinPayload, transform_from: headlines.data.id });
+                        headlines = await this.generateCopy(this.copies.headlinesSpin, endpoints.spin, endpoints.copies,  { ...spinPayload, transform_from: headlines.data.id });
                         descriptions = await this.generateCopy(this.copies.descriptionsSpin, endpoints.spin, endpoints.copies, { ...spinPayload, transform_from: descriptions.data.id });
                     }
                 } catch (error) {
