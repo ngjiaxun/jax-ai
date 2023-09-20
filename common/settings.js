@@ -9,15 +9,19 @@ const endpoints = {
     avatars: 'scripts/avatars/',
     solutions: 'scripts/solutions/',
     copies: 'scripts/copies/',
-    spin: 'scripts/copies/spin/',
-    style: 'scripts/copies/style/',
-    translate: 'scripts/copies/translate/',
+    transform: 'scripts/copies/transform/',
     facebookAdsText: 'scripts/facebookads/text/',
     facebookAdsHeadlines: 'scripts/facebookads/headlines/'
 }
 
 // Prepend api domain to api endpoints
 Object.keys(endpoints).forEach(key => endpoints[key] = apiDomain + endpoints[key]);
+
+const transformation = {
+    spin: 'T1',
+    style: 'T2',
+    translation: 'T3'
+}
 
 const SELECT_ONE = 'select one';
 const ADD_NEW = 'add new';
