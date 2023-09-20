@@ -36,7 +36,8 @@ const COUNTDOWN_MESSAGE = [
     '.',
     '.',
     '.',
-    ' '
+    ' ',
+    'An error has occurred. Please try again.'
 ];
 
 const copies = {
@@ -130,16 +131,5 @@ const copies = {
         isAnyReady(copies) {
             return Object.values(copies).some(copy => copy.data);
         }
-        // clearProp(prop) {
-        //     console.log('Clearing property...', prop);
-        //     Object.values(this.copies).forEach(copy => {
-        //         if (copy.data) {
-        //             copy.data[prop] = '';
-        //         }
-        //     });
-        // },
-        // getProp(copyStr, prop) {
-        //     return this.copies[copyStr].data ? this.copies[copyStr].data[prop] : '';
-        // }
     }
 };

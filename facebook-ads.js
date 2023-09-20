@@ -240,7 +240,7 @@ function runVue(user, avatars, solutions) {
                         descriptions = await this.generateCopy(this.copies.descriptionsTranslation, endpoints.transform, endpoints.copies, { ...transformationPayload, transform_from: descriptions.data.id });
                     }
                 } catch (error) {
-                    console.error('Error generating copies:', error.response.data);
+                    console.error('Error generating copies:', error.message);
                 }
             },
             copyClicked(event) {
