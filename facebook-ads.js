@@ -80,19 +80,16 @@ function runVue(user, avatars, solutions) {
                 return !this.isAddNew && !this.isSelectOne && this.avatar.data;
             },
             isStepOneSectionVisible() {
-                return !this.isAnyCopyGenerating && !this.avatar.isGenerating && !this.isAnyReady(this.copies);
+                return !this.isAnyGenerating(this.copies) && !this.avatar.isGenerating && !this.isAnyReady(this.copies);
             },
             isStepTwoSectionVisible() {
-                return !this.isAnyCopyGenerating && !this.avatar.isGenerating && !this.isAnyReady(this.copies) && !this.isAddNew && !this.isSelectOne;
+                return !this.isAnyGenerating(this.copies) && !this.avatar.isGenerating && !this.isAnyReady(this.copies) && !this.isAddNew && !this.isSelectOne;
             },
             isStepThreeSectionVisible() {
                 return this.isStepTwoSectionVisible;
             },
             isCopiesSectionVisible() {
-                return this.isAnyCopyGenerating || this.isAnyReady(this.copies);
-            },
-            isAnyCopyGenerating() {
-                return this.isAnyGenerating({...this.copies, ...this.spun, ...this.styled, ...this.translated});
+                return this.isAnyGenerating(this.copies) || this.isAnyReady(this.copies);
             },
             plusSpin() {
                 return this.solution.data.spin ? ' + ' + this.solution.data.spin : '';
