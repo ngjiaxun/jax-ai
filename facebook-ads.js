@@ -196,61 +196,70 @@ function runVue(user, avatars, solutions) {
                     }
     
                     // Original
-                    let text1 = await this.generateCopy(this.copies.text1, endpoints.facebookAdsText, text1Payload);
-                    let text2 = await this.generateCopy(this.copies.text2, endpoints.facebookAdsText, text2Payload);
-                    let text3 = await this.generateCopy(this.copies.text3, endpoints.facebookAdsText, text3Payload);
-                    let text4 = await this.generateCopy(this.copies.text4, endpoints.facebookAdsText, text4Payload);
-                    let text5 = await this.generateCopy(this.copies.text5, endpoints.facebookAdsText, text5Payload);
-                    let headlines = await this.generateCopy(this.copies.headlines, endpoints.facebookAdsHeadlines, headlinesPayload);
-                    let descriptions = await this.generateCopy(this.copies.descriptions, endpoints.facebookAdsHeadlines, descriptionsPayload);
+                    const copies = {
+                        text1: await this.generateCopy(this.copies.text1, endpoints.facebookAdsText, text1Payload),
+                        text2: await this.generateCopy(this.copies.text2, endpoints.facebookAdsText, text2Payload),
+                        text3: await this.generateCopy(this.copies.text3, endpoints.facebookAdsText, text3Payload),
+                        text4: await this.generateCopy(this.copies.text4, endpoints.facebookAdsText, text4Payload),
+                        text5: await this.generateCopy(this.copies.text5, endpoints.facebookAdsText, text5Payload),
+                        headlines: await this.generateCopy(this.copies.headlines, endpoints.facebookAdsHeadlines, headlinesPayload),
+                        descriptions: await this.generateCopy(this.copies.descriptions, endpoints.facebookAdsHeadlines, descriptionsPayload)
+                    }
 
                     // Spin
                     if (this.solution.data.spin) {
-                        const transformationPayload = { 
-                            transformation: this.solution.data.spin,
-                            transformation_type: transformation.spin
-                        }
-                        text1 = await this.generateCopy(this.copies.text1Spin, endpoints.transform, { ...transformationPayload, transform_from: text1.data.id });
-                        text2 = await this.generateCopy(this.copies.text2Spin, endpoints.transform, { ...transformationPayload, transform_from: text2.data.id });
-                        text3 = await this.generateCopy(this.copies.text3Spin, endpoints.transform, { ...transformationPayload, transform_from: text3.data.id });
-                        text4 = await this.generateCopy(this.copies.text4Spin, endpoints.transform, { ...transformationPayload, transform_from: text4.data.id });
-                        text5 = await this.generateCopy(this.copies.text5Spin, endpoints.transform, { ...transformationPayload, transform_from: text5.data.id });
-                        headlines = await this.generateCopy(this.copies.headlinesSpin, endpoints.transform,  { ...transformationPayload, transform_from: headlines.data.id });
-                        descriptions = await this.generateCopy(this.copies.descriptionsSpin, endpoints.transform, { ...transformationPayload, transform_from: descriptions.data.id });
+                        this.transformCopies(transformation.spin, copies, {
+                            text1: this.copies.text1Spin,
+                            text2: this.copies.text2Spin,
+                            text3: this.copies.text3Spin,
+                            text4: this.copies.text4Spin,
+                            text5: this.copies.text5Spin,
+                            headlines: this.copies.headlinesSpin,
+                            descriptions: this.copies.descriptionsSpin
+                        });
                     }
 
                     // Style
                     if (this.solution.data.style) {
-                        const transformationPayload = { 
-                            transformation: this.solution.data.style,
-                            transformation_type: transformation.style
-                        }
-                        text1 = await this.generateCopy(this.copies.text1Style, endpoints.transform, { ...transformationPayload, transform_from: text1.data.id });
-                        text2 = await this.generateCopy(this.copies.text2Style, endpoints.transform, { ...transformationPayload, transform_from: text2.data.id });
-                        text3 = await this.generateCopy(this.copies.text3Style, endpoints.transform, { ...transformationPayload, transform_from: text3.data.id });
-                        text4 = await this.generateCopy(this.copies.text4Style, endpoints.transform, { ...transformationPayload, transform_from: text4.data.id });
-                        text5 = await this.generateCopy(this.copies.text5Style, endpoints.transform, { ...transformationPayload, transform_from: text5.data.id });
-                        headlines = await this.generateCopy(this.copies.headlinesStyle, endpoints.transform,  { ...transformationPayload, transform_from: headlines.data.id });
-                        descriptions = await this.generateCopy(this.copies.descriptionsStyle, endpoints.transform, { ...transformationPayload, transform_from: descriptions.data.id });
+                        this.transformCopies(transformation.style, copies, {
+                            text1: this.copies.text1Style,
+                            text2: this.copies.text2Style,
+                            text3: this.copies.text3Style,
+                            text4: this.copies.text4Style,
+                            text5: this.copies.text5Style,
+                            headlines: this.copies.headlinesStyle,
+                            descriptions: this.copies.descriptionsStyle
+                        });
                     }
 
                     // Translate
                     if (this.solution.data.translation) {
-                        const transformationPayload = { 
-                            transformation: this.solution.data.translation,
-                            transformation_type: transformation.translation
-                        }
-                        text1 = await this.generateCopy(this.copies.text1Translation, endpoints.transform, { ...transformationPayload, transform_from: text1.data.id });
-                        text2 = await this.generateCopy(this.copies.text2Translation, endpoints.transform, { ...transformationPayload, transform_from: text2.data.id });
-                        text3 = await this.generateCopy(this.copies.text3Translation, endpoints.transform, { ...transformationPayload, transform_from: text3.data.id });
-                        text4 = await this.generateCopy(this.copies.text4Translation, endpoints.transform, { ...transformationPayload, transform_from: text4.data.id });
-                        text5 = await this.generateCopy(this.copies.text5Translation, endpoints.transform, { ...transformationPayload, transform_from: text5.data.id });
-                        headlines = await this.generateCopy(this.copies.headlinesTranslation, endpoints.transform,  { ...transformationPayload, transform_from: headlines.data.id });
-                        descriptions = await this.generateCopy(this.copies.descriptionsTranslation, endpoints.transform, { ...transformationPayload, transform_from: descriptions.data.id });
+                        this.transformCopies(transformation.translation, copies, {
+                            text1: this.copies.text1Translation,
+                            text2: this.copies.text2Translation,
+                            text3: this.copies.text3Translation,
+                            text4: this.copies.text4Translation,
+                            text5: this.copies.text5Translation,
+                            headlines: this.copies.headlinesTranslation,
+                            descriptions: this.copies.descriptionsTranslation
+                        });
                     }
                 } catch (error) {
                     console.error('Error generating copies:', error.message);
                 }
+            },
+            async transformCopies(transformationType, from, to) {
+                const payload = { 
+                    transformation: this.solution.data.translation,
+                    transformation_type: transformationType
+                }
+                from.text1 = await this.generateCopy(to.text1, endpoints.transform, { ...payload, transform_from: from.text1.data.id });
+                from.text2 = await this.generateCopy(to.text2, endpoints.transform, { ...payload, transform_from: from.text2.data.id });
+                from.text3 = await this.generateCopy(to.text3, endpoints.transform, { ...payload, transform_from: from.text3.data.id });
+                from.text4 = await this.generateCopy(to.text4, endpoints.transform, { ...payload, transform_from: from.text4.data.id });
+                from.text5 = await this.generateCopy(to.text5, endpoints.transform, { ...payload, transform_from: from.text5.data.id });
+                from.headlines = await this.generateCopy(to.headlines, endpoints.transform,  { ...payload, transform_from: from.headlines.data.id });
+                from.descriptions = await this.generateCopy(to.descriptions, endpoints.transform, { ...payload, transform_from: from.descriptions.data.id });
             },
             copyClicked(event) {
                 copyToClipboard(event);
