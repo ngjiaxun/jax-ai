@@ -208,7 +208,7 @@ function runVue(user, avatars, solutions) {
 
                     // Spin
                     if (this.solution.data.spin) {
-                        this.transformCopies(transformation.spin, copies, {
+                        await this.transformCopies(transformation.spin, copies, {
                             text1: this.copies.text1Spin,
                             text2: this.copies.text2Spin,
                             text3: this.copies.text3Spin,
@@ -221,7 +221,7 @@ function runVue(user, avatars, solutions) {
 
                     // Style
                     if (this.solution.data.style) {
-                        this.transformCopies(transformation.style, copies, {
+                        await this.transformCopies(transformation.style, copies, {
                             text1: this.copies.text1Style,
                             text2: this.copies.text2Style,
                             text3: this.copies.text3Style,
@@ -234,7 +234,7 @@ function runVue(user, avatars, solutions) {
 
                     // Translate
                     if (this.solution.data.translation) {
-                        this.transformCopies(transformation.translation, copies, {
+                        await this.transformCopies(transformation.translation, copies, {
                             text1: this.copies.text1Translation,
                             text2: this.copies.text2Translation,
                             text3: this.copies.text3Translation,
