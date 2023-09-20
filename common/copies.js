@@ -62,7 +62,7 @@ const copies = {
                 }
             }
         },
-        async generateCopy(copy, generationEndpoint, checkingEndpoint, payload) {
+        async generateCopy(copy, generationEndpoint, payload, checkingEndpoint=endpoints.copies) {
             console.log('Generating copy...');
             try {
                 const requestedTime = new Date().toISOString(); // Timestamp for identifying the copy after it's generated
