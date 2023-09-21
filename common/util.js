@@ -45,6 +45,10 @@ const util = {
         },
         reload() {
             location.reload();
+        },
+        deepCopy(obj) {
+            // Create a deep copy of an object using JSON methods
+            return JSON.parse(JSON.stringify(obj));
         }
     }
 };

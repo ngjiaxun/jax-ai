@@ -36,33 +36,9 @@ function runVue(user, avatars, solutions) {
                     headlines: { ...copies.copy },
                     descriptions: { ...copies.copy }
                 },
-                spun: {
-                    text1: { ...copies.copy },
-                    text2: { ...copies.copy },
-                    text3: { ...copies.copy },
-                    text4: { ...copies.copy },
-                    text5: { ...copies.copy },
-                    headlines: { ...copies.copy },
-                    descriptions: { ...copies.copy }
-                },
-                styled: {
-                    text1: { ...copies.copy },
-                    text2: { ...copies.copy },
-                    text3: { ...copies.copy },
-                    text4: { ...copies.copy },
-                    text5: { ...copies.copy },
-                    headlines: { ...copies.copy },
-                    descriptions: { ...copies.copy }
-                },
-                translated: {
-                    text1: { ...copies.copy },
-                    text2: { ...copies.copy },
-                    text3: { ...copies.copy },
-                    text4: { ...copies.copy },
-                    text5: { ...copies.copy },
-                    headlines: { ...copies.copy },
-                    descriptions: { ...copies.copy }
-                }
+                spun: this.deepCopy(this.copies),
+                styled: this.deepCopy(this.copies),
+                translated: this.deepCopy(this.copies)
             }
         },
         watch: {
