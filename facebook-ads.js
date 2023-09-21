@@ -217,15 +217,7 @@ function runVue(user, avatars, solutions) {
 
                     // Translate
                     if (this.solution.data.translation) {
-                        await this.transformCopies(this.solution.data.translation, transformation.translation, copies, {
-                            text1: this.copies.text1Translation,
-                            text2: this.copies.text2Translation,
-                            text3: this.copies.text3Translation,
-                            text4: this.copies.text4Translation,
-                            text5: this.copies.text5Translation,
-                            headlines: this.copies.headlinesTranslation,
-                            descriptions: this.copies.descriptionsTranslation
-                        });
+                        await this.transformCopies(this.solution.data.translation, transformation.translation, copies, this.translated);
                     }
                 } catch (error) {
                     console.error('Error generating copies:', error.message);
