@@ -36,7 +36,15 @@ function runVue(user, avatars, solutions) {
                     headlines: { ...copies.copy },
                     descriptions: { ...copies.copy }
                 },
-                spun: JSON.parse(JSON.stringify(this.copies)),
+                spun: {
+                    text1: { ...copies.copy },
+                    text2: { ...copies.copy },
+                    text3: { ...copies.copy },
+                    text4: { ...copies.copy },
+                    text5: { ...copies.copy },
+                    headlines: { ...copies.copy },
+                    descriptions: { ...copies.copy }
+                },
                 styled: {
                     text1: { ...copies.copy },
                     text2: { ...copies.copy },
@@ -54,7 +62,11 @@ function runVue(user, avatars, solutions) {
                     text5: { ...copies.copy },
                     headlines: { ...copies.copy },
                     descriptions: { ...copies.copy }
-                }
+                },
+                foo: {
+                    fooValue: 'foo'
+                },
+                bar: JSON.parse(JSON.stringify(this.foo))
             }
         },
         watch: {
