@@ -36,15 +36,7 @@ function runVue(user, avatars, solutions) {
                     headlines: { ...copies.copy },
                     descriptions: { ...copies.copy }
                 },
-                spun: {
-                    text1: { ...copies.copy },
-                    text2: { ...copies.copy },
-                    text3: { ...copies.copy },
-                    text4: { ...copies.copy },
-                    text5: { ...copies.copy },
-                    headlines: { ...copies.copy },
-                    descriptions: { ...copies.copy }
-                },
+                spun: JSON.parse(JSON.stringify(this.copies)),
                 styled: {
                     text1: { ...copies.copy },
                     text2: { ...copies.copy },
