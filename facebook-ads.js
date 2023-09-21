@@ -141,7 +141,7 @@ function runVue(user, avatars, solutions) {
                     "industry": this.solution.data.industry,
                     "target_market": this.avatarName
                 }
-                this.generateCopy(this.avatar, endpoints.avatars, endpoints.avatars, payload)
+                this.generateCopy(this.avatar, endpoints.avatars, payload, endpoints.avatars)
                     .then(() => window.location.reload())
                     .catch(error => console.error('Error creating avatar:', error.response.data));
             },
