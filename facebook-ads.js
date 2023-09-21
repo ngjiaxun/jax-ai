@@ -62,11 +62,7 @@ function runVue(user, avatars, solutions) {
                     text5: { ...copies.copy },
                     headlines: { ...copies.copy },
                     descriptions: { ...copies.copy }
-                },
-                foo: {
-                    fooValue: 'foo'
-                },
-                bar: JSON.parse(JSON.stringify(this.foo))
+                }
             }
         },
         watch: {
