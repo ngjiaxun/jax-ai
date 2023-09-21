@@ -42,7 +42,7 @@ const COUNTDOWN_MESSAGE = [
 
 const copies = {
     copy: {
-        data: undefined,
+        data: null,
         isGenerating: false
     },
     data: {
