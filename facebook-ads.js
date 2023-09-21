@@ -34,7 +34,8 @@ function runVue(user, avatars, solutions) {
                     text4: { ...copies.copy },
                     text5: { ...copies.copy },
                     headlines: { ...copies.copy },
-                    descriptions: { ...copies.copy }
+                    descriptions: { ...copies.copy },
+                    captions: { ...copies.copy }
                 },
                 spun: {
                     text1: { ...copies.copy },
@@ -43,7 +44,8 @@ function runVue(user, avatars, solutions) {
                     text4: { ...copies.copy },
                     text5: { ...copies.copy },
                     headlines: { ...copies.copy },
-                    descriptions: { ...copies.copy }
+                    descriptions: { ...copies.copy },
+                    captions: { ...copies.copy }
                 },
                 styled: {
                     text1: { ...copies.copy },
@@ -52,7 +54,8 @@ function runVue(user, avatars, solutions) {
                     text4: { ...copies.copy },
                     text5: { ...copies.copy },
                     headlines: { ...copies.copy },
-                    descriptions: { ...copies.copy }
+                    descriptions: { ...copies.copy },
+                    captions: { ...copies.copy }
                 },
                 translated: {
                     text1: { ...copies.copy },
@@ -61,7 +64,8 @@ function runVue(user, avatars, solutions) {
                     text4: { ...copies.copy },
                     text5: { ...copies.copy },
                     headlines: { ...copies.copy },
-                    descriptions: { ...copies.copy }
+                    descriptions: { ...copies.copy },
+                    captions: { ...copies.copy }
                 }
             }
         },
@@ -202,7 +206,8 @@ function runVue(user, avatars, solutions) {
                         text4: await this.generateCopy(this.copies.text4, endpoints.facebookAdsText, text4Payload),
                         text5: await this.generateCopy(this.copies.text5, endpoints.facebookAdsText, text5Payload),
                         headlines: await this.generateCopy(this.copies.headlines, endpoints.facebookAdsHeadlines, headlinesPayload),
-                        descriptions: await this.generateCopy(this.copies.descriptions, endpoints.facebookAdsHeadlines, descriptionsPayload)
+                        descriptions: await this.generateCopy(this.copies.descriptions, endpoints.facebookAdsHeadlines, descriptionsPayload),
+                        captions: await this.generateCopy(this.copies.captions, endpoints.facebookAdsHeadlines, captionsPayload)
                     }
 
                     // Spin
@@ -235,6 +240,7 @@ function runVue(user, avatars, solutions) {
                 from.text5 = await this.generateCopy(to.text5, endpoints.transform, { ...payload, transform_from: from.text5.data.id });
                 from.headlines = await this.generateCopy(to.headlines, endpoints.transform,  { ...payload, transform_from: from.headlines.data.id });
                 from.descriptions = await this.generateCopy(to.descriptions, endpoints.transform, { ...payload, transform_from: from.descriptions.data.id });
+                from.captions = await this.generateCopy(to.captions, endpoints.transform, { ...payload, transform_from: from.captions.data.id });
             },
             copyClicked(event) {
                 copyToClipboard(event);
