@@ -214,24 +214,25 @@ function runVue(user, avatars, solutions) {
 
                     // Spin
                     if (this.solution.data.spin) {
-                        await this.transformCopies(this.solution.data.spin, transformation.spin, copies, this.spun);
+                        await this.transformCopies(batchTime, this.solution.data.spin, transformation.spin, copies, this.spun);
                     }
 
                     // Style
                     if (this.solution.data.style) {
-                        await this.transformCopies(this.solution.data.style, transformation.style, copies, this.styled);
+                        await this.transformCopies(batchTime, this.solution.data.style, transformation.style, copies, this.styled);
                     }
 
                     // Translate
                     if (this.solution.data.translation) {
-                        await this.transformCopies(this.solution.data.translation, transformation.translation, copies, this.translated);
+                        await this.transformCopies(batchTime, this.solution.data.translation, transformation.translation, copies, this.translated);
                     }
                 } catch (error) {
                     console.error('Error generating copies:', error.message);
                 }
             },
-            async transformCopies(transformation, transformationType, from, to) {
+            async transformCopies(batchTime, transformation, transformationType, from, to) {
                 const payload = { 
+                    batch_time: batchTime,
                     transformation: transformation,
                     transformation_type: transformationType
                 }
