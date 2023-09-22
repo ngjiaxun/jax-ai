@@ -168,15 +168,15 @@ function runVue(user, avatars, solutions) {
                     }
                     const text2Payload = {
                         ...commonPayload,
-                        prompt_id: 1
+                        prompt_id: 2
                     }
                     const text3Payload = {
                         ...commonPayload,
-                        prompt_id: 2
+                        prompt_id: 3
                     }
                     const text4Payload = {
                         ...commonPayload,
-                        prompt_id: 3
+                        prompt_id: 1
                     }
                     const text5Payload = {
                         ...commonPayload,
