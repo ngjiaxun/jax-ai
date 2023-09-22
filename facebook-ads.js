@@ -157,8 +157,10 @@ function runVue(user, avatars, solutions) {
             async generateCopies() {
                 console.log('Generating copies...');
                 try {
+                    const batchTime = new Date().toISOString(); 
                     const commonPayload = {
                         avatar: this.avatar.data.id,
+                        batch_time: batchTime,
                         ...this.avatar.data,
                         ...this.solution.data
                     }
