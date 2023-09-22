@@ -219,22 +219,25 @@ function runVue(user, avatars, solutions) {
 
                     // Style
                     if (this.solution.data.style) {
-                        await this.transformCopies(batchTime, this.solution.data.style, transformation.style, copies, this.styled);
+                        await this.transformCopies(batchTime, this.solution.data.style, transformation.style, copies, this.styled, 0);
                     }
 
                     // Translate
                     if (this.solution.data.translation) {
-                        await this.transformCopies(batchTime, this.solution.data.translation, transformation.translation, copies, this.translated);
+                        await this.transformCopies(batchTime, this.solution.data.translation, transformation.translation, copies, this.translated, 0);
                     }
                 } catch (error) {
                     console.error('Error generating copies:', error.message);
                 }
             },
-            async transformCopies(batchTime, transformation, transformationType, from, to) {
+            async transformCopies(batchTime, transformation, transformationType, from, to, temperature=null) {
                 const payload = { 
                     batch_time: batchTime,
                     transformation: transformation,
                     transformation_type: transformationType
+                }
+                if (temperature) {
+                    payload.temperature = temperature;
                 }
                 from.text1 = await this.generateCopy(to.text1, endpoints.transform, { ...payload, transform_from: from.text1.data.id });
                 from.text2 = await this.generateCopy(to.text2, endpoints.transform, { ...payload, transform_from: from.text2.data.id });
