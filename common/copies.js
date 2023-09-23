@@ -131,8 +131,8 @@ const copies = {
         isAnyReady(copies) {
             return Object.values(copies).some(copy => copy.data);
         },
-        isArray(copy) {
-            return Array.isArray(copy.data);
+        isArray(copy, key='copy') {
+            return Array.isArray(copy.data[key]);
         }
     }
 };
