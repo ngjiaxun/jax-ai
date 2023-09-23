@@ -1,5 +1,5 @@
 const DEFAULT_TIMEOUT = 5000;
-const DEFAULT_MAX_TRIES = 7;
+const DEFAULT_MAX_TRIES = 12;
 const COUNTDOWN_MESSAGE = [
     'Ready in ',
     '5',
@@ -37,7 +37,19 @@ const COUNTDOWN_MESSAGE = [
     '.',
     '.',
     ' ',
-    'An error has occurred. Please try again.'
+    'An',
+    ' ',
+    'error',
+    ' ',
+    'has', 
+    ' ',
+    'occurred.',
+    ' ',
+    'Please',
+    ' ',
+    'try',
+    ' ',
+    'again.'
 ];
 
 const copies = {
