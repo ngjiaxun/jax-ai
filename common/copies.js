@@ -133,6 +133,9 @@ const copies = {
         },
         isArray(copy, key='copy') {
             return Array.isArray(copy.data[key]);
+        },
+        getCopy(copy, key='copy') {
+            return copy.data[key];
         }
     }
 };
