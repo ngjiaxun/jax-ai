@@ -32,6 +32,7 @@ function toFriendlyDatetime(dateString) {
 
     // Convert the adjusted date to a human-friendly format without seconds
     const options = {
+        hour12: true,
         year: 'numeric',
         month: 'long',
         day: 'numeric',
