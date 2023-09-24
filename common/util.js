@@ -20,7 +20,7 @@ function logJSON(msg, json) {
     console.log(msg + '\n' + JSON.stringify(json, null, 2));
 }
 
-function stringToDate(dateString) {
+function toFriendlyDatetime(dateString) {
     // Input string representing a date-time, e.g., "2023-09-23T15:30:00Z"
     dateString = "2023-09-23T15:30:00Z";
 
