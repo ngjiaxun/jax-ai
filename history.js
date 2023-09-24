@@ -3,7 +3,7 @@
         const user = await preInit();
         // Load batch_time list
         const generations = await axios.get(endpoints.generations);
-        logJSON('Generations', generations.data);
+        populateSelectField('#generations', 'generations', 'generation', 'batch_time');
         runVue(user, generations.data);
     } catch (error) {
         console.error('Error initializing Jax AI:', error.message);
@@ -34,7 +34,6 @@ function runVue(user, generations) {
         },
         mounted() {
             this.init();
-            this.populateSelectField('#generations', 'generations', 'generation', 'batch_time');
         }
     }).mount('#app')
 }

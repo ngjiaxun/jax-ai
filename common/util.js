@@ -28,6 +28,25 @@ function handleEnterKeyPress(event) {
     }
 }
 
+// Adds v-for='item in list' and :value='item.key' to the first option of the select field with the given cssQuerySelector
+function populateSelectField(cssQuerySelector, list, item, key, selectOne=true) {
+    const selectField = document.querySelector(cssQuerySelector);
+    if (selectField) {
+        if (selectField.options.length > 0) {
+            const option = selectField.options[0]; // The first option of the select field
+            option.setAttribute('v-for', `${item} in ${list}`);
+            option.setAttribute(':key', `${item}.${key}`);
+            option.setAttribute(':value', `${item}.${key}`);
+        }
+        if (selectOne) {
+            const option = document.createElement('option');
+            option.value = SELECT_ONE;
+            option.text = SELECT_ONE;
+            selectField.add(option, 0);
+        }
+    }
+}
+
 const util = {
     methods: {
         reInitWebflow() {
@@ -45,27 +64,6 @@ const util = {
         },
         reload() {
             location.reload();
-        },
-        // Adds v-for='item in list' and :value='item.key' to the first option of the select field with the given cssQuerySelector
-        populateSelectField(cssQuerySelector, list, item, key, selectOne=true) {
-            const selectField = document.querySelector(cssQuerySelector);
-            if (selectField) {
-                console.log('Populating select field:', selectField)
-                if (selectField.options.length > 0) {
-                    console.log('Select field already has options:', selectField.options);
-                    const option = selectField.options[0]; // The first option of the select field
-                    option.setAttribute('v-for', `${item} in ${list}`);
-                    option.setAttribute(':key', `${item}.${key}`);
-                    option.setAttribute(':value', `${item}.${key}`);
-                    console.log('Updated option:', option);
-                }
-                if (selectOne) {
-                    const option = document.createElement('option');
-                    option.value = SELECT_ONE;
-                    option.text = SELECT_ONE;
-                    selectField.add(option, 0);
-                }
-            }
         }
     }
 };
