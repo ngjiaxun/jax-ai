@@ -37,7 +37,7 @@ function toFriendlyDatetime(dateString) {
         day: 'numeric',
         hour: '2-digit',
         minute: '2-digit',
-        timeZoneName: 'short'
+        timeZoneName: 'longOffset'
     };
 
     return userDateTime.toLocaleString(undefined, options);
