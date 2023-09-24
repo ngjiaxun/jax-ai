@@ -4,6 +4,7 @@
         // Load batch_time list
         const generations = await axios.get(endpoints.generations);
         // Convert batch_time to user-friendly format
+        logJSON('generations', generations.data);
         console.log(toFriendlyDatetime(generations.data[0].batch_time));
         console.log(toFriendlyDatetime(generations.data[1].batch_time));
         console.log(toFriendlyDatetime(generations.data[2].batch_time));
