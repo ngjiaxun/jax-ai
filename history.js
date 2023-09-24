@@ -3,7 +3,12 @@
         const user = await preInit();
         // Load batch_time list
         const generations = await axios.get(endpoints.generations);
-        populateSelectField('#generations', 'generations', 'generation', 'batch_time');
+        // Convert batch_time to user-friendly format
+        generations.data = generations.data.map(generation => {
+            generation.batch_time = stringToDate(generation.batch_time);
+            return generation;
+        });
+        vForSelect('#generations', 'generations', 'generation', 'batch_time');
         runVue(user, generations.data);
     } catch (error) {
         console.error('Error initializing Jax AI:', error.message);

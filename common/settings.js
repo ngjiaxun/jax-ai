@@ -24,8 +24,8 @@ const transformation = {
     translation: 'T3'
 }
 
-const SELECT_ONE = 'select one';
-const ADD_NEW = 'add new';
+const SELECT_ONE = 'Select one...';
+const ADD_NEW = 'Add new...';
 const AVATAR_LOADING_MESSAGES = [
     'Retrieving avatar...',
     'Creating avatar...',
