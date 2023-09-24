@@ -9,6 +9,7 @@ const endpoints = {
     avatars: 'scripts/avatars/',
     solutions: 'scripts/solutions/',
     copies: 'scripts/copies/',
+    generations: 'scripts/copies/generations/',
     transform: 'scripts/copies/transform/',
     facebookAdsText: 'scripts/facebookads/text/',
     facebookAdsHeadlines: 'scripts/facebookads/headlines/'

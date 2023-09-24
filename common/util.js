@@ -45,6 +45,21 @@ const util = {
         },
         reload() {
             location.reload();
+        },
+        populateSelectField(cssQuerySelector, list, key, value, selectOne=false) {
+            const selectField = document.querySelector(cssQuerySelector);
+            if (selectField) {
+                if (selectOne) {
+                    const option = document.createElement('option');
+                    option.value = '';
+                    option.text = SELECT_ONE;
+                    selectField.add(option);
+                }
+                const option = document.createElement('option');
+                option.setAttribute('v-for', `${key} in ${list}`);
+                option.setAttribute(':key', `${key}.${value}`);0
+                option.setAttribute(':value', `${key}.${value}`);
+            }
         }
     }
 };

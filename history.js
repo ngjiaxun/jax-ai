@@ -1,18 +1,21 @@
 (async function main() {
     try {
         const user = await preInit();
-        runVue(user);
+        // Load "batch_time"s
+        const batch_times = await axios.get(endpoints.generations);
+        runVue(user, batch_times.data);
     } catch (error) {
         console.error('Error initializing Jax AI:', error.message);
     }
 })();
 
-function runVue(user) {
+function runVue(user, batch_times) {
     const { createApp } = Vue
     createApp({
         data() {
             return {
                 user: user,
+                batch_times: batch_times,
                 ...copies.data,
                 copies: {
                 }
