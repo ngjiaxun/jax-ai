@@ -1,7 +1,7 @@
 (async function main() {
     try {
         const user = await preInit();
-        // Load "batch_time"s
+        // Load batch_time list
         const generations = await axios.get(endpoints.generations);
         runVue(user, generations.data);
     } catch (error) {

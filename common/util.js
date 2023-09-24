@@ -49,11 +49,14 @@ const util = {
         populateSelectField(cssQuerySelector, list, item, key, selectOne=true) {
             const selectField = document.querySelector(cssQuerySelector);
             if (selectField) {
+                console.log('Populating select field:', selectField)
                 if (selectField.options.length > 0) {
+                    console.log('Select field already has options:', selectField.options);
                     const option = selectField.options[0]; // Get the manually-added option template e.g. {{ avatar.target_market }}
                     option.setAttribute('v-for', `${item} in ${list}`);
                     option.setAttribute(':key', `${item}.${key}`);
                     option.setAttribute(':value', `${item}.${key}`);
+                    console.log('Updated option:', option);
                 }
                 if (selectOne) {
                     const option = document.createElement('option');
