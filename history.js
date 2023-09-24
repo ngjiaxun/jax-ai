@@ -3,6 +3,7 @@
         const user = await preInit();
         // Load batch_time list
         const generations = await axios.get(endpoints.generations);
+        logJSON('Generations', generations.data);
         runVue(user, generations.data);
     } catch (error) {
         console.error('Error initializing Jax AI:', error.message);

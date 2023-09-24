@@ -46,13 +46,14 @@ const util = {
         reload() {
             location.reload();
         },
+        // Adds v-for='item in list' and :value='item.key' to the first option of the select field with the given cssQuerySelector
         populateSelectField(cssQuerySelector, list, item, key, selectOne=true) {
             const selectField = document.querySelector(cssQuerySelector);
             if (selectField) {
                 console.log('Populating select field:', selectField)
                 if (selectField.options.length > 0) {
                     console.log('Select field already has options:', selectField.options);
-                    const option = selectField.options[0]; // Get the manually-added option template e.g. {{ avatar.target_market }}
+                    const option = selectField.options[0]; // The first option of the select field
                     option.setAttribute('v-for', `${item} in ${list}`);
                     option.setAttribute(':key', `${item}.${key}`);
                     option.setAttribute(':value', `${item}.${key}`);
