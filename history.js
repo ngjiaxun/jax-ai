@@ -2,20 +2,20 @@
     try {
         const user = await preInit();
         // Load "batch_time"s
-        const batch_times = await axios.get(endpoints.generations);
-        runVue(user, batch_times.data);
+        const generations = await axios.get(endpoints.generations);
+        runVue(user, generations.data);
     } catch (error) {
         console.error('Error initializing Jax AI:', error.message);
     }
 })();
 
-function runVue(user, batch_times) {
+function runVue(user, generations) {
     const { createApp } = Vue
     createApp({
         data() {
             return {
                 user: user,
-                batch_times: batch_times,
+                generations: generations,
                 ...copies.data,
                 copies: {
                 }
@@ -33,6 +33,7 @@ function runVue(user, batch_times) {
         },
         mounted() {
             this.init();
+            this.populateSelectField('#generations', 'generations', 'generation', 'batch_time');
         }
     }).mount('#app')
 }

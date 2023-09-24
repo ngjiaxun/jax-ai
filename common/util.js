@@ -46,19 +46,21 @@ const util = {
         reload() {
             location.reload();
         },
-        populateSelectField(cssQuerySelector, list, key, value, selectOne=false) {
+        populateSelectField(cssQuerySelector, list, item, key, selectOne=true) {
             const selectField = document.querySelector(cssQuerySelector);
             if (selectField) {
+                if (selectField.options.length > 0) {
+                    const option = selectField.options[0]; // Get the manually-added option template e.g. {{ avatar.target_market }}
+                    option.setAttribute('v-for', `${item} in ${list}`);
+                    option.setAttribute(':key', `${item}.${key}`);
+                    option.setAttribute(':value', `${item}.${key}`);
+                }
                 if (selectOne) {
                     const option = document.createElement('option');
-                    option.value = '';
+                    option.value = SELECT_ONE;
                     option.text = SELECT_ONE;
-                    selectField.add(option);
+                    selectField.add(option, 0);
                 }
-                const option = document.createElement('option');
-                option.setAttribute('v-for', `${key} in ${list}`);
-                option.setAttribute(':key', `${key}.${value}`);0
-                option.setAttribute(':value', `${key}.${value}`);
             }
         }
     }
