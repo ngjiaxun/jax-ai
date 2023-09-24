@@ -4,6 +4,9 @@
         // Load batch_time list
         const generations = await axios.get(endpoints.generations);
         // Convert batch_time to user-friendly format
+        console.log(toFriendlyDatetime(generations.data[0].batch_time));
+        console.log(toFriendlyDatetime(generations.data[1].batch_time));
+        console.log(toFriendlyDatetime(generations.data[2].batch_time));
         const generationsData = generations.data.map(generation => ({ batch_time: toFriendlyDatetime(generation.batch_time)}));
         vForSelect('#generations', 'generations', 'generation', 'batch_time');
         runVue(user, generationsData);
