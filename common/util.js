@@ -22,7 +22,7 @@ function logJSON(msg, json) {
 
 function stringToDate(dateString) {
     // Input string representing a date-time, e.g., "2023-09-23T15:30:00Z"
-    const dateString = "2023-09-23T15:30:00Z";
+    dateString = "2023-09-23T15:30:00Z";
 
     // Create a Date object from the input string (assumes the input is in UTC)
     const inputDate = new Date(dateString);
