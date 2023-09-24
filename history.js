@@ -4,12 +4,9 @@
         // Load batch_time list
         const generations = await axios.get(endpoints.generations);
         // Convert batch_time to user-friendly format
-        generations.data = generations.data.map(generation => {
-            generation.batch_time = stringToDate(generation.batch_time);
-            return generation;
-        });
+        const generationsData = generations.data.map(generation => { batch_time: stringToDate(generation.batch_time)});
         vForSelect('#generations', 'generations', 'generation', 'batch_time');
-        runVue(user, generations.data);
+        runVue(user, generationsData);
     } catch (error) {
         console.error('Error initializing Jax AI:', error.message);
     }
