@@ -36,6 +36,7 @@ function populateSelectField(cssQuerySelector, list, item, key, selectOne=true) 
             const option = selectField.options[0]; // The first option of the select field
             option.setAttribute('v-for', `${item} in ${list}`);
             option.setAttribute(':key', `${item}.${key}`);
+            option.removeAttribute('value'); // Replace with :value
             option.setAttribute(':value', `${item}.${key}`);
         }
         if (selectOne) {
