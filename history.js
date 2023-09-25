@@ -2,32 +2,35 @@
     try {
         const user = await preInit();
         // Load batch_time list
-        const generations = await axios.get(endpoints.generations);
+        const batches = await axios.get(endpoints.batches);
         // Make batch_time user-friendly
-        generations.data = generations.data.map(generation => {
-            generation.friendly_batch_time = toFriendlyDatetime(generation.batch_time);
-            return generation;
+        batches.data = batches.data.map(batch => {
+            batch.friendly_batch_time = toFriendlyDatetime(batch.batch_time);
+            return batch;
         });
-        vForSelect('#generations', 'generations', 'generation', 'batch_time', false);
-        runVue(user, generations.data);
+        vForSelect('#batches', 'batches', 'batch', 'batch_time', false);
+        runVue(user, batches.data);
     } catch (error) {
         console.error('Error initializing Jax AI:', error.message);
     }
 })();
 
-function runVue(user, generations) {
+function runVue(user, batches) {
     const { createApp } = Vue
     createApp({
         data() {
             return {
                 user: user,
-                generations: generations,
+                batches: batches, // Select field options
+                selectedBatch: null, // Selected option
                 ...copies.data,
-                copies: {
-                }
+                batch: { ...copies.copy }, // Copies for selected batch
             }
         },
         watch: {
+            selectedBatch: function (newBatchTime) {
+                this.listCopies(this.batch, endpoints.copies, newBatchTime);
+            }
         },
         computed: {
             ...copies.computed,
@@ -35,12 +38,7 @@ function runVue(user, generations) {
         methods: {
             ...authentication.methods,
             ...util.methods,
-            ...copies.methods,
-            generationSelectionChanged(event) {
-                this.updateCopies(event.target.value);
-            },
-            updateCopies(batch_time) {
-            }
+            ...copies.methods
         },
         mounted() {
             this.init();

@@ -63,10 +63,11 @@ const COUNTDOWN_MESSAGE = [
 const copies = {
     copy: {
         data: null,
-        isGenerating: false
+        // Each copy has its own "isGenerating" property to prevent async issues while sharing the same "countdownMessage"
+        isGenerating: false 
     },
     data: {
-        countdownMessage: ''
+        countdownMessage: '' // Only one thing can load or generate at a time, so this is fine
     },
     computed: {
     },
@@ -116,7 +117,21 @@ const copies = {
                 console.error('Error checking if copy is ready:', error.response.data);
             }
         },
-        async createCopy(copy, endpoint, payload=copy.data) {
+        async listCopies(copies, endpoint, ...args) {
+            console.log('Listing copies...');
+            try {
+                copy.isGenerating = true;
+                this.startCountdown(copy);
+                endpoint += '?' + args.join('&');
+                const response = await axios.get(endpoint);
+                copies.data = response.data;
+                copy.isGenerating = false;
+            } catch (error) {
+                console.error('Error listing copies:', error.response.data);
+            }
+        },
+        // Use this instead of generateCopy() for endpoints that don't require polling to check if the copy is ready
+        async createCopy(copy, endpoint, payload=copy.data) { 
             console.log('Creating copy...');
             try {
                 const response = await axios.post(endpoint, payload);
