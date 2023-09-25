@@ -33,6 +33,8 @@ function runVue(user, generations) {
             ...authentication.methods,
             ...util.methods,
             ...copies.methods,
+            generationSelectionChanged(event) {
+            }
         },
         mounted() {
             this.init();
