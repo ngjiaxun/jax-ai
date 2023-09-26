@@ -247,9 +247,6 @@ function runVue(user, avatars, solutions) {
                 from.headlines = await this.generateCopy(to.headlines, endpoints.transform,  { ...payload, transform_from: from.headlines.data.id });
                 from.descriptions = await this.generateCopy(to.descriptions, endpoints.transform, { ...payload, transform_from: from.descriptions.data.id });
                 from.captions = await this.generateCopy(to.captions, endpoints.transform, { ...payload, transform_from: from.captions.data.id });
-            },
-            copyClicked(event) {
-                copyToClipboard(event);
             }
         },
         mounted() {

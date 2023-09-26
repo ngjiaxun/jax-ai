@@ -90,6 +90,9 @@ const util = {
         },
         reload() {
             location.reload();
+        },
+        copyClicked(event) {
+            copyToClipboard(event);
         }
     }
 };
