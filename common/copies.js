@@ -167,7 +167,11 @@ const copies = {
             return Object.values(copies).some(copy => copy.data);
         },
         isArray(copy, key='copy') {
-            return Array.isArray(copy.data[key]);
+            if (copy.data) {
+                return Array.isArray(copy.data[key]);
+            } else {
+                return Array.isArray(copy[key]);
+            }
         }
     }
 };
