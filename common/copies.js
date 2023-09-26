@@ -117,12 +117,12 @@ const copies = {
                 console.error('Error checking if copy is ready:', error.response.data);
             }
         },
-        async listCopies(copy, endpoint, ...args) {
+        async listCopies(copy, endpoint, { ...args} ) {
             console.log('Listing copies...');
             try {
                 copy.isGenerating = true;
                 this.startCountdown(copy);
-                endpoint += '?' + args.join('&');
+                endpoint += '?' + Object.entries(args).map(([key, value]) => `${key}=${value}`).join('&');
                 const response = await axios.get(endpoint);
                 copy.data = response.data;
                 copy.isGenerating = false;

@@ -28,8 +28,8 @@ function runVue(user, batches) {
             }
         },
         watch: {
-            selectedBatch: function (newBatchTime) {
-                this.listCopies(this.batch, endpoints.copies, newBatchTime);
+            selectedBatch(newBatchTime) {
+                this.listCopies(this.batch, endpoints.copies, { batch_time: newBatchTime });
             }
         },
         computed: {
