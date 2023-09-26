@@ -29,7 +29,7 @@ function runVue(user, batches) {
         },
         watch: {
             selectedBatch(newBatchTime) {
-                this.listCopies(this.batch, endpoints.copies, { batch_time: newBatchTime });
+                this.listCopies(this.batch, endpoints.copies, { batch_time: newBatchTime }, 'requested_time');
             }
         },
         computed: {
