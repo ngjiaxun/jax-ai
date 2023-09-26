@@ -117,17 +117,17 @@ const copies = {
                 console.error('Error checking if copy is ready:', error.response.data);
             }
         },
-        async listCopies(copies, endpoint, ...args) {
+        async listCopies(copy, endpoint, ...args) {
             console.log('Listing copies...');
             try {
                 copy.isGenerating = true;
                 this.startCountdown(copy);
                 endpoint += '?' + args.join('&');
                 const response = await axios.get(endpoint);
-                copies.data = response.data;
+                copy.data = response.data;
                 copy.isGenerating = false;
             } catch (error) {
-                console.error('Error listing copies:', error.response.data);
+                console.error('Error listing copies:', error.message);
             }
         },
         // Use this instead of generateCopy() for endpoints that don't require polling to check if the copy is ready
