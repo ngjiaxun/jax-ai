@@ -17,11 +17,9 @@ function runVue(user, avatars, solutions) {
             return {
                 user: user,
                 avatars: avatars,
+                solution: { data: solutions[0] },
                 ...input.data,
                 ...copies.data,
-
-                solution: { data: solutions[0] },
-                avatar: { ...copies.copy },
                 copies: {
                     text1: { ...copies.copy },
                     text2: { ...copies.copy },
