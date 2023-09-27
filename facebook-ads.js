@@ -16,6 +16,7 @@ function runVue(user, avatars, solutions) {
         data() {
             return {
                 user: user,
+                avatars: avatars,
                 ...input.data,
                 ...copies.data,
 

@@ -1,6 +1,5 @@
 const input = {
     data: {
-        avatars: avatars,
         avatarSelection: SELECT_ONE,
         avatarName: '',
         avatarLoadingMessage: AVATAR_LOADING_MESSAGES[0],
