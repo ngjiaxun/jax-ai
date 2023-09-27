@@ -1,5 +1,8 @@
 const input = {
     data: {
+        // Add these in the inheriting file (e.g. facebook-ads.js). Get the values from the runVue() method.
+        //  avatars: avatars, // For displaying the avatars in the avatar select field
+        //  solution: { data: solutions[0] }, 
         avatarSelection: SELECT_ONE,
         avatarName: '', // Create avatar text field
         avatar: { ...copies.copy }, // Pains and desires text fields
@@ -78,6 +81,11 @@ const input = {
                 this.avatar.data.desires[index] = this.avatar.data.desire_suggestions[this.desireSuggestionIndex];
                 this.desireSuggestionIndex = this.desireSuggestionIndex < maxDesireSuggestions ? this.desireSuggestionIndex + 1 : 0;
             }
+        },            
+        generateClicked() {  // Add this to the "Generate" button's v-on:click event
+            this.updateCopy(this.avatar, endpoints.avatars);
+            this.updateCopy(this.solution, endpoints.solutions);
+            this.generateCopies(); // Implement this method 
         },
         createAvatarClicked() {
             this.avatarLoadingMessage = AVATAR_LOADING_MESSAGES[1];

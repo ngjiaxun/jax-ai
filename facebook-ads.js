@@ -74,11 +74,6 @@ function runVue(user, avatars, solutions) {
             ...util.methods,
             ...copies.methods,
             ...input.methods,
-            generateClicked() {
-                this.generateCopies();
-                this.updateCopy(this.avatar, endpoints.avatars);
-                this.updateCopy(this.solution, endpoints.solutions);
-            },
             async generateCopies() {
                 console.log('Generating copies...');
                 try {
