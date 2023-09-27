@@ -84,13 +84,13 @@ function runVue(user, avatars, solutions) {
                 return !this.isAddAvatarSelected && !this.isSelectAvatarSelected;
             },
             isPainSectionVisible() {
-                return !this.isAddAvatarSelected && !this.isSelectAvatarSelected && this.avatar.data;
+                return this.isLoadAvatarSelected && this.avatar.data;
             },
             isStepOneSectionVisible() {
-                return !this.isAnyGenerating(this.copies) && !this.avatar.isGenerating && !this.isAnyReady(this.copies);
+                return !this.isAnyGenerating(this.copies) && !this.isAnyReady(this.copies);
             },
             isStepTwoSectionVisible() {
-                return !this.isAnyGenerating(this.copies) && !this.avatar.isGenerating && !this.isAnyReady(this.copies) && this.isLoadAvatarSelected
+                return !this.isAnyGenerating(this.copies) && !this.isAnyReady(this.copies) && this.isLoadAvatarSelected
             },
             isStepThreeSectionVisible() {
                 return this.isStepTwoSectionVisible;
