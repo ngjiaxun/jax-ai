@@ -7,6 +7,9 @@ const input = {
         painSuggestionIndex: 3, // The starting index for the pain suggestions
         desireSuggestionIndex: 3, // The starting index for the desire suggestions
     },
+    watch: {
+        avatarSelection: 'avatarSelectionChanged',
+    },
     computed: {
         isAddAvatarSelected() {
             return this.avatarSelection === ADD_NEW;

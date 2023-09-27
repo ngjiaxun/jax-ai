@@ -15,9 +15,9 @@ function runVue(user, avatars, solutions) {
     createApp({
         data() {
             return {
-                user: user,
-                avatars: avatars,
-                solution: { data: solutions[0] },
+                user: user, // For displaying the user's name in the top right corner
+                avatars: avatars, // For displaying the avatars in the avatar select field
+                solution: { data: solutions[0] }, 
                 ...input.data,
                 ...copies.data,
                 copies: {
@@ -63,7 +63,7 @@ function runVue(user, avatars, solutions) {
             }
         },
         watch: {
-            avatarSelection: 'avatarSelectionChanged'
+            ...input.watch,
         },
         computed: {
             ...copies.computed,
