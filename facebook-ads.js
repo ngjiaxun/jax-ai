@@ -98,7 +98,7 @@ function runVue(user, avatars, solutions) {
             isStepFourSectionVisible() { // Add v-if="isStepFourSectionVisible" to the "Generate" button section
                 return this.isStepTwoSectionVisible;
             },
-            isCopiesSectionVisible() {
+            isCopiesSectionVisible() { // Add v-if="isCopiesSectionVisible" to the "Copies" section
                 return this.isAnyGeneratingOrReady;
             },
             isAnyGeneratingOrReady() { // Override this if you rename this.copies to something else
