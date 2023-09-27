@@ -87,7 +87,7 @@ function runVue(user, avatars, solutions) {
                 return this.isLoadAvatarSelected && this.avatar.data;
             },
             isStepOneSectionVisible() {
-                return !this.isAnyGenerating(this.copies) && !this.isAnyReady(this.copies);
+                return !this.isAnyGenerating(this.copies) && !this.isAnyReady(this.copies) && this.avatar.isGenerating;
             },
             isStepTwoSectionVisible() {
                 return !this.isAnyGenerating(this.copies) && !this.isAnyReady(this.copies) && this.isLoadAvatarSelected
