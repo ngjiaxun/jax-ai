@@ -33,7 +33,7 @@ function runVue(user, batches) {
             }
         },
         computed: {
-            ...copies.computed,
+            ...copies.computed
         },
         methods: {
             ...authentication.methods,

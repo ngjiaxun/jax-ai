@@ -92,6 +92,9 @@ function runVue(user, avatars, solutions) {
             isStepThreeSectionVisible() {
                 return this.isStepTwoSectionVisible;
             },
+            isStepFourSectionVisible() {
+                return this.isStepTwoSectionVisible;
+            },
             isCopiesSectionVisible() {
                 return this.isAnyGenerating(this.copies) || this.isAnyReady(this.copies);
             },
