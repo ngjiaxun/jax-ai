@@ -74,20 +74,23 @@ function runVue(user, avatars, solutions) {
         },
         computed: {
             ...copies.computed,
-            isAddNew() {
+            isAddAvatarSelected() {
                 return this.avatarSelection === ADD_NEW;
             },
-            isSelectOne() {
+            isSelectAvatarSelected() {
                 return this.avatarSelection === SELECT_ONE;
             },
+            isLoadAvatarSelected() {
+                return !this.isAddAvatarSelected && !this.isSelectAvatarSelected;
+            },
             isPainSectionVisible() {
-                return !this.isAddNew && !this.isSelectOne && this.avatar.data;
+                return !this.isAddAvatarSelected && !this.isSelectAvatarSelected && this.avatar.data;
             },
             isStepOneSectionVisible() {
                 return !this.isAnyGenerating(this.copies) && !this.avatar.isGenerating && !this.isAnyReady(this.copies);
             },
             isStepTwoSectionVisible() {
-                return !this.isAnyGenerating(this.copies) && !this.avatar.isGenerating && !this.isAnyReady(this.copies) && !this.isAddNew && !this.isSelectOne;
+                return !this.isAnyGenerating(this.copies) && !this.avatar.isGenerating && !this.isAnyReady(this.copies) && this.isLoadAvatarSelected
             },
             isStepThreeSectionVisible() {
                 return this.isStepTwoSectionVisible;
@@ -113,10 +116,10 @@ function runVue(user, avatars, solutions) {
             ...util.methods,
             ...copies.methods,
             avatarSelectionChanged() {
-                if (this.isSelectOne) {
+                if (this.isSelectAvatarSelected) {
                     console.log('Clearing avatar...');
                     this.avatar.data = null;
-                } else if (this.isAddNew) {
+                } else if (this.isAddAvatarSelected) {
                     console.log('Add new avatar selected...');
                 } else {
                     this.avatarLoadingMessage = AVATAR_LOADING_MESSAGES[0];
