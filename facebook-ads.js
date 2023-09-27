@@ -87,18 +87,21 @@ function runVue(user, avatars, solutions) {
                 return this.isLoadAvatarSelected && this.avatar.data;
             },
             isStepOneSectionVisible() {
-                return !this.isAnyGenerating(this.copies) && !this.isAnyReady(this.copies) && !this.avatar.isGenerating;
+                return !this.isAnyGeneratingOrReady && !this.avatar.isGenerating;
             },
             isStepTwoSectionVisible() {
-                return !this.isAnyGenerating(this.copies) && !this.isAnyReady(this.copies) && this.isLoadAvatarSelected
+                return !this.isAnyGeneratingOrReady && this.isLoadAvatarSelected
             },
             isStepThreeSectionVisible() {
                 return this.isStepTwoSectionVisible;
             },
-            isStepFourSectionVisible() {
+            isStepFourSectionVisible() { // Add v-if="isStepFourSectionVisible" to the "Generate" button section
                 return this.isStepTwoSectionVisible;
             },
             isCopiesSectionVisible() {
+                return this.isAnyGeneratingOrReady;
+            },
+            isAnyGeneratingOrReady() { // Override this if you rename this.copies to something else
                 return this.isAnyGenerating(this.copies) || this.isAnyReady(this.copies);
             },
             plusSpin() {
