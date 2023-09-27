@@ -142,8 +142,11 @@ function runVue(user, avatars, solutions) {
                     this.desireSuggestionIndex = this.desireSuggestionIndex < maxDesireSuggestions ? this.desireSuggestionIndex + 1 : 0;
                 }
             },
-            createClicked() {
+            createAvatarClicked() {
                 this.avatarLoadingMessage = AVATAR_LOADING_MESSAGES[1];
+                if (this.avatarName === '') {
+                    this.avatarName = 'Customers';
+                }
                 this.createAvatar();
             },
             createAvatar() {
