@@ -61,7 +61,7 @@ const COUNTDOWN_MESSAGE = [
 ];
 
 class Copy {
-    constructor(endpoint=endpoints.transform, checkingEndpoint=endpoints.copies ) {
+    constructor(endpoint=endpoints.transform, checkingEndpoint=endpoints.copies) {
         this.data = null;
         this.isGenerating = false;
         this.endpoint = endpoint;
@@ -70,8 +70,8 @@ class Copy {
 }
 
 class Copyset {
-    constructor() {
-        this.original = new Copy(null);
+    constructor(endpoint, checkingEndpoint=endpoints.copies) {
+        this.original = new Copy(endpoint, checkingEndpoint);
         this.spun = new Copy();
         this.styled = new Copy();
         this.translated = new Copy();

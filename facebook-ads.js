@@ -20,9 +20,10 @@ function runVue(user, avatars, solutions) {
                 solution: { data: solutions[0] }, 
                 ...input.data,
                 ...copies.data,
-                copysets: {},
+                copysets: {
+                    text1: new Copyset(endpoints.facebookAdsText),
+                },
                 copies: {
-                    text1: new Copy(endpoints.facebookAdsText),
                     text2: { 
                         ...copies.copy,
                         endpoint: endpoints.facebookAdsText
