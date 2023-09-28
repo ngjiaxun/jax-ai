@@ -1,27 +1,21 @@
 const input = {
     data: {
         /**
-         * Copy and paste the following in the inheriting file (e.g. facebook-ads.js). Get the values from the runVue() method.
+         * Paste this into the inheriting file:
          *      avatars: avatars, // For displaying the avatars in the avatar select field
          *      solution: { data: solutions[0] },
         */
         avatarSelection: SELECT_ONE,
         avatarName: '', // Create avatar text field
+        // Pains and desires text fields
         avatar: { 
             ...copies.copy,
             endpoint: endpoints.avatars,
             checkingEndpoint: endpoints.avatars 
-        }, // Pains and desires text fields
+        }, 
         avatarLoadingMessage: AVATAR_LOADING_MESSAGES[0],
         painSuggestionIndex: 3, // The starting index for the pain suggestions
         desireSuggestionIndex: 3, // The starting index for the desire suggestions
-        /**
-         * Implement these in the inheriting file:
-         *      copies: {},
-         *      spun: {},
-         *      styled: {},
-         *      translated: {}
-        */
     },
     watch: {
         avatarSelection: 'avatarSelectionChanged',

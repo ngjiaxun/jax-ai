@@ -20,6 +20,7 @@ function runVue(user, avatars, solutions) {
                 solution: { data: solutions[0] }, 
                 ...input.data,
                 ...copies.data,
+                copysets: {},
                 copies: {
                     text1: { 
                         ...copies.copy,

@@ -60,12 +60,39 @@ const COUNTDOWN_MESSAGE = [
     'please contact support.',
 ];
 
+class Copy {
+    constructor(endpoint=endpoints.transform, checkingEndpoint=endpoints.copies ) {
+        this.data = null;
+        this.isGenerating = false;
+        this.endpoint = endpoint;
+        this.checkingEndpoint = checkingEndpoint;
+    }
+}
+
+class Copyset {
+    constructor() {
+        this.original = new Copy(null);
+        this.spun = new Copy();
+        this.styled = new Copy();
+        this.translated = new Copy();
+    }
+}
+
 const copies = {
     copy: {
         data: null, // Returned data from the endpoint
         isGenerating: false, // Individual copies must keep track of this to prevent async issues with "countdownMessage"
         endpoint: endpoints.transform, // Generation endpoint
         checkingEndpoint: endpoints.copies // Endpoint for checking if the copy is ready
+    },
+    copyset: {
+        original: { 
+            ...copies.copy,
+            endpoint: null
+        },
+        spun: { ...copies.copy },
+        styled: { ...copies.copy },
+        translated: { ...copies.copy }
     },
     data: {
         countdownMessage: '' // Only one thing can load or generate at a time, so this is fine
