@@ -85,15 +85,15 @@ const copies = {
         endpoint: endpoints.transform, // Generation endpoint
         checkingEndpoint: endpoints.copies // Endpoint for checking if the copy is ready
     },
-    copyset: {
-        original: { 
-            ...copies.copy,
-            endpoint: null
-        },
-        spun: { ...copies.copy },
-        styled: { ...copies.copy },
-        translated: { ...copies.copy }
-    },
+    // copyset: {
+    //     original: { 
+    //         ...copies.copy,
+    //         endpoint: null
+    //     },
+    //     spun: { ...copies.copy },
+    //     styled: { ...copies.copy },
+    //     translated: { ...copies.copy }
+    // },
     data: {
         countdownMessage: '' // Only one thing can load or generate at a time, so this is fine
     },
