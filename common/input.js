@@ -9,7 +9,8 @@ const input = {
         avatarName: '', // Create avatar text field
         avatar: { 
             ...copies.copy,
-            endpoint: endpoints.avatars 
+            endpoint: endpoints.avatars,
+            checkingEndpoint: endpoints.avatars 
         }, // Pains and desires text fields
         avatarLoadingMessage: AVATAR_LOADING_MESSAGES[0],
         painSuggestionIndex: 3, // The starting index for the pain suggestions
@@ -114,7 +115,7 @@ const input = {
                 "industry": this.solution.data.industry,
                 "target_market": this.avatarName
             }
-            this.generateCopy(this.avatar, endpoints.avatars, payload, endpoints.avatars)
+            this.generateCopy(this.avatar, payload)
                 .then(() => window.location.reload())
                 .catch(error => console.error('Error creating avatar:', error.response.data));
         },
