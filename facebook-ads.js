@@ -151,7 +151,7 @@ function runVue(user, avatars, solutions) {
     
                     // Original
                     const copies = {
-                        text1: await this.generateCopy(this.copies.text1, text1Payload),
+                        text1: await this.generateCopy(this.copyset.text1.original, text1Payload),
                         text2: await this.generateCopy(this.copies.text2, text2Payload),
                         text3: await this.generateCopy(this.copies.text3, text3Payload),
                         text4: await this.generateCopy(this.copies.text4, text4Payload),
