@@ -62,9 +62,10 @@ const COUNTDOWN_MESSAGE = [
 
 const copies = {
     copy: {
-        data: null,
-        // Each copy has its own "isGenerating" property to prevent async issues while sharing the same "countdownMessage"
-        isGenerating: false 
+        data: null, // Returned data from the endpoint
+        isGenerating: false, // Individual copies must keep track of this to prevent async issues with "countdownMessage"
+        endpoint: endpoints.transform, // Generation endpoint
+        checkingEndpoint: endpoints.copies // Endpoint for checking if the copy is ready
     },
     data: {
         countdownMessage: '' // Only one thing can load or generate at a time, so this is fine
@@ -83,15 +84,15 @@ const copies = {
                 }
             }
         },
-        async generateCopy(copy, generationEndpoint, payload, checkingEndpoint=endpoints.copies) {
+        async generateCopy(copy, payload) {
             console.log('Generating copy...');
             try {
                 const requestedTime = new Date().toISOString(); // Timestamp for identifying the copy after it's generated
                 payload.requested_time = requestedTime;
-                await axios.post(generationEndpoint, payload);
+                await axios.post(copy.endpoint, payload);
                 copy.isGenerating = true; 
                 this.startCountdown(copy);
-                copy.data = await this.checkCopyReady(requestedTime, checkingEndpoint);
+                copy.data = await this.checkCopyReady(requestedTime, copy.checkingEndpoint);
                 copy.isGenerating = false; 
             } catch (error) {
                 console.error('Error generating copy:', error.response.data);
