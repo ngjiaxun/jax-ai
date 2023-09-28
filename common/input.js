@@ -7,7 +7,10 @@ const input = {
         */
         avatarSelection: SELECT_ONE,
         avatarName: '', // Create avatar text field
-        avatar: { ...copies.copy }, // Pains and desires text fields
+        avatar: { 
+            ...copies.copy,
+            endpoint: endpoints.avatars 
+        }, // Pains and desires text fields
         avatarLoadingMessage: AVATAR_LOADING_MESSAGES[0],
         painSuggestionIndex: 3, // The starting index for the pain suggestions
         desireSuggestionIndex: 3, // The starting index for the desire suggestions
