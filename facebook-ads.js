@@ -164,17 +164,17 @@ function runVue(user, avatars, solutions) {
 
                     // Spin
                     if (this.solution.data.spin) {
-                        await this.transformCopies(batchTime, this.solution.data.spin, transformation.spin, toBeTransformed, this.spun);
+                        await this.transformCopies(batchTime, this.solution.data.spin, transformation.spin, copies, this.spun);
                     }
 
                     // Style
                     if (this.solution.data.style) {
-                        await this.transformCopies(batchTime, this.solution.data.style, transformation.style, toBeTransformed, this.styled, 0);
+                        await this.transformCopies(batchTime, this.solution.data.style, transformation.style, copies, this.styled, 0);
                     }
 
                     // Translate
                     if (this.solution.data.translation) {
-                        await this.transformCopies(batchTime, this.solution.data.translation, transformation.translation, toBeTransformed, this.translated, 0);
+                        await this.transformCopies(batchTime, this.solution.data.translation, transformation.translation, copies, this.translated, 0);
                     }
                 } catch (error) {
                     console.error('Error generating copies:', error.message);
