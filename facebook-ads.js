@@ -22,10 +22,7 @@ function runVue(user, avatars, solutions) {
                 ...copies.data,
                 copysets: {},
                 copies: {
-                    text1: { 
-                        ...copies.copy,
-                        endpoint: endpoints.facebookAdsText
-                    },
+                    text1: new Copy(endpoints.facebookAdsText),
                     text2: { 
                         ...copies.copy,
                         endpoint: endpoints.facebookAdsText
