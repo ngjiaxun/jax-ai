@@ -48,8 +48,8 @@ const input = {
         isCopiesSectionVisible() { // Add v-if="isCopiesSectionVisible" to the "Copies" section
             return this.isAnyGeneratingOrReady;
         },
-        isAnyGeneratingOrReady() { // You can create an alias for this.copies using the created() hook - e.g. created() { this.copies = this.batch }
-            return this.isAnyGenerating(this.copies) || this.isAnyReady(this.copies);
+        isAnyGeneratingOrReady() { 
+            return this.isAnyGenerating || this.isAnyReady;
         },
         plusSpin() {
             return this.solution.data.spin ? ' + ' + this.solution.data.spin : '';

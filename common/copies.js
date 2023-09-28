@@ -79,25 +79,28 @@ class Copyset {
 }
 
 const copies = {
-    copy: {
-        data: null, // Returned data from the endpoint
-        isGenerating: false, // Individual copies must keep track of this to prevent async issues with "countdownMessage"
-        endpoint: endpoints.transform, // Generation endpoint
-        checkingEndpoint: endpoints.copies // Endpoint for checking if the copy is ready
-    },
-    // copyset: {
-    //     original: { 
-    //         ...copies.copy,
-    //         endpoint: null
-    //     },
-    //     spun: { ...copies.copy },
-    //     styled: { ...copies.copy },
-    //     translated: { ...copies.copy }
-    // },
     data: {
         countdownMessage: '' // Only one thing can load or generate at a time, so this is fine
     },
     computed: {
+        isAnyGenerating() {
+            for (const copyset of Object.values(this.copysets)) {
+                for (const copy of Object.values(copyset)) {
+                    if (copy.isGenerating) {
+                        return true;
+                    }
+                }
+            }
+        },
+        isAnyReady() {
+            for (const copyset of Object.values(this.copysets)) {
+                for (const copy of Object.values(copyset)) {
+                    if (copy.data) {
+                        return true;
+                    }
+                }
+            }
+        }
     },
     methods: {
         async startCountdown(copy) {
@@ -188,12 +191,6 @@ const copies = {
             } catch (error) {
                 console.error('Error updating copy:', error.response.data);
             }
-        },
-        isAnyGenerating(copies) {
-            return Object.values(copies).some(copy => copy.isGenerating);
-        },
-        isAnyReady(copies) {
-            return Object.values(copies).some(copy => copy.data);
         },
         isArray(copy, key='copy') {
             if (copy.data) {
