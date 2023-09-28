@@ -22,66 +22,13 @@ function runVue(user, avatars, solutions) {
                 ...copies.data,
                 copysets: {
                     text1: new Copyset(endpoints.facebookAdsText),
-                },
-                copies: {
-                    text2: { 
-                        ...copies.copy,
-                        endpoint: endpoints.facebookAdsText
-                    },
-                    text3: { 
-                        ...copies.copy,
-                        endpoint: endpoints.facebookAdsText
-                    },
-                    text4: { 
-                        ...copies.copy,
-                        endpoint: endpoints.facebookAdsText
-                    },
-                    text5: { 
-                        ...copies.copy,
-                        endpoint: endpoints.facebookAdsText
-                    },
-                    headlines: { 
-                        ...copies.copy,
-                        endpoint: endpoints.facebookAdsHeadlines
-                    },
-                    descriptions: { 
-                        ...copies.copy,
-                        endpoint: endpoints.facebookAdsHeadlines
-                    },
-                    captions: { 
-                        ...copies.copy,
-                        endpoint: endpoints.facebookAdsHeadlines
-                    }
-                },
-                spun: {
-                    text1: { ...copies.copy },
-                    text2: { ...copies.copy },
-                    text3: { ...copies.copy },
-                    text4: { ...copies.copy },
-                    text5: { ...copies.copy },
-                    headlines: { ...copies.copy },
-                    descriptions: { ...copies.copy },
-                    captions: { ...copies.copy }
-                },
-                styled: {
-                    text1: { ...copies.copy },
-                    text2: { ...copies.copy },
-                    text3: { ...copies.copy },
-                    text4: { ...copies.copy },
-                    text5: { ...copies.copy },
-                    headlines: { ...copies.copy },
-                    descriptions: { ...copies.copy },
-                    captions: { ...copies.copy }
-                },
-                translated: {
-                    text1: { ...copies.copy },
-                    text2: { ...copies.copy },
-                    text3: { ...copies.copy },
-                    text4: { ...copies.copy },
-                    text5: { ...copies.copy },
-                    headlines: { ...copies.copy },
-                    descriptions: { ...copies.copy },
-                    captions: { ...copies.copy }
+                    text2: new Copyset(endpoints.facebookAdsText),
+                    text3: new Copyset(endpoints.facebookAdsText),
+                    text4: new Copyset(endpoints.facebookAdsText),
+                    text5: new Copyset(endpoints.facebookAdsText),
+                    headlines: new Copyset(endpoints.facebookAdsHeadlines),
+                    descriptions: new Copyset(endpoints.facebookAdsHeadlines),
+                    captions: new Copyset(endpoints.facebookAdsHeadlines)
                 }
             }
         },
@@ -152,50 +99,51 @@ function runVue(user, avatars, solutions) {
                     // Original
                     const copies = {
                         text1: await this.generateCopy(this.copysets.text1.original, text1Payload),
-                        text2: await this.generateCopy(this.copies.text2, text2Payload),
-                        text3: await this.generateCopy(this.copies.text3, text3Payload),
-                        text4: await this.generateCopy(this.copies.text4, text4Payload),
-                        text5: await this.generateCopy(this.copies.text5, text5Payload),
-                        headlines: await this.generateCopy(this.copies.headlines, headlinesPayload),
-                        descriptions: await this.generateCopy(this.copies.descriptions, descriptionsPayload),
-                        captions: await this.generateCopy(this.copies.captions, captionsPayload)
+                        text2: await this.generateCopy(this.copysets.text2.original, text2Payload),
+                        text3: await this.generateCopy(this.copysets.text3.original, text3Payload),
+                        text4: await this.generateCopy(this.copysets.text4.original, text4Payload),
+                        text5: await this.generateCopy(this.copysets.text5.original, text5Payload),
+                        headlines: await this.generateCopy(this.copysets.headlines.original, headlinesPayload),
+                        descriptions: await this.generateCopy(this.copysets.descriptions.original, descriptionsPayload),
+                        captions: await this.generateCopy(this.copysets.captions.original, captionsPayload)
                     }
 
                     // Spin
                     if (this.solution.data.spin) {
-                        await this.transformCopies(batchTime, this.solution.data.spin, transformation.spin, copies, this.spun);
+                        await this.transformCopies(batchTime, this.solution.data.spin, transformation.spin, copies);
                     }
 
                     // Style
                     if (this.solution.data.style) {
-                        await this.transformCopies(batchTime, this.solution.data.style, transformation.style, copies, this.styled, 0);
+                        await this.transformCopies(batchTime, this.solution.data.style, transformation.style, copies, 0);
                     }
 
                     // Translate
                     if (this.solution.data.translation) {
-                        await this.transformCopies(batchTime, this.solution.data.translation, transformation.translation, copies, this.translated, 0);
+                        await this.transformCopies(batchTime, this.solution.data.translation, transformation.translation, copies, 0);
                     }
                 } catch (error) {
                     console.error('Error generating copies:', error.message);
                 }
             },
-            async transformCopies(batchTime, transformation, transformationType, from, to, temperature=null) {
+            async transformCopies(batchTime, transformation, type, from, temperature=null) {
                 const payload = { 
                     batch_time: batchTime,
                     transformation: transformation,
-                    transformation_type: transformationType
+                    transformation_type: type.code
                 }
                 if (temperature) {
                     payload.temperature = temperature;
                 }
-                from.text1 = await this.generateCopy(to.text1, { ...payload, transform_from: from.text1.data.id });
-                from.text2 = await this.generateCopy(to.text2, { ...payload, transform_from: from.text2.data.id });
-                from.text3 = await this.generateCopy(to.text3, { ...payload, transform_from: from.text3.data.id });
-                from.text4 = await this.generateCopy(to.text4, { ...payload, transform_from: from.text4.data.id });
-                from.text5 = await this.generateCopy(to.text5, { ...payload, transform_from: from.text5.data.id });
-                from.headlines = await this.generateCopy(to.headlines, { ...payload, transform_from: from.headlines.data.id });
-                from.descriptions = await this.generateCopy(to.descriptions, { ...payload, transform_from: from.descriptions.data.id });
-                from.captions = await this.generateCopy(to.captions, { ...payload, transform_from: from.captions.data.id });
+
+                from.text1 = await this.generateCopy(this.copysets.text1[type.property], { ...payload, transform_from: from.text1.data.id });
+                from.text2 = await this.generateCopy(this.copysets.text2[type.property], { ...payload, transform_from: from.text2.data.id });
+                from.text3 = await this.generateCopy(this.copysets.text3[type.property], { ...payload, transform_from: from.text3.data.id });
+                from.text4 = await this.generateCopy(this.copysets.text4[type.property], { ...payload, transform_from: from.text4.data.id });
+                from.text5 = await this.generateCopy(this.copysets.text5[type.property], { ...payload, transform_from: from.text5.data.id });
+                from.headlines = await this.generateCopy(this.copysets.headlines[type.property], { ...payload, transform_from: from.headlines.data.id });
+                from.descriptions = await this.generateCopy(this.copysets.descriptions[type.property], { ...payload, transform_from: from.descriptions.data.id });
+                from.captions = await this.generateCopy(this.copysets.captions[type.property], { ...payload, transform_from: from.captions.data.id });
             }
         },
         mounted() {

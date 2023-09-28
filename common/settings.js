@@ -19,9 +19,18 @@ const endpoints = {
 Object.keys(endpoints).forEach(key => endpoints[key] = apiDomain + endpoints[key]);
 
 const transformation = {
-    spin: 'T1',
-    style: 'T2',
-    translation: 'T3'
+    spin: {
+        property: 'spun',
+        code: 'T1'
+    },
+    style: {
+        property: 'styled',
+        code: 'T2'
+    },
+    translation: {
+        property: 'translated',
+        code: 'T3'
+    }
 }
 
 const SELECT_ONE = 'Select one...';
