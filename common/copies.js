@@ -32,6 +32,7 @@ class Copy {
     constructor(endpoint=endpoints.transform, checkingEndpoint=endpoints.copies) {
         this.data = null;
         this.isGenerating = false;
+        this.hasError = false;
         this.endpoint = endpoint;
         this.checkingEndpoint = checkingEndpoint;
     }
@@ -91,6 +92,7 @@ const copies = {
                 copy.isGenerating = true; 
                 this.startCountdown(copy);
                 copy.data = await this.checkCopyReady(requestedTime, copy.checkingEndpoint);
+                copy.hasError = !copy.data;
                 copy.isGenerating = false; 
             } catch (error) {
                 console.error('Error generating copy:', error.response.data);
@@ -112,9 +114,11 @@ const copies = {
                         console.log('Tries:', tries, '/', maxTries);
                     }
                 }
+                console.error('Error: copy took too long to generate.');
             } catch (error) {
                 console.error('Error checking if copy is ready:', error.response.data);
             }
+            return null;
         },
         async listCopies(copy, endpoint, { ...args}={}, ordering=null) {
             console.log('Listing copies...');
