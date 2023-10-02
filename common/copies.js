@@ -50,6 +50,7 @@ class Copyset {
 const copies = {
     data: {
         countdownMessage: '' // Only one thing can load or generate at a time, so this is fine
+        // copysets: {} // Remember to implement
     },
     computed: {
         isAnyGenerating() {
@@ -69,6 +70,9 @@ const copies = {
                     }
                 }
             }
+        },
+        totalCopies() {
+            return Object.keys(this.copysets).length * Object.keys(this.copysets[Object.keys(this.copysets)[0]]).length 
         }
     },
     methods: {
@@ -164,11 +168,13 @@ const copies = {
                 console.error('Error updating copy:', error.response.data);
             }
         },
-        isArray(copy, key='copy') {
-            if (copy.data) {
-                return Array.isArray(copy.data[key]);
-            } else {
-                return Array.isArray(copy[key]);
+        isArray(copy) {
+            if (copy.data) { // copy == copy
+                return Array.isArray(copy.data.copy);
+            } else if (copy.copy) { // copy == copy.data
+                return Array.isArray(copy.copy);
+            } else { // copy == copy.data.copy
+                return Array.isArray(copy);
             }
         }
     }
