@@ -1,5 +1,3 @@
-const DEFAULT_TIMEOUT = 5000;
-const DEFAULT_MAX_TRIES = 12;
 const COUNTDOWN_MESSAGE = [
     'Ready in ',
     '5',
@@ -27,37 +25,7 @@ const COUNTDOWN_MESSAGE = [
     '.',
     '.',
     ' ',
-    'Any',
-    ' ',
-    'second',
-    ' ',
-    'now',
-    '!',
-    '.',
-    '.',
-    '.',
-    ' ',
-    'Thanks',
-    ' ',
-    'for',
-    ' ',
-    'your', 
-    ' ',
-    'patience',
-    '.',
-    '.',
-    '.',
-    ' ',
-    ' ',
-    ' ',
-    ' ',
-    'Our servers may be busy.',
-    ' ',
-    'Please try again later.',
-    ' ',
-    'If this problem persists,',
-    ' ',
-    'please contact support.',
+    'This could take a tad longer than expected. Why not treat yourself to a nice cup of joe and come back in a minute or two? 😊☕️'
 ];
 
 class Copy {

@@ -1,4 +1,7 @@
-const IDLE_EXPIRY_MINUTES = 240;
+const IDLE_EXPIRY_MINUTES = 240; // The number of minutes before the user is required to login again
+const DEFAULT_TIMEOUT = 5000; // The time to wait between checks if a copy is ready
+const DEFAULT_MAX_TRIES = 24; // The maximum number of times to check if a copy is ready
+
 const RECAPTCHA_SITE_KEY = '6Ldwq_knAAAAAG3LpMIRYzyHPvJxzXeOJgfJGfKi';
 
 const apiDomain = 'https://jaxai-prod-817de5757e84.herokuapp.com/';
@@ -32,10 +35,3 @@ const transformation = {
         code: 'T3'
     }
 }
-
-const SELECT_ONE = 'Select one...';
-const ADD_NEW = '+ Add new';
-const AVATAR_LOADING_MESSAGES = [
-    'Retrieving avatar...',
-    'Creating avatar...',
-]
