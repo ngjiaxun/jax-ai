@@ -6,10 +6,14 @@ function fadeOutLoadingScreen() {
     delay(1000).then(() => $('#loading-splash').fadeOut(1000));
 }
 
-function copyToClipboard(event) {
+function copyToClipboard(event, html=false) {
     const button = event.currentTarget;
     const copyId = button.dataset.copyid;
-    const text = document.getElementById(copyId).innerText;
+    const copy = document.getElementById(copyId);
+    let text = copy.innerText;
+    if (html) {
+        text = copy.innerHTML;
+    }
     navigator.clipboard.writeText(text)
         .then(() => console.log('Text copied to clipboard:', text))
         .catch(error => console.error('Error copying text to clipboard:', error.message));
@@ -91,8 +95,8 @@ const util = {
         reload() {
             location.reload();
         },
-        copyClicked(event) {
-            copyToClipboard(event);
+        copyClicked(event, html=false) {
+            copyToClipboard(event, html);
         }
     }
 };
