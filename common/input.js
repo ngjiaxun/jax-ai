@@ -118,7 +118,7 @@ const input = {
             }
             this.generateCopy(this.avatar, payload)
                 .then(() => window.location.reload())
-                .catch(error => console.error('Error creating avatar:', error.response.data));
+                .catch(error => console.error('Error creating avatar:', error.message));
         },
     }
 };
