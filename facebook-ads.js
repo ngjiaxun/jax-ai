@@ -95,7 +95,7 @@ function runVue(user, avatars, solutions) {
                     // Generate copies and their transformations
                     for (const key in this.copysets) {
                         const copyset = this.copysets[key];
-                        const copy = await this.generateCopy(copyset.original);
+                        let copy = await this.generateCopy(copyset.original);
 
                         if (this.solution.data.spin) {
                             copy = await this.transformCopy(batchTime, this.solution.data.spin, transformation.spin, copy, copyset.spun);
