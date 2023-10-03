@@ -48,102 +48,80 @@ function runVue(user, avatars, solutions) {
                 console.log('Generating copies...');
                 try {
                     const batchTime = new Date().toISOString(); 
+
+                    // Set original copy payloads
                     const commonPayload = {
                         avatar: this.avatar.data.id,
                         batch_time: batchTime,
                         ...this.avatar.data,
                         ...this.solution.data
                     }
-                    const text1Payload = {
+                    this.copysets.text1.original.payload = {
                         ...commonPayload,
                         prompt_id: 0
                     }
-                    const text2Payload = {
+                    this.copysets.text2.original.payload = {
                         ...commonPayload,
                         prompt_id: 2
                     }
-                    const text3Payload = {
+                    this.copysets.text3.original.payload = {
                         ...commonPayload,
                         prompt_id: 3
                     }
-                    const text4Payload = {
+                    this.copysets.text4.original.payload = {
                         ...commonPayload,
                         prompt_id: 1
                     }
-                    const text5Payload = {
+                    this.copysets.text5.original.payload = {
                         ...commonPayload,
                         prompt_id: 4
                     }
-                    const headlinesPayload = {
+                    this.copysets.headlines.original.payload = {
                         ...commonPayload,
                         no_of_headlines: 20,
                         max_characters: 40
                     }
-                    const descriptionsPayload = {
+                    this.copysets.descriptions.original.payload = {
                         ...commonPayload,
                         no_of_headlines: 20,
                         max_characters: 20
                     }
-                    const captionsPayload = {
+                    this.copysets.captions.original.payload = {
                         ...commonPayload,
                         no_of_headlines: 20,
                         max_characters: 120
                     }
 
-                    // Loop through this.copies and generate the copy
-                    // const toBeTransformed = {};
-                    // for (const key in this.copies) {
-                    //     toBeTransformed[key] = await this.generateCopy(this.copies[key], endpoints.facebookAdsText, eval(`${key}Payload`));
-                    // }
-    
-                    // Original
-                    const copies = {
-                        text1: await this.generateCopy(this.copysets.text1.original, text1Payload),
-                        text2: await this.generateCopy(this.copysets.text2.original, text2Payload),
-                        text3: await this.generateCopy(this.copysets.text3.original, text3Payload),
-                        text4: await this.generateCopy(this.copysets.text4.original, text4Payload),
-                        text5: await this.generateCopy(this.copysets.text5.original, text5Payload),
-                        headlines: await this.generateCopy(this.copysets.headlines.original, headlinesPayload),
-                        descriptions: await this.generateCopy(this.copysets.descriptions.original, descriptionsPayload),
-                        captions: await this.generateCopy(this.copysets.captions.original, captionsPayload)
-                    }
+                    // Generate copies and their transformations
+                    for (const key in this.copysets) {
+                        const copyset = this.copysets[key];
+                        const copy = await this.generateCopy(copyset.original);
 
-                    // Spin
-                    if (this.solution.data.spin) {
-                        await this.transformCopies(batchTime, this.solution.data.spin, transformation.spin, copies);
-                    }
-
-                    // Style
-                    if (this.solution.data.style) {
-                        await this.transformCopies(batchTime, this.solution.data.style, transformation.style, copies, 0);
-                    }
-
-                    // Translate
-                    if (this.solution.data.translation) {
-                        await this.transformCopies(batchTime, this.solution.data.translation, transformation.translation, copies, 0);
+                        if (this.solution.data.spin) {
+                            copy = await this.transformCopy(batchTime, this.solution.data.spin, transformation.spin, copy, copyset.spun);
+                        }
+                        if (this.solution.data.style) {
+                            copy = await this.transformCopy(batchTime, this.solution.data.style, transformation.style, copy, copyset.styled, 0);
+                        }
+                        if (this.solution.data.translation) {
+                            copy = await this.transformCopy(batchTime, this.solution.data.translation, transformation.translation, copy, copyset.translated, 0);
+                        }
                     }
                 } catch (error) {
                     console.error('Error generating copies:', error.message);
                 }
             },
-            async transformCopies(batchTime, transformation, type, from, temperature=null) {
-                const payload = { 
+            async transformCopy(batchTime, transformation, transformationType, transformFrom, transformTo, temperature=null) {
+                transformTo.payload = { 
                     batch_time: batchTime,
                     transformation: transformation,
-                    transformation_type: type.code
+                    transformation_type: transformationType,
+                    transform_from: transformFrom.data.id
                 }
                 if (temperature) {
-                    payload.temperature = temperature;
+                    transformTo.payload.temperature = temperature;
                 }
-
-                from.text1 = await this.generateCopy(this.copysets.text1[type.property], { ...payload, transform_from: from.text1.data.id });
-                from.text2 = await this.generateCopy(this.copysets.text2[type.property], { ...payload, transform_from: from.text2.data.id });
-                from.text3 = await this.generateCopy(this.copysets.text3[type.property], { ...payload, transform_from: from.text3.data.id });
-                from.text4 = await this.generateCopy(this.copysets.text4[type.property], { ...payload, transform_from: from.text4.data.id });
-                from.text5 = await this.generateCopy(this.copysets.text5[type.property], { ...payload, transform_from: from.text5.data.id });
-                from.headlines = await this.generateCopy(this.copysets.headlines[type.property], { ...payload, transform_from: from.headlines.data.id });
-                from.descriptions = await this.generateCopy(this.copysets.descriptions[type.property], { ...payload, transform_from: from.descriptions.data.id });
-                from.captions = await this.generateCopy(this.copysets.captions[type.property], { ...payload, transform_from: from.captions.data.id });
+                return await this.generateCopy(transformTo);
             }
         },
         mounted() {

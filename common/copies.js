@@ -35,6 +35,7 @@ class Copy {
         this.hasError = false;
         this.endpoint = endpoint;
         this.checkingEndpoint = checkingEndpoint;
+        this.payload = null;
     }
 }
 
@@ -87,12 +88,12 @@ const copies = {
                 }
             }
         },
-        async generateCopy(copy, payload) {
+        async generateCopy(copy) {
             console.log('Generating copy...');
             try {
                 const requestedTime = new Date().toISOString(); // Timestamp for identifying the copy after it's generated
-                payload.requested_time = requestedTime;
-                await axios.post(copy.endpoint, payload);
+                copy.payload.requested_time = requestedTime;
+                await axios.post(copy.endpoint, copy.payload);
                 copy.isGenerating = true; 
                 this.startCountdown(copy);
                 copy.data = await this.checkCopyReady(requestedTime, copy.checkingEndpoint);
