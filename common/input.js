@@ -112,10 +112,12 @@ const input = {
             this.createAvatar();
         },
         createAvatar() {
+            console.log('Creating avatar...');
             const payload = {
                 "industry": this.solution.data.industry,
                 "target_market": this.avatarName
             }
+            console.log('Payload:', payload);
             this.generateCopy(this.avatar, payload)
                 .then(() => window.location.reload())
                 .catch(error => console.error('Error creating avatar:', error.message));
