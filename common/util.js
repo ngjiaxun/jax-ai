@@ -11,6 +11,10 @@ function copyToClipboard(event, html=false) {
     const copyId = button.dataset.copyid;
     const copy = document.getElementById(copyId);
     let text = copy.innerText;
+
+    // Replace '***' with three line breaks
+       text = text.replace(/\*\*\*/g, '\n\n\n');
+
     if (html) {
         text = copy.innerHTML;
     }
