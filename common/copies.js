@@ -170,7 +170,8 @@ const copies = {
             }
         },
         getCopyTitle(copy) {
-            return `***${copy.data.original_copy_type_display} ${copy.data.transformation} ${copy.data.copy_type_display} #${copy.data.id}`;
+            //***{{copy.data.original_copy_type_display}} {{copy.data.transformation}} {{copy.data.copy_type_display}} #{{copy.data.id}}
+            return `***${copy.data.original_copy_type_display ?? ''} ${copy.data.transformation ?? ''} ${copy.data.copy_type_display ?? ''} #${copy.data.id}`;
         },
         isArray(copy) {
             if (copy.data) { // copy == copy
