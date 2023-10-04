@@ -12,8 +12,8 @@ function copyToClipboard(event, html=false) {
     const copy = document.getElementById(copyId);
     let text = copy.innerText;
 
-    // Replace '***' with three line breaks
-       text = text.replace(/\*\*\*/g, '\n\n\n');
+    // Replace '***' with three line breaks followed by '***'
+    text = text.replace(/\*\*\*/g, '\n\n\n***\n***\n***');
 
     if (html) {
         text = copy.innerHTML;
