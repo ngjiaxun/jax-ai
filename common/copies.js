@@ -170,8 +170,10 @@ const copies = {
             }
         },
         getCopyTitle(copy) {
-            //***{{copy.data.original_copy_type_display}} {{copy.data.transformation}} {{copy.data.copy_type_display}} #{{copy.data.id}}
             return `***${copy.data.original_copy_type_display ?? ''} ${copy.data.transformation ?? ''} ${copy.data.copy_type_display ?? ''} #${copy.data.id}`;
+        },
+        getCopyLoadingMessage(copyset, copysetIndex, copyIndex) {
+            return `Generating... ${Math.floor((copysetIndex * Object.keys(copyset).length + copyIndex) / this.totalCopies * 100)}%`;
         },
         isArray(copy) {
             if (copy.data) { // copy == copy
