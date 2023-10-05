@@ -14,11 +14,15 @@ function copyToClipboard(event, html = false) {
     const button = event.currentTarget;
     const copyId = button.dataset.copyid;
     const copy = document.getElementById(copyId);
-    const delimiter = escapeRegExp(LEFT_BRACKET);
+    const escapedLeftBracket = escapeRegExp(LEFT_BRACKET);
+    const delimiter = '\n**********\n';
     let text = copy.innerText;
 
     // Add line breaks and horizontal rules before opening brackets
-    text = text.replace(new RegExp(`(${delimiter})`, "g"), '\n******\n\n$1');
+    text = text.replace(new RegExp(`(${escapedLeftBracket})`, "g"), `${delimiter}$1`);
+
+    // Append the delimiter at the end of the copied text
+    text += delimiter;
 
     if (html) {
         text = copy.innerHTML;
