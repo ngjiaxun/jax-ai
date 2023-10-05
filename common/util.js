@@ -11,18 +11,29 @@ function escapeRegExp(string) {
 }
 
 function copyToClipboard(event, html = false) {
+    const delimiter = '\n**********\n'; // Define the delimiter
     const button = event.currentTarget;
     const copyId = button.dataset.copyid;
     const copy = document.getElementById(copyId);
-    const escapedLeftBracket = escapeRegExp(LEFT_BRACKET);
-    const delimiter = '\n**********\n\n';
     let text = copy.innerText;
+    const escapedLeftBracket = escapeRegExp(LEFT_BRACKET);
 
     // Split the text by the opening brackets
     const parts = text.split(new RegExp(`(${escapedLeftBracket})`));
 
-    // Join the parts with the delimiter, but not before the first occurrence
-    text = parts.shift() + parts.join(`${delimiter}$1`);
+    // Initialize an index to skip the first occurrence
+    let index = 0;
+
+    // Join the parts with the delimiter, placing it before the square brackets
+    text = parts
+        .map(part => {
+            if (index === 0) {
+                index++;
+                return part;
+            }
+            return `${delimiter}${part}`;
+        })
+        .join('');
 
     if (html) {
         text = copy.innerHTML;
@@ -31,6 +42,7 @@ function copyToClipboard(event, html = false) {
         .then(() => console.log('Text copied to clipboard:', text))
         .catch(error => console.error('Error copying text to clipboard:', error.message));
 }
+
 
 
 // Format and print JSON to console for debugging purposes
