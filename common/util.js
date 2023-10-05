@@ -21,8 +21,8 @@ function copyToClipboard(event, html = false) {
     // Escape special characters in the leftBracket
     leftBracket = escapeRegExp(LEFT_BRACKET);
 
-    // Split the text by the opening brackets
-    const parts = text.split(new RegExp(`(${leftBracket})`));
+    // Split the text by the opening brackets, matching only [~
+    const parts = text.split(new RegExp(`(${leftBracket}(?=~))`));
 
     // Initialize an index to skip the first occurrence
     let index = 0;
