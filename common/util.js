@@ -17,15 +17,14 @@ function copyToClipboard(event, html = false) {
     const copyId = button.dataset.copyid;
     const copy = document.getElementById(copyId);
     let text = copy.innerText;
-    const escapedLeftBracket = escapeRegExp(LEFT_BRACKET);
 
     // Split the text by the opening brackets
-    const parts = text.split(new RegExp(`(${escapedLeftBracket})`));
+    const parts = text.split(new RegExp(`(${LEFT_BRACKET})`));
 
     // Initialize an index to skip the first occurrence
     let index = 0;
 
-    // Join the parts with the delimiter, placing it before the square brackets
+    // Join the parts with the delimiter, placing it only before the [~
     text = parts
         .map(part => {
             if (index === 0) {
@@ -43,6 +42,7 @@ function copyToClipboard(event, html = false) {
         .then(() => console.log('Text copied to clipboard:', text))
         .catch(error => console.error('Error copying text to clipboard:', error.message));
 }
+
 
 
 
