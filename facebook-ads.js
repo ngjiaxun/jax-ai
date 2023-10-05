@@ -89,7 +89,7 @@ function runVue(user, avatars, solutions) {
                     this.copysets.captions.original.payload = {
                         ...commonPayload,
                         no_of_headlines: 20,
-                        max_characters: 120
+                        max_characters: 80
                     }
 
                     // Generate copies and their transformations
