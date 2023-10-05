@@ -31,8 +31,6 @@ const COUNTDOWN_MESSAGE = [
 const LEFT_BRACKET = '[~';
 const RIGHT_BRACKET = '~]';
 
-const CTA_PLACEHOLDER = '[PASTE YOUR LINK HERE]';
-
 class Copy {
     constructor(endpoint=endpoints.transform, checkingEndpoint=endpoints.copies) {
         this.data = null;
@@ -55,8 +53,7 @@ class Copyset {
 
 const copies = {
     data: {
-        countdownMessage: '', // Only one thing can load or generate at a time, so this is fine
-        ctaPlaceholder: CTA_PLACEHOLDER,
+        countdownMessage: '' // Only one thing can load or generate at a time, so this is fine
         // copysets: {} // Remember to implement
     },
     computed: {
