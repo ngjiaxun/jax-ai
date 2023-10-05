@@ -31,6 +31,8 @@ const COUNTDOWN_MESSAGE = [
 const LEFT_BRACKET = '[~';
 const RIGHT_BRACKET = '~]';
 
+const CTA_PLACEHOLDER = '[PASTE YOUR LINK HERE]';
+
 class Copy {
     constructor(endpoint=endpoints.transform, checkingEndpoint=endpoints.copies) {
         this.data = null;
