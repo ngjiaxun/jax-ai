@@ -12,8 +12,8 @@ function copyToClipboard(event, html = false) {
     const copy = document.getElementById(copyId);
     let text = copy.innerText;
 
-    // Replace '***' with three line breaks followed by '***'
-    text = text.replace(/\*\*\*/g, '\n\n\n***\n***\n***');
+    // Add line breaks and horizontal rules before opening brackets
+    text = text.replace(new RegExp(`(${LEFT_BRACKET})`, "g"), '\n******\n\n$1');
 
     if (html) {
         text = copy.innerHTML;
@@ -22,6 +22,7 @@ function copyToClipboard(event, html = false) {
         .then(() => console.log('Text copied to clipboard:', text))
         .catch(error => console.error('Error copying text to clipboard:', error.message));
 }
+
 
 // Format and print JSON to console for debugging purposes
 function logJSON(msg, json) {
