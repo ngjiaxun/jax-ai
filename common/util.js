@@ -11,7 +11,8 @@ function escapeRegExp(string) {
 }
 
 function copyToClipboard(event, html = false) {
-    const delimiter = '\n**********\n'; // Define the delimiter
+    const delimiter = '\n******\n'; // Define the delimiter
+
     const button = event.currentTarget;
     const copyId = button.dataset.copyid;
     const copy = document.getElementById(copyId);
@@ -42,6 +43,8 @@ function copyToClipboard(event, html = false) {
         .then(() => console.log('Text copied to clipboard:', text))
         .catch(error => console.error('Error copying text to clipboard:', error.message));
 }
+
+
 
 
 
