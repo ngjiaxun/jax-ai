@@ -18,8 +18,11 @@ function copyToClipboard(event, html = false) {
     const delimiter = '\n**********\n\n';
     let text = copy.innerText;
 
-    // Add line breaks and horizontal rules before opening brackets
-    text = text.replace(new RegExp(`(${escapedLeftBracket})`, "g"), `${delimiter}$1`);
+    // Split the text by the opening brackets
+    const parts = text.split(new RegExp(`(${escapedLeftBracket})`));
+
+    // Join the parts with the delimiter, but not before the first occurrence
+    text = parts.shift() + parts.join(delimiter);
 
     if (html) {
         text = copy.innerHTML;
