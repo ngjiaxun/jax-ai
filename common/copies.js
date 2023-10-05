@@ -28,8 +28,8 @@ const COUNTDOWN_MESSAGE = [
     'This could take a tad longer than expected. Why not treat yourself to a nice cup of joe and come back in a minute or two? 😊☕️'
 ];
 
-const LEFT_BRACKET = '[~ ';
-const RIGHT_BRACKET = ' ~]';
+const LEFT_BRACKET = '[~';
+const RIGHT_BRACKET = '~]';
 
 class Copy {
     constructor(endpoint=endpoints.transform, checkingEndpoint=endpoints.copies) {
