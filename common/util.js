@@ -6,14 +6,19 @@ function fadeOutLoadingScreen() {
     delay(1000).then(() => $('#loading-splash').fadeOut(1000));
 }
 
+function escapeRegExp(string) {
+    return string.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+}
+
 function copyToClipboard(event, html = false) {
     const button = event.currentTarget;
     const copyId = button.dataset.copyid;
     const copy = document.getElementById(copyId);
+    const delimiter = escapeRegExp(LEFT_BRACKET);
     let text = copy.innerText;
 
     // Add line breaks and horizontal rules before opening brackets
-    text = text.replace(new RegExp(`(${LEFT_BRACKET})`, "g"), '\n******\n\n$1');
+    text = text.replace(new RegExp(`(${delimiter})`, "g"), '\n******\n\n$1');
 
     if (html) {
         text = copy.innerHTML;
