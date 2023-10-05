@@ -174,7 +174,7 @@ const copies = {
         },
         getCopyTitle(copy) {
             const label = copy.data.label ? ' - ' + copy.data.label : '';
-            const copyType = LEFT_BRACKET + copy.data.copy_type_display + label + RIGHT_BRACKET;
+            const copyType = LEFT_BRACKET + copy.data.original_copy_type_display + label + RIGHT_BRACKET;
             return `${copyType} ${copy.data.transformation ?? ''} ${copy.data.transformation_copy_type_display ?? ''}`;
         },
         getCopyLoadingMessage(copyset, copysetIndex, copyIndex) {
