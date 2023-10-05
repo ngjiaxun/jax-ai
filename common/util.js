@@ -18,8 +18,11 @@ function copyToClipboard(event, html = false) {
     const copy = document.getElementById(copyId);
     let text = copy.innerText;
 
+    // Escape special characters in the leftBracket
+    leftBracket = escapeRegExp(LEFT_BRACKET);
+
     // Split the text by the opening brackets
-    const parts = text.split(new RegExp(`(${LEFT_BRACKET})`));
+    const parts = text.split(new RegExp(`(${leftBracket})`));
 
     // Initialize an index to skip the first occurrence
     let index = 0;
@@ -42,10 +45,6 @@ function copyToClipboard(event, html = false) {
         .then(() => console.log('Text copied to clipboard:', text))
         .catch(error => console.error('Error copying text to clipboard:', error.message));
 }
-
-
-
-
 
 
 // Format and print JSON to console for debugging purposes
