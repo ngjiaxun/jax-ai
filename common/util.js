@@ -22,7 +22,7 @@ function copyToClipboard(event, html = false) {
     const parts = text.split(new RegExp(`(${escapedLeftBracket})`));
 
     // Join the parts with the delimiter, but not before the first occurrence
-    text = parts.shift() + parts.join(delimiter);
+    text = parts.shift() + parts.join(`${delimiter}$1`);
 
     if (html) {
         text = copy.innerHTML;
