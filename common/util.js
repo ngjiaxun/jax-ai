@@ -21,9 +21,6 @@ function copyToClipboard(event, html = false) {
     // Add line breaks and horizontal rules before opening brackets
     text = text.replace(new RegExp(`(${escapedLeftBracket})`, "g"), `${delimiter}$1`);
 
-    // Append the delimiter at the end of the copied text
-    text += delimiter;
-
     if (html) {
         text = copy.innerHTML;
     }
