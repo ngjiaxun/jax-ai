@@ -15,7 +15,7 @@ function copyToClipboard(event, html = false) {
     const copyId = button.dataset.copyid;
     const copy = document.getElementById(copyId);
     const escapedLeftBracket = escapeRegExp(LEFT_BRACKET);
-    const delimiter = '\n**********\n';
+    const delimiter = '\n**********\n\n';
     let text = copy.innerText;
 
     // Add line breaks and horizontal rules before opening brackets
