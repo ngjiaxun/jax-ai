@@ -11,7 +11,7 @@ function escapeRegExp(string) {
 }
 
 function copyToClipboard(event, html = false) {
-    const delimiter = '\n******\n'; // Define the delimiter
+    const delimiter = '\n**********\n\n'; // Define the delimiter
 
     const button = event.currentTarget;
     const copyId = button.dataset.copyid;
