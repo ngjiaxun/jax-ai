@@ -22,7 +22,7 @@ function copyToClipboard(event, html = false) {
     leftBracket = escapeRegExp(LEFT_BRACKET);
 
     // Split the text by the opening brackets and add the delimiter before every [~
-    text = text.replace(new RegExp(`(${LEFT_BRACKET})`, "g"), `${delimiter}$1`);
+    text = text.replace(new RegExp(`(${leftBracket})`, "g"), `${delimiter}$1`);
 
     if (html) {
         text = copy.innerHTML;
