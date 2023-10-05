@@ -58,36 +58,44 @@ function runVue(user, avatars, solutions) {
                     }
                     this.copysets.text1.original.payload = {
                         ...commonPayload,
+                        label: 'A',
                         prompt_id: 0
                     }
                     this.copysets.text2.original.payload = {
                         ...commonPayload,
+                        label: 'B',
                         prompt_id: 2
                     }
                     this.copysets.text3.original.payload = {
                         ...commonPayload,
+                        label: 'C',
                         prompt_id: 3
                     }
                     this.copysets.text4.original.payload = {
                         ...commonPayload,
+                        label: 'D',
                         prompt_id: 1
                     }
                     this.copysets.text5.original.payload = {
                         ...commonPayload,
+                        label: 'E',
                         prompt_id: 4
                     }
                     this.copysets.headlines.original.payload = {
                         ...commonPayload,
+                        label: 'A',
                         no_of_headlines: 20,
                         max_characters: 40
                     }
                     this.copysets.descriptions.original.payload = {
                         ...commonPayload,
+                        label: 'B',
                         no_of_headlines: 20,
                         max_characters: 20
                     }
                     this.copysets.captions.original.payload = {
                         ...commonPayload,
+                        label: 'C',
                         no_of_headlines: 20,
                         max_characters: 80
                     }
@@ -116,7 +124,8 @@ function runVue(user, avatars, solutions) {
                     batch_time: batchTime,
                     transformation: transformation,
                     transformation_type: transformationType,
-                    transform_from: transformFrom.data.id
+                    transform_from: transformFrom.data.id,
+                    label: transformFrom.data.label
                 }
                 if (temperature) {
                     transformTo.payload.temperature = temperature;

@@ -6,7 +6,7 @@ function fadeOutLoadingScreen() {
     delay(1000).then(() => $('#loading-splash').fadeOut(1000));
 }
 
-function copyToClipboard(event, html=false) {
+function copyToClipboard(event, html = false) {
     const button = event.currentTarget;
     const copyId = button.dataset.copyid;
     const copy = document.getElementById(copyId);
@@ -51,6 +51,15 @@ function toFriendlyDatetime(dateString) {
     };
 
     return userDateTime.toLocaleString(undefined, options);
+}
+
+function numberToLetter(number) {
+    if (number >= 1 && number <= 26) {
+        // Assuming 1 corresponds to 'A', 2 corresponds to 'B', and so on
+        return String.fromCharCode(64 + number); // ASCII code for 'A' is 65
+    } else {
+        return "Invalid input. Please enter a number between 1 and 26.";
+    }
 }
 
 function handleEnterKeyPress(event) {
@@ -99,7 +108,7 @@ const util = {
         reload() {
             location.reload();
         },
-        copyClicked(event, html=false) {
+        copyClicked(event, html = false) {
             copyToClipboard(event, html);
         }
     }

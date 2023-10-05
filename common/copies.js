@@ -28,6 +28,9 @@ const COUNTDOWN_MESSAGE = [
     'This could take a tad longer than expected. Why not treat yourself to a nice cup of joe and come back in a minute or two? 😊☕️'
 ];
 
+const LEFT_BRACKET = '[~ ';
+const RIGHT_BRACKET = ' ~]';
+
 class Copy {
     constructor(endpoint=endpoints.transform, checkingEndpoint=endpoints.copies) {
         this.data = null;
@@ -170,7 +173,9 @@ const copies = {
             }
         },
         getCopyTitle(copy) {
-            return `***${copy.data.original_copy_type_display ?? ''} ${copy.data.transformation ?? ''} ${copy.data.copy_type_display ?? ''} #${copy.data.id}`;
+            const label = copy.label ? ' - ' + copy.label : '';
+            const copyType = LEFT_BRACKET + copy.data.copy_type_display + label + RIGHT_BRACKET;
+            return `${copyType} ${copy.data.transformation ?? ''} ${copy.data.transformation_copy_type_display ?? ''}`;
         },
         getCopyLoadingMessage(copyset, copysetIndex, copyIndex) {
             return `Generating... ${Math.floor((copysetIndex * Object.keys(copyset).length + copyIndex) / this.totalCopies * 100)}%`;
