@@ -55,7 +55,8 @@ class Copyset {
 
 const copies = {
     data: {
-        countdownMessage: '' // Only one thing can load or generate at a time, so this is fine
+        countdownMessage: '', // Only one thing can load or generate at a time, so this is fine
+        ctaPlaceholder: CTA_PLACEHOLDER,
         // copysets: {} // Remember to implement
     },
     computed: {
