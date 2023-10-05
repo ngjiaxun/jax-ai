@@ -78,8 +78,8 @@ const copies = {
         totalCopies() {
             return Object.keys(this.copysets).length * Object.keys(this.copysets[Object.keys(this.copysets)[0]]).length 
         },
-        escapedLeftBracket() {
-            return escapeRegExp(LEFT_BRACKET);
+        leftBracket() {
+            return LEFT_BRACKET;
         }
     },
     methods: {
