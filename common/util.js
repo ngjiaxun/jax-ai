@@ -21,22 +21,8 @@ function copyToClipboard(event, html = false) {
     // Escape special characters in the leftBracket
     leftBracket = escapeRegExp(LEFT_BRACKET);
 
-    // Split the text by the opening brackets, matching only [~
-    const parts = text.split(new RegExp(`(${leftBracket}(?=~))`));
-
-    // Initialize an index to skip the first occurrence
-    let index = 0;
-
-    // Join the parts with the delimiter, placing it only before the [~
-    text = parts
-        .map(part => {
-            if (index === 0) {
-                index++;
-                return part;
-            }
-            return `${delimiter}${part}`;
-        })
-        .join('');
+    // Split the text by the opening brackets and add the delimiter before every [~
+    text = text.replace(new RegExp(`(${LEFT_BRACKET})`, "g"), `${delimiter}$1`);
 
     if (html) {
         text = copy.innerHTML;
