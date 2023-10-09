@@ -69,6 +69,9 @@ const input = {
         }
     },
     methods: {
+        selectFirstAvatar() { 
+            this.avatarSelection = (this.avatars && this.avatars.length) ? this.avatars[0].id : this.avatarSelection;
+        },
         avatarSelectionChanged() {
             if (this.isSelectAvatarSelected) {
                 console.log('Clearing avatar...');
