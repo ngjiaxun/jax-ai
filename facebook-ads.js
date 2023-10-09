@@ -1,15 +1,3 @@
-(async function main() {
-    try {
-        const user = await preInit();
-        const avatars = await axios.get(endpoints.avatars);
-        const solutions = await axios.get(endpoints.solutions);
-        modifyAttributes();
-        runVue(user, avatars.data, solutions.data);
-    } catch (error) {
-        console.error('Error initializing Jax AI:', error.message);
-    }
-})();
-
 function runVue(user, avatars, solutions) {
     const { createApp } = Vue
     createApp({
@@ -131,6 +119,19 @@ function runVue(user, avatars, solutions) {
                     transformTo.payload.temperature = temperature;
                 }
                 return await this.generateCopy(transformTo);
+            }
+        },
+        async created() {
+            try {
+                const user = await preInit();
+                const avatars = await axios.get(endpoints.avatars);
+                const solutions = await axios.get(endpoints.solutions);
+                modifyAttributes();
+                this.user = user;
+                this.avatars = avatars.data;
+                this.solution.data = solutions.data[0];
+            } catch (error) {
+                console.error('Error initializing Jax AI:', error.message);
             }
         },
         mounted() {
