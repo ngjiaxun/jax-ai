@@ -119,23 +119,23 @@ function runVue(user, avatars, solutions) {
                     transformTo.payload.temperature = temperature;
                 }
                 return await this.generateCopy(transformTo);
+            },
+            async created() {
+                try {
+                    const user = await preInit();
+                    const avatars = await axios.get(endpoints.avatars);
+                    const solutions = await axios.get(endpoints.solutions);
+                    modifyAttributes();
+                    this.user = user;
+                    this.avatars = avatars.data;
+                    this.solution.data = solutions.data[0];
+                } catch (error) {
+                    console.error('Error initializing Jax AI:', error.message);
+                }
             }
         },
-        async created() {
-            try {
-                const user = await preInit();
-                console.log('User:', user);
-                const avatars = await axios.get(endpoints.avatars);
-                console.log('Avatars:', avatars.data);
-                const solutions = await axios.get(endpoints.solutions);
-                console.log('Solutions:', solutions.data);
-                modifyAttributes();
-                this.user = user;
-                this.avatars = avatars.data;
-                this.solution.data = solutions.data[0];
-            } catch (error) {
-                console.error('Error initializing Jax AI:', error.message);
-            }
+        created() {
+            this.created();
         },
         mounted() {
             this.init();
