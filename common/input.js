@@ -47,10 +47,10 @@ const input = {
             return !this.isAnyGeneratingOrReady
         },
         isStepThreeSectionVisible() {
-            return this.isStepTwoSectionVisible;
+            return !this.isAnyGeneratingOrReady && this.isLoadAvatarSelected
         },
         isStepFourSectionVisible() { // Add v-if="isStepFourSectionVisible" to the "Generate" button section
-            return this.isStepTwoSectionVisible;
+            return this.isStepThreeSectionVisible;
         },
         isCopiesSectionVisible() { // Add v-if="isCopiesSectionVisible" to the "Copies" section
             return this.isAnyGeneratingOrReady;
