@@ -123,9 +123,9 @@ const input = {
             this.generateCopy(this.avatar)
                 .then(() => window.location.reload())
                 .catch(error => console.error('Error creating avatar:', error.message));
-        },
-        vForSelectAvatar() {
-            vForSelect('#avatar-select-field', 'avatars', 'avatar', 'id')
         }
+    },
+    vForSelectAvatar() {
+        vForSelect('#avatar-select-field', 'avatars', 'avatar', 'id')
     }
 };
