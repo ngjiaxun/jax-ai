@@ -3,7 +3,7 @@
         const user = await preInit();
         const avatars = await axios.get(endpoints.avatars);
         const solutions = await axios.get(endpoints.solutions);
-        vForSelect('#avatars', 'avatars', 'avatar', 'id', false)
+        vForSelect('#avatar-select-field', 'avatars', 'avatar', 'id', false)
         runVue(user, avatars.data, solutions.data);
     } catch (error) {
         console.error('Error initializing Jax AI:', error.message);
