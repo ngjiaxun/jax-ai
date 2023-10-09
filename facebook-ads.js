@@ -124,8 +124,11 @@ function runVue(user, avatars, solutions) {
         async created() {
             try {
                 const user = await preInit();
+                console.log('User:', user);
                 const avatars = await axios.get(endpoints.avatars);
+                console.log('Avatars:', avatars.data);
                 const solutions = await axios.get(endpoints.solutions);
+                console.log('Solutions:', solutions.data);
                 modifyAttributes();
                 this.user = user;
                 this.avatars = avatars.data;
