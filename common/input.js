@@ -40,17 +40,17 @@ const input = {
         isPainSectionVisible() {
             return this.isLoadAvatarSelected && this.avatar.data;
         },
-        isStepOneSectionVisible() {
-            return !this.isAnyGeneratingOrReady && !this.avatar.isGenerating;
-        },
-        isStepTwoSectionVisible() {
+        isSolutionSectionVisible() {
             return !this.isAnyGeneratingOrReady
         },
-        isStepThreeSectionVisible() {
+        isAvatarSectionVisible() {
+            return !this.isAnyGeneratingOrReady && !this.avatar.isGenerating;
+        },
+        isTransformationSectionVisible() {
             return !this.isAnyGeneratingOrReady && this.isLoadAvatarSelected
         },
-        isStepFourSectionVisible() { // Add v-if="isStepFourSectionVisible" to the "Generate" button section
-            return this.isStepThreeSectionVisible;
+        isGenerateSectionVisible() { // Add v-if="isStepFourSectionVisible" to the "Generate" button section
+            return this.isTransformationSectionVisible;
         },
         isCopiesSectionVisible() { // Add v-if="isCopiesSectionVisible" to the "Copies" section
             return this.isAnyGeneratingOrReady;
