@@ -107,11 +107,12 @@ const input = {
             */
             this.generateCopies(); 
         },
-        createAvatarClicked() {
+        async createAvatarClicked() {
             this.avatarLoadingMessage = AVATAR_LOADING_MESSAGES[1];
             if (this.avatarName === '') {
                 this.avatarName = 'Customers';
             }
+            await this.updateCopy(this.solution, endpoints.solutions);
             this.createAvatar();
         },
         createAvatar() {
