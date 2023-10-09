@@ -44,7 +44,7 @@ const input = {
             return !this.isAnyGeneratingOrReady && !this.avatar.isGenerating;
         },
         isStepTwoSectionVisible() {
-            return !this.isAnyGeneratingOrReady && this.isLoadAvatarSelected
+            return !this.isAnyGeneratingOrReady
         },
         isStepThreeSectionVisible() {
             return this.isStepTwoSectionVisible;
