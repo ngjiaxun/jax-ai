@@ -124,5 +124,8 @@ const input = {
                 .then(() => window.location.reload())
                 .catch(error => console.error('Error creating avatar:', error.message));
         },
+        vForSelectAvatar() {
+            vForSelect('#avatar-select-field', 'avatars', 'avatar', 'id')
+        }
     }
 };
