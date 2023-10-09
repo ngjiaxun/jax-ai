@@ -99,9 +99,9 @@ const input = {
                 this.desireSuggestionIndex = this.desireSuggestionIndex < maxDesireSuggestions ? this.desireSuggestionIndex + 1 : 0;
             }
         },            
-        generateClicked() {  // Add this to the "Generate" button's v-on:click event
-            this.updateCopy(this.avatar, endpoints.avatars);
-            this.updateCopy(this.solution, endpoints.solutions);
+        async generateClicked() {  // Add this to the "Generate" button's v-on:click event
+            await this.updateCopy(this.avatar, endpoints.avatars);
+            await this.updateCopy(this.solution, endpoints.solutions);
             /**
              * Implement generateCopies() in the inheriting file.
             */
