@@ -49,10 +49,10 @@ const input = {
         isTransformationSectionVisible() {
             return !this.isAnyGeneratingOrReady && this.isLoadAvatarSelected
         },
-        isGenerateSectionVisible() { // Add v-if="isStepFourSectionVisible" to the "Generate" button section
+        isGenerateSectionVisible() { // Add v-if to the "Generate" button section
             return this.isTransformationSectionVisible;
         },
-        isCopiesSectionVisible() { // Add v-if="isCopiesSectionVisible" to the "Copies" section
+        isCopiesSectionVisible() { // Add v-if to the "Copies" section
             return this.isAnyGeneratingOrReady;
         },
         isAnyGeneratingOrReady() { 

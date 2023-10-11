@@ -31,8 +31,10 @@ const COUNTDOWN_MESSAGE = [
 const LEFT_BRACKET = '[~';
 const RIGHT_BRACKET = '~]';
 
+const CHECK_COPY_ERROR = 'An error has occurred. Please try again.';
+
 class Copy {
-    constructor(endpoint=endpoints.transform, checkingEndpoint=endpoints.copies) {
+    constructor(endpoint = endpoints.transform, checkingEndpoint = endpoints.copies) {
         this.data = null;
         this.isGenerating = false;
         this.hasError = false;
@@ -43,7 +45,7 @@ class Copy {
 }
 
 class Copyset {
-    constructor(endpoint, checkingEndpoint=endpoints.copies) {
+    constructor(endpoint, checkingEndpoint = endpoints.copies) {
         this.original = new Copy(endpoint, checkingEndpoint);
         this.spun = new Copy();
         this.styled = new Copy();
@@ -53,7 +55,8 @@ class Copyset {
 
 const copies = {
     data: {
-        countdownMessage: '' // Only one thing can load or generate at a time, so this is fine
+        countdownMessage: '', // Only one thing can load or generate at a time, so this is fine
+        errorMessage: ''
         // copysets: {} // Remember to implement
     },
     computed: {
@@ -76,7 +79,7 @@ const copies = {
             }
         },
         totalCopies() {
-            return Object.keys(this.copysets).length * Object.keys(this.copysets[Object.keys(this.copysets)[0]]).length 
+            return Object.keys(this.copysets).length * Object.keys(this.copysets[Object.keys(this.copysets)[0]]).length
         },
         leftBracket() {
             return LEFT_BRACKET;
@@ -100,38 +103,40 @@ const copies = {
                 const requestedTime = new Date().toISOString(); // Timestamp for identifying the copy after it's generated
                 copy.payload.requested_time = requestedTime;
                 await axios.post(copy.endpoint, copy.payload);
-                copy.isGenerating = true; 
+                copy.isGenerating = true;
                 this.startCountdown(copy);
                 copy.data = await this.checkCopyReady(requestedTime, copy.checkingEndpoint);
                 copy.hasError = !copy.data;
-                copy.isGenerating = false; 
+                copy.isGenerating = false;
             } catch (error) {
                 console.error('Error generating copy:', error.response.data);
             }
             return copy;
         },
-        async checkCopyReady(requestedTime, endpoint, maxTries=DEFAULT_MAX_TRIES, timeout=DEFAULT_TIMEOUT) {
+        async checkCopyReady(requestedTime, endpoint, maxTries = DEFAULT_MAX_TRIES, timeout = DEFAULT_TIMEOUT) {
             console.log('Checking if copy is ready...', requestedTime)
             try {
                 endpoint += '?requested_time=' + requestedTime;
-                let tries = 0; 
+                let tries = 0;
                 while (tries < maxTries) {
                     const response = await axios.get(endpoint);
                     if (response.data.length > 0) {
                         return response.data[0];
                     } else {
-                        await delay(timeout); 
+                        await delay(timeout);
                         tries++;
                         console.log('Tries:', tries, '/', maxTries);
                     }
                 }
-                console.error('Error: copy took too long to generate.');
+                // Throw an error when maxTries is reached
+                throw new Error('Error: copy took too long to generate.');
             } catch (error) {
-                console.error('Error checking if copy is ready:', error.response.data);
+                console.error('Error checking if copy is ready:', error.response ? error.response.data : error.message);
+                this.errorMessage = CHECK_COPY_ERROR;
             }
             return null;
         },
-        async listCopies(copy, endpoint, { ...args}={}, ordering=null) {
+        async listCopies(copy, endpoint, { ...args } = {}, ordering = null) {
             console.log('Listing copies...');
             try {
                 copy.isGenerating = true;
@@ -146,7 +151,7 @@ const copies = {
             }
         },
         // Use this instead of generateCopy() for endpoints that don't require polling to check if the copy is ready
-        async createCopy(copy, endpoint, payload=copy.data) { 
+        async createCopy(copy, endpoint, payload = copy.data) {
             console.log('Creating copy...');
             try {
                 const response = await axios.post(endpoint, payload);
