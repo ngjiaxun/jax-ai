@@ -180,6 +180,15 @@ const copies = {
                 console.error('Error updating copy:', error.response.data);
             }
         },
+        async deleteCopy(copy, endpoint) {
+            console.log('Deleting copy...', copy.data.id);
+            try {
+                await axios.delete(endpoint + copy.data.id);
+                copy.data = null;
+            } catch (error) {
+                console.error('Error deleting copy:', error.response.data);
+            }
+        },
         getCopyTitle(copy) {
             const label = copy.data.label ? ' ' + copy.data.label : '';
             const copyType = LEFT_BRACKET + copy.data.original_copy_type_display + label + RIGHT_BRACKET;
