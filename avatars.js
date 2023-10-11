@@ -29,6 +29,9 @@ function runVue(user, avatars) {
             ...authentication.methods,
             ...util.methods,
             ...copies.methods,
+            deleteAvatar(avatar) {
+                this.deleteCopy(avatar, endpoints.avatars);
+            }
         },
         mounted() {
             this.init();
