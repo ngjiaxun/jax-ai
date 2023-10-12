@@ -30,9 +30,9 @@ function runVue(user, avatars) {
             ...util.methods,
             ...copies.methods,
             deleteAvatar(avatar) {
-                const avatar = new Copy(endpoints.avatars, endpoints.avatars);
-                avatar.data = avatar;
-                this.deleteCopy(avatar, endpoints.avatars);
+                const copy = new Copy(endpoints.avatars, endpoints.avatars);
+                copy.data = avatar;
+                this.deleteCopy(copy);
             }
         },
         mounted() {
