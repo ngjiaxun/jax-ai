@@ -29,10 +29,15 @@ function runVue(user, avatars) {
             ...authentication.methods,
             ...util.methods,
             ...copies.methods,
-            deleteAvatar(avatar) {
-                const copy = new Copy(endpoints.avatars, endpoints.avatars);
-                copy.data = avatar;
-                this.deleteCopy(copy);
+            async deleteAvatar(avatar) {
+                try {
+                    const copy = new Copy(endpoints.avatars, endpoints.avatars);
+                    copy.data = avatar;
+                    await this.deleteCopy(copy);
+                    this.reload();
+                } catch (error) {
+                    console.error(error);
+                }
             }
         },
         mounted() {
