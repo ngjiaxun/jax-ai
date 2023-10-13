@@ -68,6 +68,7 @@ const copies = {
                     }
                 }
             }
+            return false;
         },
         isAnyReady() {
             for (const copyset of Object.values(this.copysets)) {
@@ -77,6 +78,7 @@ const copies = {
                     }
                 }
             }
+            return false;
         },
         totalCopies() {
             return Object.keys(this.copysets).length * Object.keys(this.copysets[Object.keys(this.copysets)[0]]).length
