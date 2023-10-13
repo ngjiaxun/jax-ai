@@ -9,6 +9,7 @@ function runVue(user, avatars, solution) {
                 avatars: avatars, 
                 solution: { data: solution }, 
                 ...copies.data,
+                ...input.data,
                 copies: {
                 }
             }
@@ -17,11 +18,13 @@ function runVue(user, avatars, solution) {
         },
         computed: {
             ...copies.computed,
+            ...input.computed
         },
         methods: {
             ...authentication.methods,
             ...util.methods,
             ...copies.methods,
+            ...input.methods
         },
         mounted() {
             this.init();
