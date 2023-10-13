@@ -10,7 +10,7 @@ function runVue(user, avatars, solution) {
                 solution: { data: solution }, 
                 ...copies.data,
                 ...input.data,
-                copies: {
+                copysets: {
                 }
             }
         },
