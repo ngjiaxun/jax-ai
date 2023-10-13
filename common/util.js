@@ -1,11 +1,8 @@
 async function main() {
     try {
         const user = await preInit(); // For displaying the user's name in the top right corner
-        console.log(user);
         const avatars = await axios.get(endpoints.avatars); // For the avatar select field
-        console.log(avatars);
         const solutions = await axios.get(endpoints.solutions); // For the business info section
-        console.log(solutions);
         input.vForSelectAvatar();
         runVue(user, avatars.data, solutions.data[0]);
     } catch (error) {
