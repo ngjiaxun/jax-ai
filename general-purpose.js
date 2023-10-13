@@ -11,7 +11,11 @@ function runVue(user, avatars, solution) {
                 ...copies.data,
                 ...input.data,
                 copysets: {
-                }
+                    generalContent: new Copyset(endpoints.generalContent),
+                },
+                userContentType: '',
+                instructions: '',
+                details: ''
             }
         },
         watch: {
@@ -25,7 +29,33 @@ function runVue(user, avatars, solution) {
             ...authentication.methods,
             ...util.methods,
             ...copies.methods,
-            ...input.methods
+            ...input.methods,
+            generateCopies() {
+                console.log('Generating copies...');
+                try {
+                    const batchTime = new Date().toISOString(); 
+
+                    // Set original copy payloads
+                    const commonPayload = {
+                        avatar: this.avatar.data.id,
+                        batch_time: batchTime,
+                        ...this.avatar.data,
+                        ...this.solution.data
+                    }
+
+                    this.copysets.generalContent.original.payload = {
+                        ...commonPayload,
+                        user_content_type: this.userContentType,
+                        instructions: this.instructions,
+                        details: this.details
+                    }
+
+                    this.generateCopysets();
+
+                } catch (error) {
+                    console.error(error);
+                }
+            }
         },
         mounted() {
             this.init();

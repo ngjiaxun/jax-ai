@@ -191,6 +191,36 @@ const copies = {
                 console.error('Error deleting copy:', error.response.data);
             }
         },
+        async generateCopysets() {
+            // Generate copies and their transformations
+            for (const key in this.copysets) {
+                const copyset = this.copysets[key];
+                let copy = await this.generateCopy(copyset.original);
+
+                if (this.solution.data.spin) {
+                    copy = await this.transformCopy(batchTime, this.solution.data.spin, transformation.spin, copy, copyset.spun);
+                }
+                if (this.solution.data.style) {
+                    copy = await this.transformCopy(batchTime, this.solution.data.style, transformation.style, copy, copyset.styled, 0);
+                }
+                if (this.solution.data.translation) {
+                    copy = await this.transformCopy(batchTime, this.solution.data.translation, transformation.translation, copy, copyset.translated, 0);
+                }
+            }
+        },
+        async transformCopy(batchTime, transformation, transformationType, transformFrom, transformTo, temperature=null) {
+            transformTo.payload = { 
+                batch_time: batchTime,
+                transformation: transformation,
+                transformation_type: transformationType,
+                transform_from: transformFrom.data.id,
+                label: transformFrom.data.label
+            }
+            if (temperature) {
+                transformTo.payload.temperature = temperature;
+            }
+            return await this.generateCopy(transformTo);
+        },
         getCopyTitle(copy) {
             const label = copy.data.label ? ' ' + copy.data.label : '';
             const copyType = LEFT_BRACKET + copy.data.original_copy_type_display + label + RIGHT_BRACKET;

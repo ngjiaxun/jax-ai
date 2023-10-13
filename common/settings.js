@@ -15,7 +15,8 @@ const endpoints = {
     batches: 'scripts/copies/batches/',
     transform: 'scripts/copies/transform/',
     facebookAdsText: 'scripts/facebookads/text/',
-    facebookAdsHeadlines: 'scripts/facebookads/headlines/'
+    facebookAdsHeadlines: 'scripts/facebookads/headlines/',
+    generalContent: 'scripts/general/',
 }
 
 // Prepend api domain to api endpoints
