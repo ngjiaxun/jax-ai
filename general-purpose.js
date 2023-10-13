@@ -15,6 +15,7 @@ function runVue(user, avatars, solution) {
             }
         },
         watch: {
+            ...input.watch
         },
         computed: {
             ...copies.computed,
@@ -28,6 +29,7 @@ function runVue(user, avatars, solution) {
         },
         mounted() {
             this.init();
+            this.selectFirstAvatar();
         }
     }).mount('#app')
 }
