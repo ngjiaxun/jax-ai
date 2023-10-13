@@ -1,18 +1,13 @@
-(async function main() {
-    try {
-        const user = await preInit();
-        runVue(user);
-    } catch (error) {
-        console.error('Error initializing Jax AI:', error.message);
-    }
-})();
+main();
 
-function runVue(user) {
+function runVue(user, avatars, solution) {
     const { createApp } = Vue
     createApp({
         data() {
             return {
-                user: user,
+                user: user, 
+                avatars: avatars, 
+                solution: { data: solution }, 
                 ...copies.data,
                 copies: {
                 }

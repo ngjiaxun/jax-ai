@@ -1,3 +1,15 @@
+async function main() {
+    try {
+        const user = await preInit(); // For displaying the user's name in the top right corner
+        const avatars = await axios.get(endpoints.avatars); // For the avatar select field
+        const solutions = await axios.get(endpoints.solutions); // For the business info section
+        input.vForSelectAvatar();
+        runVue(user, avatars.data, solutions.data[0]);
+    } catch (error) {
+        console.error('Error initializing Jax AI:', error.message);
+    }
+}
+
 function delay(timeout) {
     return new Promise(resolve => setTimeout(resolve, timeout));
 }
