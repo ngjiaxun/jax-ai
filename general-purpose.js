@@ -34,6 +34,7 @@ function runVue(user, avatars, solution) {
                 console.log('Generating copies...');
                 try {
                     const batchTime = new Date().toISOString(); 
+                    const original = this.copysets.generalContent.original
 
                     // Set original copy payloads
                     const commonPayload = {
@@ -43,19 +44,17 @@ function runVue(user, avatars, solution) {
                         ...this.solution.data
                     }
 
-                    let payload = this.copysets.generalContent.original.payload;
-
-                    payload = {
+                    original.payload = {
                         ...commonPayload,
                         user_content_type: this.userContentType,
                     }
 
                     if (this.instructions) {
-                        payload.instructions = this.instructions;
+                        original.payload.instructions = this.instructions;
                     }
 
                     if (this.details) {
-                        payload.details = this.details;
+                        original.payload.details = this.details;
                     }
 
                     this.generateCopysets();
