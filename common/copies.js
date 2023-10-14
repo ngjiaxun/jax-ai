@@ -195,6 +195,7 @@ const copies = {
             // Generate copies and their transformations
             for (const key in this.copysets) {
                 const copyset = this.copysets[key];
+                const batchTime = copyset.original.payload.batch_time;
                 let copy = await this.generateCopy(copyset.original);
 
                 if (this.solution.data.spin) {
