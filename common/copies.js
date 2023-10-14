@@ -111,7 +111,7 @@ const copies = {
                 copy.hasError = !copy.data;
                 copy.isGenerating = false;
             } catch (error) {
-                console.error('Error generating copy:', error.response.data);
+                console.error('Error generating copy:', error.response ? error.response.data : error.message);
             }
             return copy;
         },
@@ -149,7 +149,7 @@ const copies = {
                 copy.data = response.data;
                 copy.isGenerating = false;
             } catch (error) {
-                console.error('Error listing copies:', error.message);
+                console.error('Error listing copies:', error.response ? error.response.data : error.message);
             }
         },
         // Use this instead of generateCopy() for endpoints that don't require polling to check if the copy is ready
@@ -159,7 +159,7 @@ const copies = {
                 const response = await axios.post(endpoint, payload);
                 copy.data = response.data;
             } catch (error) {
-                console.error('Error creating copy:', error.response.data);
+                console.error('Error creating copy:', error.response ? error.response.data : error.message);
             }
         },
         async retrieveCopy(copy, endpoint, copyId) {
@@ -171,7 +171,7 @@ const copies = {
                 copy.data = response.data;
                 copy.isGenerating = false;
             } catch (error) {
-                console.error('Error retrieving copy:', error.response.data);
+                console.error('Error retrieving copy:', error.response ? error.response.data : error.message);
             }
         },
         async updateCopy(copy, endpoint) {
@@ -179,7 +179,7 @@ const copies = {
             try {
                 await axios.patch(endpoint + copy.data.id, copy.data);
             } catch (error) {
-                console.error('Error updating copy:', error.response.data);
+                console.error('Error updating copy:', error.response ? error.response.data : error.message);
             }
         },
         async deleteCopy(copy) {
@@ -188,7 +188,7 @@ const copies = {
                 await axios.delete(copy.endpoint + copy.data.id);
                 copy.data = null;
             } catch (error) {
-                console.error('Error deleting copy:', error.response.data);
+                console.error('Error deleting copy:', error.response ? error.response.data : error.message);
             }
         },
         async generateCopysets() {
