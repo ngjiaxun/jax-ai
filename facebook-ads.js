@@ -61,59 +61,59 @@ function runVue(user, avatars, solutions) {
                     }
                     this.copysets.text1.original.payload = {
                         ...commonPayload,
-                        label: '(Classic Ad)',
+                        label: 'Classic Ad',
                         prompt_id: 5
                     }
                     this.copysets.text2.original.payload = {
                         ...commonPayload,
-                        label: '(Pain Ad)',
+                        label: 'Pain Ad',
                         prompt_id: 0
                     }
                     this.copysets.text3.original.payload = {
                         ...commonPayload,
-                        label: '(Benefit Ad)',
+                        label: 'Benefit Ad',
                         prompt_id: 2
                     }
                     this.copysets.text4.original.payload = {
                         ...commonPayload,
-                        label: '(Story Ad)',
+                        label: 'Story Ad',
                         prompt_id: 6
                     }
                     this.copysets.text5.original.payload = {
                         ...commonPayload,
-                        label: '(Villian Ad)',
+                        label: 'Villian Ad',
                         prompt_id: 3
                     }
                     this.copysets.text6.original.payload = {
                         ...commonPayload,
-                        label: '(Transformation Ad)',
+                        label: 'Transformation Ad',
                         prompt_id: 1
                     }
                     this.copysets.text7.original.payload = {
                         ...commonPayload,
-                        label: '(Testimonial Ad)',
+                        label: 'Testimonial Ad',
                         prompt_id: 7
                     }
                     this.copysets.text8.original.payload = {
                         ...commonPayload,
-                        label: '(Objection-handling Ad)',
+                        label: 'Objection-handling Ad',
                         prompt_id: 4
                     }
                     this.copysets.headlines.original.payload = {
                         ...commonPayload,
-                        label: '(Headlines)',
+                        label: 'Headlines',
                         no_of_headlines: 20,
                         max_characters: 40
                     }
                     this.copysets.descriptions.original.payload = {
                         ...commonPayload,
-                        label: '(Descriptions)',
+                        label: 'Descriptions',
                         no_of_headlines: 20,
                         max_characters: 20
                     }
                     this.copysets.captions.original.payload = {
                         ...commonPayload,
-                        label: '(Image/Video Captions)',
+                        label: 'Image/Video Captions',
                         no_of_headlines: 20,
                         max_characters: 80
                     }
