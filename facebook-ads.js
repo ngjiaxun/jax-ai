@@ -74,6 +74,16 @@ function runVue(user, avatars, solutions) {
                         label: 'Benefit Ad',
                         prompt_id: 2
                     }
+                    this.copysets.text3.original.payload = {
+                        ...commonPayload,
+                        label: 'Did-you-know Ad',
+                        prompt_id: 8
+                    }
+                    this.copysets.text8.original.payload = {
+                        ...commonPayload,
+                        label: 'Myth-buster Ad',
+                        prompt_id: 9
+                    }
                     this.copysets.text4.original.payload = {
                         ...commonPayload,
                         label: 'Story Ad',
@@ -81,12 +91,12 @@ function runVue(user, avatars, solutions) {
                     }
                     this.copysets.text5.original.payload = {
                         ...commonPayload,
-                        label: 'Villian Ad',
+                        label: 'Villain Ad',
                         prompt_id: 3
                     }
                     this.copysets.text6.original.payload = {
                         ...commonPayload,
-                        label: 'Transformation Ad',
+                        label: 'Identity Transformation Ad',
                         prompt_id: 1
                     }
                     this.copysets.text7.original.payload = {
@@ -96,7 +106,7 @@ function runVue(user, avatars, solutions) {
                     }
                     this.copysets.text8.original.payload = {
                         ...commonPayload,
-                        label: 'Objection-handling Ad',
+                        label: 'Objection-killer Ad',
                         prompt_id: 4
                     }
                     this.copysets.headlines.original.payload = {
