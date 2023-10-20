@@ -77,10 +77,10 @@ const input = {
             this.avatarSelection = (this.avatars && this.avatars.length) ? this.avatars[0].id : this.avatarSelection;
         },
         clearOptionalAvatarFields() {
-            avatar.data.pains[1]='';
-            avatar.data.pains[2]='';
-            avatar.data.desires[1]='';
-            avatar.data.desires[2]='';
+            this.avatar.data.pains[1]='';
+            this.avatar.data.pains[2]='';
+            this.avatar.data.desires[1]='';
+            this.avatar.data.desires[2]='';
         },
         avatarSelectionChanged() {
             if (this.isSelectAvatarSelected) {
