@@ -21,8 +21,8 @@ const input = {
             checkingEndpoint: endpoints.avatars 
         }, 
         avatarLoadingMessage: AVATAR_LOADING_MESSAGES[0],
-        painSuggestionIndex: 3, // The starting index for the pain suggestions
-        desireSuggestionIndex: 3, // The starting index for the desire suggestions
+        painSuggestionIndex: 1, // The starting index for the pain suggestions
+        desireSuggestionIndex: 1, // The starting index for the desire suggestions
     },
     watch: {
         avatarSelection: 'avatarSelectionChanged',
@@ -69,8 +69,18 @@ const input = {
         }
     },
     methods: {
+        inputInit() {
+            this.selectFirstAvatar();
+            this.clearOptionalAvatarFields();
+        },
         selectFirstAvatar() { 
             this.avatarSelection = (this.avatars && this.avatars.length) ? this.avatars[0].id : this.avatarSelection;
+        },
+        clearOptionalAvatarFields() {
+            avatar.data.pains[1]='';
+            avatar.data.pains[2]='';
+            avatar.data.desires[1]='';
+            avatar.data.desires[2]='';
         },
         avatarSelectionChanged() {
             if (this.isSelectAvatarSelected) {

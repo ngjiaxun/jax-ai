@@ -66,7 +66,7 @@ function runVue(user, avatars, solution) {
         },
         mounted() {
             this.init();
-            this.selectFirstAvatar();
+            this.inputInit();
         }
     }).mount('#app')
 }

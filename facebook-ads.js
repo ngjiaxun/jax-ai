@@ -163,7 +163,7 @@ function runVue(user, avatars, solutions) {
         },
         mounted() {
             this.init();
-            this.selectFirstAvatar();
+            this.inputInit();
         }
     }).mount('#app')
 }
