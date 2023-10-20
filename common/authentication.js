@@ -1,5 +1,5 @@
 const loginPage = '/sign-in';
-const welcomePage = '/avatars';
+const welcomePage = '/history';
 const onboardingPage = '/onboarding';
 
 // Pages that won't be authenticated

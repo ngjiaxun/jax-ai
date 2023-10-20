@@ -223,7 +223,7 @@ const copies = {
             return await this.generateCopy(transformTo);
         },
         getCopyTitle(copy) {
-            const label = copy.data.label ? ' ' + copy.data.label : '';
+            const label = copy.data.label ? ': ' + copy.data.label : '';
             const copyType = LEFT_BRACKET + copy.data.original_copy_type_display + label + RIGHT_BRACKET;
             return `${copyType} ${copy.data.transformation ?? ''} ${copy.data.transformation_copy_type_display ?? ''}`;
         },

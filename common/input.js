@@ -83,6 +83,14 @@ const input = {
                 this.retrieveCopy(this.avatar, endpoints.avatars, this.avatarSelection);
             }
         },
+        enterPressed(event) {
+            if (event.key === 'Enter') {
+                event.preventDefault();
+                if (event.target.id === 'new-avatar-name-field') {
+                    this.createAvatarClicked();
+                }
+            }
+        },
         refreshClicked(event) {
             const maxPainSuggestions = this.avatar.data.pain_suggestions.length - 1;
             const maxDesireSuggestions = this.avatar.data.desire_suggestions.length - 1;
