@@ -12,7 +12,7 @@ const endpoints = {
     avatars: 'scripts/avatars/',
     solutions: 'scripts/solutions/',
     copies: 'scripts/copies/',
-    batches: 'scripts/copies/batches/',
+    batches: 'scripts/copybatches/',
     transform: 'scripts/copies/transform/',
     facebookAdsText: 'scripts/facebookads/text/',
     facebookAdsHeadlines: 'scripts/facebookads/headlines/',
