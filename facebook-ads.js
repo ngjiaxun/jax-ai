@@ -133,13 +133,13 @@ function runVue(user, avatars, solutions) {
                         let copy = await this.generateCopy(copyset.original);
 
                         if (this.solution.data.spin) {
-                            copy = await this.transformCopy(batchTime, this.solution.data.spin, transformation.spin, copy, copyset.spun);
+                            copy = await this.transformCopy(batch, this.solution.data.spin, transformation.spin, copy, copyset.spun);
                         }
                         if (this.solution.data.style) {
-                            copy = await this.transformCopy(batchTime, this.solution.data.style, transformation.style, copy, copyset.styled, 0);
+                            copy = await this.transformCopy(batch, this.solution.data.style, transformation.style, copy, copyset.styled, 0);
                         }
                         if (this.solution.data.translation) {
-                            copy = await this.transformCopy(batchTime, this.solution.data.translation, transformation.translation, copy, copyset.translated, 0);
+                            copy = await this.transformCopy(batch, this.solution.data.translation, transformation.translation, copy, copyset.translated, 0);
                         }
                     }
                 } catch (error) {
