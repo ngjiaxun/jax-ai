@@ -50,14 +50,13 @@ function runVue(user, avatars, solutions) {
             async generateCopies() {
                 console.log('Generating copies...');
                 try {
-                    const batchTime = new Date().toISOString(); 
+                    const batch = await this.createBatch('F0');
 
                     // Set original copy payloads
                     const commonPayload = {
+                        copy_batch: batch.id,
                         avatar: this.avatar.data.id,
-                        batch_time: batchTime,
-                        ...this.avatar.data,
-                        ...this.solution.data
+                        solution: this.solution.data.id
                     }
                     this.copysets.text1.original.payload = {
                         ...commonPayload,
@@ -147,9 +146,9 @@ function runVue(user, avatars, solutions) {
                     console.error('Error generating copies:', error.message);
                 }
             },
-            async transformCopy(batchTime, transformation, transformationType, transformFrom, transformTo, temperature=null) {
+            async transformCopy(batch, transformation, transformationType, transformFrom, transformTo, temperature=null) {
                 transformTo.payload = { 
-                    batch_time: batchTime,
+                    copy_batch: batch.id,
                     transformation: transformation,
                     transformation_type: transformationType,
                     transform_from: transformFrom.data.id,

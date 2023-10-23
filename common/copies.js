@@ -99,6 +99,17 @@ const copies = {
                 }
             }
         },
+        async createBatch(batchType) {
+            console.log('Creating batch...');
+            try {
+                const response = await axios.post(endpoints.batches, { batch_time: new Date().toISOString(), batch_type: batchType });
+                return response.data;
+            }
+            catch (error) {
+                console.error('Error creating batch:', error.response ? error.response.data : error.message);
+            }
+            return null;
+        },
         async generateCopy(copy) {
             console.log('Generating copy...');
             try {
