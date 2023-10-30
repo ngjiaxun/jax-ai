@@ -29,6 +29,10 @@ function runVue(user, avatars, solutions) {
                     text6: new Copyset(endpoints.facebookAdsText),
                     text7: new Copyset(endpoints.facebookAdsText),
                     text8: new Copyset(endpoints.facebookAdsText),
+                    text9: new Copyset(endpoints.facebookAdsText),
+                    text10: new Copyset(endpoints.facebookAdsText),
+                    text11: new Copyset(endpoints.facebookAdsText),
+                    text12: new Copyset(endpoints.facebookAdsText),
                     headlines: new Copyset(endpoints.facebookAdsHeadlines),
                     descriptions: new Copyset(endpoints.facebookAdsHeadlines),
                     captions: new Copyset(endpoints.facebookAdsHeadlines)
@@ -73,40 +77,50 @@ function runVue(user, avatars, solutions) {
                         label: 'Benefit Ad',
                         prompt_id: 2
                     }
-                    this.copysets.text3.original.payload = {
+                    this.copysets.text4.original.payload = {
                         ...commonPayload,
                         label: 'Did-you-know Ad',
                         prompt_id: 8
                     }
-                    this.copysets.text8.original.payload = {
+                    this.copysets.text5.original.payload = {
                         ...commonPayload,
                         label: 'Myth-buster Ad',
                         prompt_id: 9
                     }
-                    this.copysets.text4.original.payload = {
+                    this.copysets.text6.original.payload = {
                         ...commonPayload,
                         label: 'Story Ad',
                         prompt_id: 6
                     }
-                    this.copysets.text5.original.payload = {
+                    this.copysets.text7.original.payload = {
                         ...commonPayload,
                         label: 'Villain Ad',
                         prompt_id: 3
                     }
-                    this.copysets.text6.original.payload = {
+                    this.copysets.text8.original.payload = {
                         ...commonPayload,
                         label: 'Identity Transformation Ad',
                         prompt_id: 1
                     }
-                    this.copysets.text7.original.payload = {
+                    this.copysets.text9.original.payload = {
                         ...commonPayload,
                         label: 'Testimonial Ad',
                         prompt_id: 7
                     }
-                    this.copysets.text8.original.payload = {
+                    this.copysets.text10.original.payload = {
                         ...commonPayload,
                         label: 'Objection-killer Ad',
                         prompt_id: 4
+                    }
+                    this.copysets.text11.original.payload = {
+                        ...commonPayload,
+                        label: 'Reminder Ad',
+                        prompt_id: 10
+                    }
+                    this.copysets.text12.original.payload = {
+                        ...commonPayload,
+                        label: 'Urgency Ad',
+                        prompt_id: 11
                     }
                     this.copysets.headlines.original.payload = {
                         ...commonPayload,
