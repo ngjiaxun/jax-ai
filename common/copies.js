@@ -31,7 +31,7 @@ const COUNTDOWN_MESSAGE = [
 const LEFT_BRACKET = '[~';
 const RIGHT_BRACKET = '~]';
 
-const CHECK_COPY_ERROR = 'An error has occurred. Please try again.';
+const CHECK_COPY_ERROR = 'There was an error during the generation process. Please try again later.';
 
 class Copy {
     constructor(endpoint = endpoints.transform, checkingEndpoint = endpoints.copies) {
