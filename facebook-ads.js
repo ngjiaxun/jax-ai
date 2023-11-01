@@ -158,7 +158,7 @@ function runVue(user, avatars, solutions) {
                             }
                         } catch (error) {
                             console.error('Error generating copy:', error.message);
-                            copyset.original.error = 'Error generating ' + copyset.original.payload.label;
+                            copyset.original.error = 'Error generating ' + copyset.original.payload.label + ': ' + error.message;
                         }
                     }
                 } catch (error) {
