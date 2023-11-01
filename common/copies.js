@@ -41,6 +41,7 @@ class Copy {
         this.endpoint = endpoint;
         this.checkingEndpoint = checkingEndpoint;
         this.payload = null;
+        this.error = '';
     }
 }
 

@@ -17,7 +17,7 @@ function runVue(user, avatars, solutions) {
             return {
                 user: user, // For displaying the user's name in the top right corner
                 avatars: avatars, // For displaying the avatars in the avatar select field
-                solution: { data: solutions[0] }, 
+                solution: { data: solutions[0] },
                 ...input.data,
                 ...copies.data,
                 copysets: {
@@ -64,7 +64,7 @@ function runVue(user, avatars, solutions) {
                     }
                     this.copysets.text1.original.payload = {
                         ...commonPayload,
-                        label: 'Classic Ad',
+                        label: 'Persuasive Ad',
                         prompt_id: 5
                     }
                     this.copysets.text2.original.payload = {
@@ -144,24 +144,29 @@ function runVue(user, avatars, solutions) {
                     // Generate copies and their transformations
                     for (const key in this.copysets) {
                         const copyset = this.copysets[key];
-                        let copy = await this.generateCopy(copyset.original);
+                        try {
+                            let copy = await this.generateCopy(copyset.original);
 
-                        if (this.solution.data.spin) {
-                            copy = await this.transformCopy(batch, this.solution.data.spin, transformation.spin, copy, copyset.spun);
-                        }
-                        if (this.solution.data.style) {
-                            copy = await this.transformCopy(batch, this.solution.data.style, transformation.style, copy, copyset.styled, 0);
-                        }
-                        if (this.solution.data.translation) {
-                            copy = await this.transformCopy(batch, this.solution.data.translation, transformation.translation, copy, copyset.translated, 0);
+                            if (this.solution.data.spin) {
+                                copy = await this.transformCopy(batch, this.solution.data.spin, transformation.spin, copy, copyset.spun);
+                            }
+                            if (this.solution.data.style) {
+                                copy = await this.transformCopy(batch, this.solution.data.style, transformation.style, copy, copyset.styled, 0);
+                            }
+                            if (this.solution.data.translation) {
+                                copy = await this.transformCopy(batch, this.solution.data.translation, transformation.translation, copy, copyset.translated, 0);
+                            }
+                        } catch (error) {
+                            console.error('Error generating copy:', error.message);
+                            copyset.original.error = 'Error generating ' + copyset.original.payload.label;
                         }
                     }
                 } catch (error) {
                     console.error('Error generating copies:', error.message);
                 }
             },
-            async transformCopy(batch, transformation, transformationType, transformFrom, transformTo, temperature=null) {
-                transformTo.payload = { 
+            async transformCopy(batch, transformation, transformationType, transformFrom, transformTo, temperature = null) {
+                transformTo.payload = {
                     copy_batch: batch.id,
                     transformation: transformation,
                     transformation_type: transformationType,
