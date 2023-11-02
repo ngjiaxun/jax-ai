@@ -6,9 +6,10 @@ const RECAPTCHA_SITE_KEY = '6Ldwq_knAAAAAG3LpMIRYzyHPvJxzXeOJgfJGfKi';
 
 const apiDomain = 'https://jaxai-prod-817de5757e84.herokuapp.com/';
 const endpoints = {
+    jwtCreate: 'auth/jwt/create/',
     users: 'auth/users/',
     me: 'auth/users/me/',
-    jwtCreate: 'auth/jwt/create/',
+    profile: 'scripts/users/me/',
     avatars: 'scripts/avatars/',
     solutions: 'scripts/solutions/',
     copies: 'scripts/copies/',

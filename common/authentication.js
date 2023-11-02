@@ -8,12 +8,32 @@ const publicPages = ['/register-now', '/forgot-password'];
 // Get the current page URL
 const currentPage = window.location.pathname;
 
-function preInit() {
+async function preInit() {
     expireTokenIfIdle();
     axios.defaults.headers.common['Content-Type'] = 'application/json';
     const isPublicPage = publicPages.some(page => currentPage === page);
     if (!isPublicPage) {
-        return authenticateUser();
+        try {
+            const user = await authenticateUser();
+            const profile = await getUserProfile();
+            return { ...user, ...profile };
+        } catch (error) {
+            console.error('Error initializing Jax AI:', error.message);
+        }
+    }
+}
+
+async function getUserProfile() {
+    try {
+        const response = await axios.get(endpoints.profile);
+        
+        // Change id to profile_id
+        response.data.profile_id = response.data.id;
+        delete response.data.id;
+
+        return response.data;
+    } catch (error) {
+        console.error('Error retrieving user profile:', error.response.data);
     }
 }
 
