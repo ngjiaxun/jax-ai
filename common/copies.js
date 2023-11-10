@@ -161,7 +161,7 @@ const copies = {
                 copy.data = response.data;
                 copy.isGenerating = false;
             } catch (error) {
-                console.error('Error listing copies:', error.response ? error.response.data : error.message);
+                console.error('Error listing copies:', error.response ? error.response.data + ' ' + error.message : error.message);
             }
         },
         // Use this instead of generateCopy() for endpoints that don't require polling to check if the copy is ready
