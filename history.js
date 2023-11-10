@@ -44,7 +44,7 @@ function runVue(user, batches) {
             this.init();
             // Set default batch
             if (this.batches.length > 0) {
-                this.selectedBatch = this.batches[0].batch_time;
+                this.selectedBatch = this.batches[0].id;
             }
         }
     }).mount('#app')
