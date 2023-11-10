@@ -13,7 +13,7 @@ const input = {
          *      solution: { data: solutions[0] },
         */
         avatarSelection: SELECT_ONE,
-        avatarName: '', // Create avatar text field
+        avatarName: 'anyone', // Create avatar text field
         // Pains and desires text fields
         avatar: { 
             ...copies.copy,
