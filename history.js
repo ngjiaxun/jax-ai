@@ -8,7 +8,7 @@
             batch.friendly_batch_time = toFriendlyDatetime(batch.batch_time);
             return batch;
         });
-        vForSelect('#batches', 'batches', 'batch', 'batch_time', false);
+        vForSelect('#batches', 'batches', 'batch', 'id', false);
         runVue(user, batches.data);
     } catch (error) {
         console.error('Error initializing Jax AI:', error.message);
@@ -28,8 +28,8 @@ function runVue(user, batches) {
             }
         },
         watch: {
-            selectedBatch(newBatchTime) {
-                this.listCopies(this.batch, endpoints.copies, { batch_time: newBatchTime }, 'requested_time');
+            selectedBatch(newCopyBatch) {
+                this.listCopies(this.batch, endpoints.copies, { copy_batch: newCopyBatch }, 'requested_time');
             }
         },
         computed: {
