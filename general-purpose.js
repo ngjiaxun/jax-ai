@@ -33,7 +33,7 @@ function runVue(user, avatars, solution) {
             async generateCopies() {
                 console.log('Generating copies...');
                 try {
-                    const batch = await this.createBatch('F0');
+                    const batch = await this.createBatch('G0');
                     const original = this.copysets.generalContent.original
 
                     // Set original copy payloads
