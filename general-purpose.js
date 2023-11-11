@@ -30,10 +30,10 @@ function runVue(user, avatars, solution) {
             ...util.methods,
             ...copies.methods,
             ...input.methods,
-            generateCopies() {
+            async generateCopies() {
                 console.log('Generating copies...');
                 try {
-                    const batchTime = new Date().toISOString(); 
+                    const batch = await this.createBatch('F0');
                     const original = this.copysets.generalContent.original
 
                     // Set original copy payloads
