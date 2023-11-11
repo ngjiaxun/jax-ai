@@ -123,7 +123,7 @@ const copies = {
                 copy.hasError = !copy.data;
                 copy.isGenerating = false;
             } catch (error) {
-                console.error('Error generating copy:', error.response ? error.response.data : error.message);
+                console.error('Error generating copy:', error.response ? error.response.data + error.message : error.message);
             }
             return copy;
         },
@@ -200,7 +200,7 @@ const copies = {
                 await axios.delete(copy.endpoint + copy.data.id);
                 copy.data = null;
             } catch (error) {
-                console.error('Error deleting copy:', error.response ? error.response.data : error.message);
+                console.error('Error deleting copy:', error.response ? error.response.data + error.message : error.message);
             }
         },
         async generateCopysets() {
