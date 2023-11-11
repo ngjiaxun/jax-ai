@@ -38,10 +38,9 @@ function runVue(user, avatars, solution) {
 
                     // Set original copy payloads
                     const commonPayload = {
+                        copy_batch: batch.id,
                         avatar: this.avatar.data.id,
-                        batch_time: batchTime,
-                        ...this.avatar.data,
-                        ...this.solution.data
+                        solution: this.solution.data.id
                     }
 
                     original.payload = {
