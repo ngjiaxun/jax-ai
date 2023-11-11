@@ -116,21 +116,15 @@ const copies = {
             try {
                 const requestedTime = new Date().toISOString(); // Timestamp for identifying the copy after it's generated
                 copy.payload.requested_time = requestedTime;
-                console.log('copy.payload:', copy.payload);
-                console.log('requestedTime sent before:', requestedTime);
                 await axios.post(copy.endpoint, copy.payload);
-                console.log('requestedTime sent after:', requestedTime);
                 copy.isGenerating = true;
                 this.startCountdown(copy);
-                console.log('requestedTime checked before:', requestedTime);
                 copy.data = await this.checkCopyReady(requestedTime, copy.checkingEndpoint);
-                console.log('requestedTime checked after:', requestedTime);
                 copy.hasError = !copy.data;
                 copy.isGenerating = false;
             } catch (error) {
                 console.error('Error generating copy:', error.response ? error.response.data + error.message : error.message);
             }
-            console.log('copy.data:', copy.data);
             return copy;
         },
         async checkCopyReady(requestedTime, endpoint, maxTries = DEFAULT_MAX_TRIES, timeout = DEFAULT_TIMEOUT) {
