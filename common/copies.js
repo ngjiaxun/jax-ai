@@ -116,6 +116,7 @@ const copies = {
             try {
                 const requestedTime = new Date().toISOString(); // Timestamp for identifying the copy after it's generated
                 copy.payload.requested_time = requestedTime;
+                console.log('copy.payload:', copy.payload);
                 await axios.post(copy.endpoint, copy.payload);
                 copy.isGenerating = true;
                 this.startCountdown(copy);
