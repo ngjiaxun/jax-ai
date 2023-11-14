@@ -23,6 +23,18 @@ async function preInit() {
     }
 }
 
+async function resetPassword(email) {
+    let success = false;
+    try {
+        const response = await axios.post(endpoints.resetPassword, { email: email });
+        console.log('Reset password response:', response.data);
+        success = true;
+    } catch (error) {
+        console.error('Error resetting password:', error.response.data);
+    }
+    return success;
+}
+
 async function getUserProfile() {
     try {
         const response = await axios.get(endpoints.profile);

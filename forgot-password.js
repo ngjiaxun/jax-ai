@@ -19,9 +19,10 @@ function runVue() {
             ...util.methods,
             ...copies.methods,
             ...input.methods,
-            formSubmitted(e) {
+            async formSubmitted(e) {
                 e.preventDefault();
                 console.log('Form submitted');
+                success = await resetPassword(this.email);
             }
         },
         mounted() {
