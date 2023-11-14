@@ -38,7 +38,8 @@ async function resetPassword(email) {
 async function resetPasswordConfirm(uid, token, password) {
     let success = false;
     try {
-        const response = await axios.post(endpoints.resetPasswordConfirm, { uid: uid, token: token, new_password: password });
+        const payload = JSON.stringify({ uid: uid, token: token, new_password: password });
+        const response = await axios.post(endpoints.resetPasswordConfirm, payload);
         console.log('Reset password confirm response:', response.data);
         success = true;
     } catch (error) {
