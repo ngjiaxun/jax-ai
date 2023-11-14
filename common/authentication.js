@@ -3,7 +3,7 @@ const welcomePage = '/history';
 const onboardingPage = '/onboarding';
 
 // Pages that won't be authenticated
-const publicPages = ['/register-now', '/forgot-password'];
+const publicPages = ['/register-now', '/forgot-password', '/forgot-password-confirm'];
 
 // Get the current page URL
 const currentPage = window.location.pathname;
