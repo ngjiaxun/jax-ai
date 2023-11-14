@@ -23,7 +23,7 @@ function runVue() {
             async formSubmitted(e) {
                 e.preventDefault();
                 console.log('Form submitted');
-                document.getElementById('reset-button').value 'Please wait...';
+                document.getElementById('reset-button').value = 'Please wait...';
                 this.success = await resetPassword(this.email);
             }
         },
