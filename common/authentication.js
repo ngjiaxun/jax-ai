@@ -40,7 +40,7 @@ async function resetPasswordConfirm(uid, token, password) {
     try {
         const payload = JSON.stringify({ uid: uid, token: token, new_password: password });
         console.log(payload);
-        const response = await axios.post(endpoints.resetPasswordConfirm, payload);
+        const response = await axios.post(endpoints.resetPasswordConfirm, payload, { headers: { 'Content-Type': 'application/json' } });
         console.log('Reset password confirm response:', response.data);
         success = true;
     } catch (error) {
