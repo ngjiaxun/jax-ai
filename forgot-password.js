@@ -25,7 +25,7 @@ function runVue() {
             }
         },
         mounted() {
-
+            console.log('mounted')
         }
     }).mount('#app')
 }
