@@ -21,6 +21,7 @@ function runVue() {
             ...input.methods,
             formSubmitted(e) {
                 e.preventDefault();
+                console.log('Form submitted');
             }
         },
         mounted() {
