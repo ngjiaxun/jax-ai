@@ -34,11 +34,11 @@ function runVue() {
                 } else {
                     alert('Passwords do not match');
                 }
+            },
+            validatePassword() {
+                console.log('Validating password');
+                return this.password === this.confirmPassword;
             }
-        },
-        validatePassword() {
-            console.log('Validating password');
-            return this.password === this.confirmPassword;
         },
         mounted() {
             console.log('mounted')
