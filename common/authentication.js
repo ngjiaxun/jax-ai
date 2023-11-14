@@ -43,7 +43,8 @@ async function resetPasswordConfirm(uid, token, password) {
         console.log('Reset password confirm response:', response.data);
         success = true;
     } catch (error) {
-        console.error('Error resetting password:', error.response.data);
+        console.error('Error resetting password:', error.message);
+        alert(error.response.data);
     }
     return success;
 }

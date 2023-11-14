@@ -35,9 +35,6 @@ function runVue() {
                     const uid = urlParams.get('uid');
                     const token = urlParams.get('token');
                     this.success = await resetPasswordConfirm(uid, token, this.password);
-                    if (!this.success) {
-                        alert('Error resetting password. Please contact support at jax@getjax.ai');
-                    }
                 } else {
                     alert('Passwords do not match');
                 }
