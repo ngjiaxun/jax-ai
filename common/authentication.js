@@ -39,12 +39,11 @@ async function resetPasswordConfirm(uid, token, password) {
     let success = false;
     try {
         const payload = JSON.stringify({ uid: uid, token: token, new_password: password });
-        console.log(payload);
         const response = await axios.post(endpoints.resetPasswordConfirm, payload, { headers: { 'Content-Type': 'application/json' } });
         console.log('Reset password confirm response:', response.data);
         success = true;
     } catch (error) {
-        console.error('Error resetting password:', error.response.data);
+        console.error('Error resetting password:', error.message);
     }
     return success;
 }
