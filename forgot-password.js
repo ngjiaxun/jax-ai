@@ -5,7 +5,9 @@ function runVue() {
     createApp({
         data() {
             return {
-                email: ''
+                email: '',
+                buttonText: 'Reset Password',
+                success: false
             }
         },
         watch: {
@@ -22,7 +24,8 @@ function runVue() {
             async formSubmitted(e) {
                 e.preventDefault();
                 console.log('Form submitted');
-                success = await resetPassword(this.email);
+                this.buttonText = 'Please Wait...';
+                this.success = await resetPassword(this.email);
             }
         },
         mounted() {
