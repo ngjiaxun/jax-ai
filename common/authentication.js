@@ -35,6 +35,18 @@ async function resetPassword(email) {
     return success;
 }
 
+async function resetPasswordConfirm(uid, token, password) {
+    let success = false;
+    try {
+        const response = await axios.post(endpoints.resetPasswordConfirm, { uid: uid, token: token, password: password });
+        console.log('Reset password confirm response:', response.data);
+        success = true;
+    } catch (error) {
+        console.error('Error resetting password:', error.response.data);
+    }
+    return success;
+}
+
 async function getUserProfile() {
     try {
         const response = await axios.get(endpoints.profile);
